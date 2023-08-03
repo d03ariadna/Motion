@@ -7,6 +7,9 @@ import LittleProject from '../components/dashboard/LittleProject';
 import MainCard from '../components/general/MainCard';
 import CreateButton from '../components/general/CreateButton';
 
+import Example from "../components/dashboard/RadialChart";
+
+
 import TaskModal from '../components/general/TaskModal';
 import ProjectModal from '../components/general/ProjectModal';
 
@@ -125,7 +128,7 @@ function Dashboard() {
             status: status
         }
 
-        setActiveTasks([...activeTasks, newTask]);
+        setActiveTasks([newTask, ...activeTasks]);
     }
 
 
@@ -253,7 +256,24 @@ function Dashboard() {
                                 <p>In Progress</p>
                             </div>
                         </div>
-                        <div className='bg-white border-[1px] border-gray-200 w-[35%] h-full rounded-3xl'></div>
+                        <div className='bg-white border-[1px] border-gray-200 w-[35%] h-full rounded-3xl overflow-hidden flex flex-row justify-between'>
+                            <div className='w-[40%] pt-10'>
+                                <div className='flex flex-row justify-center items-center mb-3'>
+                                    <div className='w-[25px] h-[6px] bg-[#B1B2FF] rounded-full mr-3'></div>
+                                    <p className='mb-0 text-sm font-medium'>To Do</p>
+                                </div>
+                                <div className='flex flex-row justify-center items-center mb-3'>
+                                    <div className='w-[25px] h-[6px] bg-black rounded-full mr-3'></div>
+                                    <p className='mb-0 text-sm font-medium'>Doing</p>
+                                </div>
+                                <div className='flex flex-row justify-center items-center mb-3'>
+                                    <div className='w-[25px] h-[6px] bg-[#E8A0BF] rounded-full mr-3'></div>
+                                    <p className='mb-0 text-sm font-medium'>Done</p>
+                                </div>
+                            </div>
+                            <div className='w-[60%]'><Example /></div>
+                            
+                        </div>
                     </section>
 
                     {/* Tasks Section */}
@@ -262,17 +282,27 @@ function Dashboard() {
                         <div className='w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll'>
                             
                             {
-                                activeTasks.map((task) => {
+                                activeTasks.length > 0 ?
+                                    
+                                    activeTasks.map((task) => {
 
-                                    return (
-                                        <LittleTask
-                                            key={task.id}
-                                            task={task}
-                                            updateTask={updateTask}
-                                            deleteTask={deleteTask}
-                                        />
-                                    )
-                                })}
+                                        return (
+                                            <LittleTask
+                                                key={task.id}
+                                                task={task}
+                                                updateTask={updateTask}
+                                                deleteTask={deleteTask}
+                                            />
+                                        )
+                                    })
+                                    :
+                                    <div className='w-full h-[9rem]'>
+                                    <p className='pt-14 text-sm font-light text-center text-gray-400'>No tasks upcoming</p>
+                                    </div>
+                                        
+                                }
+                                
+                            
                             
 
                         </div>

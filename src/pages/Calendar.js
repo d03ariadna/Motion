@@ -27,40 +27,40 @@ const events = [
     id: 1,
     name: "Buy a gift for Christina's Birthday",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-07-11T13:00',
-    endDatetime: '2023-07-11T14:30',
+    startDatetime: '2023-08-14T13:00',
+    endDatetime: '2023-08-15T14:30',
     status: "To Do",
     },
   {
     id: 2,
     name: "Finish Zencon Project",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-07-11T13:00',
-    endDatetime: '2023-07-11T14:30',
+    startDatetime: '2023-08-11T13:00',
+    endDatetime: '2023-08-11T14:30',
     status: "To Do",
   },
   {
     id: 3,
     name: "Going to the supermarket",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-07-11T13:00',
-    endDatetime: '2023-07-11T14:30',
+    startDatetime: '2023-08-11T13:00',
+    endDatetime: '2023-08-11T14:30',
     status: "To Do",
   },
   {
     id: 4,
     name: "Attend Justia meeting",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-07-11T13:00',
-    endDatetime: '2023-07-11T14:30',
+    startDatetime: '2023-08-11T13:00',
+    endDatetime: '2023-08-11T14:30',
     status: "To Do",
   },
   {
     id: 5,
     name: "Buy suplements for gym",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-07-11T13:00',
-    endDatetime: '2023-07-11T14:30',
+    startDatetime: '2023-08-11T13:00',
+    endDatetime: '2023-08-11T14:30',
     status: "To Do",
   },
 ]
@@ -138,6 +138,8 @@ export default function Calendar() {
         <div className=" w-full mx-auto">
             <div className="flex flex-row">
                   <div className=" w-[70%] h-[94vh] px-2 pt-4 mr-8  rounded-2xl">
+                        
+                        {/* Calendar Section */}
                         <div className="px-12 flex items-center justify-between">
                             <button
                                 type="button"
@@ -169,6 +171,8 @@ export default function Calendar() {
                             <div>F</div>
                             <div>S</div>
                         </div>
+            
+                        {/* Days Section */}
                         <div className="grid grid-cols-7 mt-3 text-xl font-light">
                         {days.map((day, dayIdx) => (
                             <div
@@ -185,7 +189,7 @@ export default function Calendar() {
                                     isEqual(day, selectedDay) && 'text-white',
                                     !isEqual(day, selectedDay) &&
                                         isToday(day) &&
-                                        'text-[#B1B2FF]',
+                                        'text-[#B1B2FF] ',
                                     !isEqual(day, selectedDay) &&
                                         !isToday(day) &&
                                         isSameMonth(day, firstDayCurrentMonth) &&
@@ -194,11 +198,11 @@ export default function Calendar() {
                                         !isToday(day) &&
                                         !isSameMonth(day, firstDayCurrentMonth) &&
                                         'text-gray-400',
-                                    isEqual(day, selectedDay) && isToday(day) && 'bg-[#B1B2FF]',
+                                    isEqual(day, selectedDay) && isToday(day) && 'bg-[#B1B2FF]' ,
                                     isEqual(day, selectedDay) &&
                                         !isToday(day) &&
                                         'bg-gray-900',
-                                    !isEqual(day, selectedDay) && 'hover:bg-gray-200',
+                                    !isEqual(day, selectedDay) && 'hover:bg-gray-100',
                                     (isEqual(day, selectedDay) || isToday(day)) &&
                                         'font-semibold',
                                     'mx-auto flex h-12 w-12 items-center justify-center rounded-full'

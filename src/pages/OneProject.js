@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CreateButton from "../components/general/CreateButton"
 import { AddIcon } from "../components/icons/icons";
@@ -14,51 +14,95 @@ export default function OneProject() {
                 id: 1,
                 name: "Buy a gift for Christina's Birthday ",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                deadline: "Today",
-                status: "Doing",
+                date: "Today",
+                status: "To Do",
             },
             {
                 id: 2,
                 name: "Take a rest",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                deadline: "Wednesday",
+                date: "Wednesday",
                 status: "Done",
             },
             {
                 id: 3,
                 name: "Finish Zencon Project",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                deadline: "Nov, 15",
-                status: "Done",
+                date: "Nov, 15",
+                status: "Doing",
             },
             {
                 id: 4,
                 name: "Richard's Birthday Party",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                deadline: "Friday",
-                status: "Done",
+                date: "Friday",
+                status: "To Do",
             },
             {
                 id: 5,
                 name: "Buy the supplements for gym",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                deadline: "Monday",
+                date: "Monday",
                 status: "Done",
             }
         ]);
+    
+    const [toDo, setToDo] = useState([]);
+    const [doing, setDoing] = useState([]);
+    const [done, setDone] = useState([]);
 
     //Children Functions
     function createTask() {
         alert('Task created');
     }
 
-    function updateTask() {
-        alert('Task EDITED');
+    function updateTask(id, n_name, n_desc, n_date, n_status) {
+        
+        const updatedTasks = tasks.map((task) => {
+            if (task.id === id) {
+                return {
+                    ...task,
+                    name: n_name,
+                    description: n_desc,
+                    date: n_date,
+                    status: n_status
+                }
+            }
+            return task
+        });
+
+        setTasks(updatedTasks);
+
     }
 
-    function deleteTask() {
-        console.log('Delete task');
+    function deleteTask(id) {
+        const updatedTasks = tasks.filter((task) => {
+            return task.id !== id
+        });
+
+        setTasks(updatedTasks);
+        console.log('deleted');
     }
+
+    useEffect(() => {
+        let tempTasks = [];
+
+        //Get TO DO tasks
+        tempTasks = tasks.filter((task) => { return task.status === 'To Do' });
+        setToDo(tempTasks);
+        console.log('To do', tempTasks);
+
+        //Get DOING tasks
+        tempTasks = tasks.filter((task) => { return task.status === 'Doing' });
+        setDoing(tempTasks);
+        console.log('Doing', tempTasks);
+
+        //Get DONE tasks
+        tempTasks = tasks.filter((task) => { return task.status === 'Done' });
+        setDone(tempTasks);
+        console.log('Done',tempTasks);
+    }, tasks);
+
 
     return (
         <>
@@ -110,52 +154,67 @@ export default function OneProject() {
                         <section className="w-[30%] h-full pl-2">
                             <h3 className="text-2xl font-semibold">To Do</h3>
                             <div className="w-full h-[55vh] mt-3 flex flex-col flex-nowrap overflow-y-scroll">
-                                {tasks.map((task) => {
+                                {
+                                    toDo.length > 0 ?
+                                        toDo.map((task) => {
 
-                                    return (
+                                            return (
 
-                                        <ProjectTask
-                                            key={task.id}
-                                            task={task}
-                                            updateTask={updateTask}
-                                            deleteTask={deleteTask}
-                                        />
-                                    );
-                                })}
+                                                <ProjectTask
+                                                    key={task.id}
+                                                    task={task}
+                                                    updateTask={updateTask}
+                                                    deleteTask={deleteTask}
+                                                />
+                                            );
+                                        })
+                                        :
+                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">No tasks yet</p>
+                                }
                             </div>
                         </section>
                         <section className="w-[30%] h-full pl-2">
                             <h3 className="text-2xl font-semibold">Doing</h3>
                             <div className="w-full h-[55vh] mt-3 flex flex-col flex-nowrap overflow-y-scroll">
-                                {tasks.map((task) => {
+                                {
+                                    doing.length > 0 ?
+                                        doing.map((task) => {
 
-                                    return (
+                                            return (
 
-                                        <ProjectTask
-                                            key={task.id}
-                                            task={task}
-                                            updateTask={updateTask}
-                                            deleteTask={deleteTask}
-                                        />
-                                    );
-                                })}
+                                                <ProjectTask
+                                                    key={task.id}
+                                                    task={task}
+                                                    updateTask={updateTask}
+                                                    deleteTask={deleteTask}
+                                                />
+                                            );
+                                        })
+                                        :
+                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">No tasks yet</p>
+                                }
                             </div>
                         </section>
                         <section className="w-[30%] h-full pl-2">
                             <h3 className="text-2xl font-semibold">Done</h3>
                             <div className="w-full h-[55vh] mt-3 flex flex-col flex-nowrap overflow-y-scroll">
-                                {tasks.map((task) => {
+                                {
+                                    done.length > 0 ?
+                                        done.map((task) => {
 
-                                    return (
+                                            return (
 
-                                        <ProjectTask
-                                            key={task.id}
-                                            task={task}
-                                            updateTask={updateTask}
-                                            deleteTask={deleteTask}
-                                        />
-                                    );
-                                })}
+                                                <ProjectTask
+                                                    key={task.id}
+                                                    task={task}
+                                                    updateTask={updateTask}
+                                                    deleteTask={deleteTask}
+                                                />
+                                            );
+                                        })
+                                        :
+                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">No tasks yet</p>
+                                }
                             </div>
                         </section>
                     </section>
@@ -169,10 +228,12 @@ export default function OneProject() {
                             <img src="/img/avatar.png" alt="" className='w-12 h-12 rounded-full border-[1px] border-slate-300' />
                         </section>
 
+                        {/* Statistics */}
                         <section className="w-full mt-3 py-4 border-t-2 border-gray-200">
                             <div className=" mx-16 text-center bg-white rounded-full border-8 border-purple-500 py-5 text-2xl font-bold">16%</div>
                         </section>
 
+                        {/* Statistics */}
                         <section className="w-full h-[20%] border-b-2 border-gray-200">
                             <h4 className="ml-2 text-lg">Tasks</h4>
 
@@ -204,6 +265,7 @@ export default function OneProject() {
 
                         </section>
 
+                        {/* Project Notes */}
                         <section className="w-full h-[35%] mt-4">
                             <h4 className="text-lg">Project Notes</h4>
                             <div className="w-full h-[75%] mt-3 px-2 drop-shadow-md overflow-y-scroll">

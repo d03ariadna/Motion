@@ -64,16 +64,19 @@ function TaskModal(props) {
                 </Modal.Header>
                 <Modal.Body>
                         <form onSubmit={(e) => {
-                            e.preventDefault();
+                          e.preventDefault();
 
                             props.edit ? id = task.id : id = uuidv4()
                         
                             props.submit(id, name, desc, date, status);
                         
-                            setName('');
-                            setDesc('');
-                            setDate('');
-                            setStatus('');
+                        if (!props.edit) {
+                                setName('');
+                                setDesc('');
+                                setDate('');
+                                setStatus('');
+                            }
+                            
                             
                             props.close();
                             
@@ -170,7 +173,10 @@ function TaskModal(props) {
                             props.edit ?
                                 <button 
                                     className='bg-gray-300 hover:bg-red-700 text-white transition-all ease-in-out font-bold py-2 px-4 rounded'  
-                                    onClick={()=>props.close}>
+                                onClick={() => {
+                                    props.delete(task.id)
+                                    props.close()
+                                }}>
                                     Delete Task
                                 </button>
                                 :

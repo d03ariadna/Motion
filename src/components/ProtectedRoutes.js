@@ -3,8 +3,10 @@ import Layout from "./Layout";
 import Cookies from "js-cookie";
 
 export function ProtectedRoutes() {
-    const cookie = Cookies.get('Session');
-    let auth = { 'token': true }
+    //cookie modified in order to get access
+    
+    // const cookie = Cookies.get('Session');
+    let cookie = true;
     
     return (cookie ?
         <>
@@ -15,8 +17,8 @@ export function ProtectedRoutes() {
 }
 
 export function VerifySession() {
-    const cookie = Cookies.get('Session');
-    let auth = { 'token': true }
+    //const cookie = Cookies.get('Session');
+    let cookie = false;
     
     return (cookie ?
         <Navigate to='/dashboard'/>

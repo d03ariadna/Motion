@@ -16,7 +16,7 @@ function ConfirmModal(props) {
         <>
             {task.status === 'Done' ? 
                 <div
-                    className='border-2 border-gray-300 stroke-white bg-gray-300 rounded-full p-1 hover:bg-[#c1c2ff] hover:border-[#c1c2ff]'>
+                    className='border-2 border-gray-300 stroke-white bg-gray-300 rounded-full p-1'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} className="w-4 h-4 stroke-inherit">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
@@ -51,7 +51,7 @@ function ConfirmModal(props) {
                 <Modal.Footer>
                     <button className='bg-gray-300 hover:bg-gray-400 hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded'
                         onClick={() => {
-                                props.updateTask(task.id, task.name, task.desc, task.date, 'Done')
+                                props.updateTask(task.id, task.name, task.description, task.date, 'Done')
                                 handleClose();
                             }
                         }>
@@ -62,7 +62,8 @@ function ConfirmModal(props) {
                         className='bg-red-700 hover:bg-black text-white transition-all ease-in-out font-bold py-2 px-4 rounded'  
                         onClick={(e) => {
                             handleClose();
-                            props.deleteTask(props.taskId);
+                            console.log(task.id)
+                            props.deleteTask(task.id);
                         }}>
                         Delete
                     </button>
