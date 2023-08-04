@@ -17,7 +17,6 @@ import SignUpForm from './pages/NewLogin';
 
 import { ProtectedRoutes, VerifySession } from './components/ProtectedRoutes';
 
-import Dictionary from './pages/Dictionary';
 
 
 
@@ -40,7 +39,7 @@ function App() {
           <Route path='/calendar/:day?' element={<Calendar />}></Route>
           <Route path='/tasks' element={<Tasks />}></Route>
           <Route path='/projects' element={<Projects />}></Route>
-          <Route path='/project' element={<OneProject />}></Route>
+          <Route path='/project/:id?' element={<OneProject />}></Route>
           <Route path='/settings' element={<Settings />}></Route>
         </Route>
   

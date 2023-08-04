@@ -43,7 +43,7 @@ export default function LittleProject(props) {
                     </section>
                     
                     <section className='pl-2 mb-2'>
-                        <a href='/project' className='text-black text-base font-medium no-underline mb-0'>
+                        <a href={`/project/${project.id}`} className='text-black text-base font-medium no-underline mb-0'>
                             {project.name}
                         </a>
                         <p className="text-xs text-gray-300 mt-1 mb-0">Deadline: {project.end}</p>

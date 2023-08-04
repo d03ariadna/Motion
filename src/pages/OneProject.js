@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import CreateButton from "../components/general/CreateButton"
-import { AddIcon } from "../components/icons/icons";
+import CreateButton from "../components/general/CreateButton";
 import ProjectTask from "../components/projectsC/ProjectTask";
-import TaskModal from '../components/general/TaskModal';
-import { Toast } from "bootstrap";
+import NoteModal from "../components/projectsC/NoteModal";
+
 
 export default function OneProject() {
+
+    const projectId = (useParams()).id;
+
     // GET PROJECT'S TASKS
     const [tasks, setTasks] = useState(
         [
@@ -47,13 +50,76 @@ export default function OneProject() {
             }
         ]);
     
+    const [projects, setProjects] = useState(
+    [
+      {
+        id: 1,
+        name: "Project 1",
+        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+        start: "Today",
+        end: "December",
+        members: "2",
+      },
+      {
+        id: 2,
+        name: "Project 2",
+        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+        start: "Tomorrow",
+        end: "November",
+        members: "5",
+      },
+      {
+        id: 3,
+        name: "Project 3",
+        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+        start: "Friday",
+        end: "June",
+        members: "10",
+      },
+        ])
+    
+    const project = projects.find((project) => project.id == projectId)
+
+    
     const [toDo, setToDo] = useState([]);
     const [doing, setDoing] = useState([]);
     const [done, setDone] = useState([]);
 
+    const [notes, setNotes] = useState(
+        [
+            {
+                id: 1,
+                text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga m beatae delectus ducimus provident?'
+            },
+            {
+                id: 2,
+                text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga m beatae delectus ducimus provident?'
+            },
+            {
+                id: 3,
+                text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga m beatae delectus ducimus provident?'
+            },
+            {
+                id: 4,
+                text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga m beatae delectus ducimus provident?'
+            }
+        ]
+    );
+
+    const [trigger, setTrigger] = useState(false);
+
     //Children Functions
-    function createTask() {
-        alert('Task created');
+    function createTask(id, name, desc, date, status) {
+        const newTask = {
+            id: id,
+            name: name,
+            description: desc,
+            date: date,
+            status: status
+        }
+
+        setTasks([newTask, ...tasks]);
+        setTrigger(!trigger);
     }
 
     function updateTask(id, n_name, n_desc, n_date, n_status) {
@@ -72,6 +138,7 @@ export default function OneProject() {
         });
 
         setTasks(updatedTasks);
+        setTrigger(!trigger);
 
     }
 
@@ -81,8 +148,40 @@ export default function OneProject() {
         });
 
         setTasks(updatedTasks);
-        console.log('deleted');
+        setTrigger(!trigger);
     }
+
+    function createNote(id, text){
+        const newNote = {
+            id: id,
+            text: text
+        }
+
+        setNotes([newNote, ...notes]);
+    }
+
+    function updateNote(id, text){
+        const newNotes = notes.map((note) => {
+            if (note.id === id) {
+                return {
+                    ...note,
+                    text: text
+                }
+            }
+            return note;
+        });
+
+        setNotes(newNotes);
+    }
+
+    function deleteNote(id) {
+        const newNotes = notes.filter((note) => {
+            return note.id != id
+        });
+
+        setNotes(newNotes);
+    }
+
 
     useEffect(() => {
         let tempTasks = [];
@@ -90,18 +189,15 @@ export default function OneProject() {
         //Get TO DO tasks
         tempTasks = tasks.filter((task) => { return task.status === 'To Do' });
         setToDo(tempTasks);
-        console.log('To do', tempTasks);
 
         //Get DOING tasks
         tempTasks = tasks.filter((task) => { return task.status === 'Doing' });
         setDoing(tempTasks);
-        console.log('Doing', tempTasks);
 
         //Get DONE tasks
         tempTasks = tasks.filter((task) => { return task.status === 'Done' });
         setDone(tempTasks);
-        console.log('Done',tempTasks);
-    }, tasks);
+    }, [trigger]);
 
 
     return (
@@ -113,16 +209,16 @@ export default function OneProject() {
                     {/* Header Section */}
                     <header className="w-full  flex flex-row justify-between items-center">
                         <div>
-                            <h1 className="font-semibold">Zencon Project</h1>
+                            <h1 className="font-semibold">{project.name}</h1>
                         </div>
                         <div className="flex flex-row w-[35%] mr-10 justify-between items-end">
                             <div>
                                 <h5 className="mb-1 text-sm font-normal text-gray-400">CREATED</h5>
-                                <p className="mb-0 text-sm">March 2, 9:45 am</p>
+                                <p className="mb-0 text-sm">{project.start}</p>
                             </div>
                             <div>
                                 <h5 className="mb-1 text-sm font-normal text-gray-400">DUE DATE</h5>
-                                <p className="mb-0 text-sm">Sep 2, 9:45 am</p>
+                                <p className="mb-0 text-sm">{project.end}</p>
                             </div>
                         </div>
                     </header>
@@ -267,17 +363,33 @@ export default function OneProject() {
 
                         {/* Project Notes */}
                         <section className="w-full h-[35%] mt-4">
-                            <h4 className="text-lg">Project Notes</h4>
+                            <div className="flex flex-row justify-between items-center">
+                                <h4 className="text-lg mb-0">Project Notes</h4>
+                                <NoteModal note={[]} edit={false} update={createNote}/>
+                            </div>
+                                
                             <div className="w-full h-[75%] mt-3 px-2 drop-shadow-md overflow-y-scroll">
-                                <div className="px-3 py-3 bg-gray-200 mb-3 rounded-2xl">
-                                    <p className="text-[.65rem] mb-0">Lorem ipsit. Quaerat consequuntur quod mollitia tempore deleniti, cupiditate ha aerat consequuntur quod mollitia tempore deleniti, cupiditate haru</p>
-                                </div>
-                                <div className="px-3 py-3 bg-gray-200 mb-3 rounded-2xl">
-                                    <p className="text-[.65rem] mb-0">Lorem ipsit. Quaerat consequuntur quod mollitia tempore deleniti, cupiditate haru</p>
-                                </div>
-                                <div className="px-3 py-3 bg-gray-200 mb-3 rounded-2xl">
-                                    <p className="text-[.65rem] mb-0">Lorem ipsit. Quaerat consequuntur quod mollitia tempore deleniti, cupiditate haru</p>
-                                </div>
+                                {
+                                    notes.map((note) => {
+                                        return (
+                                            <div key={note.id} className="px-3 pt-3 bg-gray-200 mb-3 rounded-2xl">
+                                                <p className="text-[.65rem] mb-0">{note.text}</p>
+                                                <section className="w-16 flex flex-row mt-1 ml-[70%] pb-2 ">
+                                                    
+                                                    <NoteModal note={note} edit={true} update={updateNote}/>
+                                                        
+                                                    <button onClick={()=>deleteNote(note.id)}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.1} className="w-5 h-5 ml-3 stroke-gray-400 hover:stroke-red-600 cursor-pointer">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                    </button>
+
+                                                </section>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                
                             </div>
                         </section>
                     </div>

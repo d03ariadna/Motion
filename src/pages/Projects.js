@@ -48,7 +48,7 @@ export default function Projects() {
             members: members
         }
         console.log(newProject);
-        setProjects([...projects, newProject]);
+        setProjects([newProject, ...projects]);
     }
 
     function updateProject(id, n_name, n_desc, n_start, n_end, n_members) {
@@ -78,7 +78,7 @@ export default function Projects() {
                     
                     <CreateButton
                         action='project'
-                        createTask={ createProject }
+                        createProject={ createProject }
                     />
 
                     <img src="/img/avatar.png" alt="" className='w-14 h-14 rounded-full mr-5'/>

@@ -215,7 +215,7 @@ function Dashboard() {
 
 
     useEffect(() => {
-        getData();
+        console.log('loaded')
     }, []);
     
 

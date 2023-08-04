@@ -1,4 +1,4 @@
-/* 
+
 button:active {
 	transform: scale(0.95);
 }
@@ -127,4 +127,4 @@ button:focus {
 
 .container.right-panel-active .overlay-right {
 	transform: translateX(20%);
-} */
+}
