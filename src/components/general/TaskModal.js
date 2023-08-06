@@ -7,45 +7,51 @@ import { DatePicker } from './DatePicker';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  add,
-  eachDayOfInterval,
-  endOfMonth,
   format,
-  getDay,
-  isEqual,
-  isSameDay,
-  isSameMonth,
-  isToday,
-  parse,
   parseISO,
-  startOfToday,
+    startOfToday,
 } from 'date-fns'
 
 function TaskModal(props) {
-
+    
     const task = props.task;
     let id;
+
+    let actualDay;
+
+    if (task.length === 0) {
+            
+        actualDay = startOfToday();
+            
+    } else {
+            
+        actualDay = parseISO(task.date);
+    }
+            
+    
 
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
     const [date, setDate] = useState('');
     const [status, setStatus] = useState('');
 
-    const getDate = (newDate) => {
+    const getDate = (nDate) => {
         //setTempDate(newDate)
-        setDate( format(newDate, 'MMMM do') );
+        console.log(nDate)
+        setDate(format(nDate, 'y-MM-dd'));
     }
-
     useEffect(() => {
-
+        
         if (props.edit) {   
             setName(task.name);
             setDesc(task.description);
             setDate(task.date);
             setStatus(task.status);
         }
-    }, []);
 
+            
+        
+    }, []);
 
     return (
         <>
@@ -132,16 +138,7 @@ function TaskModal(props) {
                             </label>
                             </div>
                                 <div className="md:w-3/4">
-                                <DatePicker setDate={getDate}/>
-                            {/* <input 
-                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
-                                id="date" 
-                                type="text" 
-                                value={date}
-                                onChange={(e) => {
-                                setDate(e.target.value)
-                                }}
-                            />*/}
+                                <DatePicker dateSet={actualDay} setDate={getDate}/>
                             </div> 
                         </div>
                             

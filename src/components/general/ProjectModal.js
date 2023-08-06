@@ -7,14 +7,31 @@ import {
     formatISO,
     parse,
     parseISO,
+    startOfToday
 } from 'date-fns';
 
 import { v4 as uuidv4 } from 'uuid';
+import { te } from 'date-fns/locale';
 
 function ProjectModal(props) {
 
     const project = props.project;
     let id;
+    
+    let tStart = [];
+    let tEnd = [];
+
+
+    if (project.length === 0) {
+        
+        tStart = startOfToday();
+        tEnd = startOfToday();
+            
+    } else {
+        
+        tStart = parseISO(project.start);
+        tEnd = parseISO(project.end);
+    }
 
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
@@ -27,20 +44,27 @@ function ProjectModal(props) {
     useEffect(() => {
 
         if (props.edit) {
+            
             setName(project.name);
             setDesc(project.description);
-            setStart(project.start);
-            setEnd(project.end);
+            setStart(tStart);
+            setEnd(tEnd);
             setMembers(project.members);
+
         }
+
+        
     }, []);
 
 
-    const getDate = (newDate) => {
-        let nDate = format(newDate, 'MMMM do'); 
-        setEnd(nDate);
-        //setEnd((formatISO(newDate)));
-        console.log(typeof(formatISO(newDate)));
+    const getStart = (newDate) => {
+        
+        setStart(format(newDate, 'y-MM-dd'));
+    }
+
+    const getEnd = (newDate) => {
+        
+        setEnd(format(newDate, 'y-MM-dd'));
     }
 
 
@@ -65,7 +89,6 @@ function ProjectModal(props) {
                             e.preventDefault();
                         
                             props.edit ? id=project.id : id=uuidv4()
-                            
                             //Update or Create Project
                             props.submit(id, name, desc, start, end, members);
                         
@@ -74,6 +97,9 @@ function ProjectModal(props) {
                             setStart('');
                             setEnd('');
                             setMembers('');
+                        
+                            tStart = [];
+                            tEnd = [];
                         
                             props.close();
                             
@@ -84,13 +110,13 @@ function ProjectModal(props) {
                         {/* Name Input */}
                         <div className="md:flex md:items-center mt-3 mb-6">
                             <div className="md:w-1/3">
-                            <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4" htmlFor="name">
+                            <label className="block text-gray-400 font-semibold md:text-left mb-1 ml-4 md:mb-0 pr-4" htmlFor="name">
                                 Name:
                             </label>
                             </div>
                             <div className="md:w-3/4">
                             <input 
-                            className="w-full appearance-none border-2 border-gray-200 rounded-xl py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
+                            className="w-full appearance-none border-2 border-gray-200 rounded-xl py-2 pl-3 text-gray-600 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
                             id="name" 
                             type="text" 
                             value={name}
@@ -104,13 +130,13 @@ function ProjectModal(props) {
                         {/* Description Input */}
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
-                            <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="role">
+                            <label className="block text-gray-400 font-semibold md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="role">
                                 Description:
                             </label>
                             </div>
                             <div className="md:w-3/4">
                             <input 
-                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
+                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-600 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
                                 id="date" 
                                 type="text" 
                                 value={desc}
@@ -124,30 +150,42 @@ function ProjectModal(props) {
                         {/* Start Date Input */}
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
-                            <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="start">
+                            <label className="block text-gray-400 font-semibold md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="start">
                                 Start Date:
                             </label>
                             </div>
-                                <div className="md:w-3/4">
+                            <div className="md:w-3/4">
+                                {props.edit ? 
                                     <input 
+                                        className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-400 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
+                                        id="start" 
+                                        type="text" 
+                                        value={format(tStart, 'MMMM dd, y') }
+                                        disabled={true}
+                                    /> 
+                                    :
+                                    <DatePicker dateSet={tStart} setDate={getStart}/>
+                                }
+                                    
+                                    {/* <input 
                                         className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
                                         id="start" 
                                         type="text" 
-                                        value={start}
+                                        value={format(tStart, 'MMMM dd, y') }
                                         disabled={true}
-                                    />
+                                    /> */}
                             </div>
                         </div>
                             
                         {/* End Date Input */}
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
-                            <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="end">
+                            <label className="block text-gray-400 font-semibold md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="end">
                                 End Date:
                             </label>
                             </div>
                             <div className="md:w-3/4">
-                            <DatePicker setDate={getDate}/>
+                            <DatePicker dateSet={tEnd} setDate={getEnd}/>
                                     {/* <input
                                 className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
                                 id="end"
@@ -163,13 +201,13 @@ function ProjectModal(props) {
                         {/* Members Input */}
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
-                            <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="members">
+                            <label className="block text-gray-400 font-semibold md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="members">
                                 Members:
                             </label>
                             </div>
                             <div className="md:w-3/4">
                             <input 
-                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
+                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-600 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
                                 id="members" 
                                 type="text" 
                                 value={members}
@@ -187,7 +225,10 @@ function ProjectModal(props) {
                             props.edit ?
                                 <button 
                                     className='bg-gray-300 hover:bg-red-700 text-white transition-all ease-in-out font-bold py-2 px-4 rounded'  
-                                    onClick={() => props.close()}>
+                                onClick={() => {
+                                    props.delete(project.id);
+                                    props.close();
+                                }}>
                                     Delete Project
                                 </button>
                                 :

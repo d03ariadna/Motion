@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import {
+    format,
+    parseISO,
+} from 'date-fns';
+
 import CreateButton from "../components/general/CreateButton";
 import ProjectTask from "../components/projectsC/ProjectTask";
 import NoteModal from "../components/projectsC/NoteModal";
+
+import {Progress} from "../components/dashboard/RadialChart";
 
 
 export default function OneProject() {
 
     const projectId = (useParams()).id;
+    
 
     // GET PROJECT'S TASKS
     const [tasks, setTasks] = useState(
@@ -56,30 +64,29 @@ export default function OneProject() {
         id: 1,
         name: "Project 1",
         description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Today",
-        end: "December",
+        start: "2023-08-05",
+        end: "2023-12-25",
         members: "2",
       },
       {
         id: 2,
         name: "Project 2",
         description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Tomorrow",
-        end: "November",
+        start: "2023-07-05",
+        end: "2023-04-08",
         members: "5",
       },
       {
         id: 3,
         name: "Project 3",
         description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Friday",
-        end: "June",
+        start: "2023-08-05",
+        end: "2023-01-10",
         members: "10",
       },
-        ])
+    ])
     
-    const project = projects.find((project) => project.id == projectId)
-
+    const project = projects.find((project) => project.id == projectId);
     
     const [toDo, setToDo] = useState([]);
     const [doing, setDoing] = useState([]);
@@ -214,11 +221,11 @@ export default function OneProject() {
                         <div className="flex flex-row w-[35%] mr-10 justify-between items-end">
                             <div>
                                 <h5 className="mb-1 text-sm font-normal text-gray-400">CREATED</h5>
-                                <p className="mb-0 text-sm">{project.start}</p>
+                                <p className="mb-0 text-sm">{format(parseISO(project.start), 'MMMM, do')}</p>
                             </div>
                             <div>
                                 <h5 className="mb-1 text-sm font-normal text-gray-400">DUE DATE</h5>
-                                <p className="mb-0 text-sm">{project.end}</p>
+                                <p className="mb-0 text-sm">{format(parseISO(project.end), 'MMMM, do')}</p>
                             </div>
                         </div>
                     </header>
@@ -325,8 +332,8 @@ export default function OneProject() {
                         </section>
 
                         {/* Statistics */}
-                        <section className="w-full mt-3 py-4 border-t-2 border-gray-200">
-                            <div className=" mx-16 text-center bg-white rounded-full border-8 border-purple-500 py-5 text-2xl font-bold">16%</div>
+                        <section className="w-full mt-3 mb-2 pt-3 border-t-2 border-gray-200">
+                            <div className='w-[60%] mx-auto'><Progress/></div>
                         </section>
 
                         {/* Statistics */}

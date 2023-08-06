@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { format, parseISO } from 'date-fns';
+
 import ConfirmModal from "../general/ConfirmModal";
 import TaskModal from "../general/TaskModal";
 
@@ -11,13 +13,15 @@ export default function LittleTask(props) {
     const handleCloseTask = () => setShowTask(false);
     const handleShowTask = () => setShowTask(true);
 
+    const pDate = parseISO(task.date);
+
     return (
         <>
             <div>
                 <div className='w-52 h-[7.5rem] px-2 pt-2 mr-8 mb-4 border-[1px] border-gray-300 bg-white rounded-xl drop-shadow-md hover:drop-shadow-xl'>
                     <section className=' mb-3 border-2 border-white  flex flex-row flex-nowrap justify-between items-center '>
                         <p className='text-xs text-gray-300 mb-0 ml-2'>
-                            {task.date}
+                            {format(pDate, 'MMMM do')}
                         </p>
 
                         {/* <button

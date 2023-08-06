@@ -34,40 +34,35 @@ export default function Calendar() {
     id: 1,
     name: "Buy a gift for Christina's Birthday",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-08-14T13:00',
-    endDatetime: '2023-08-15T14:30',
+    date: '2023-08-14',
     status: "To Do",
     },
   {
     id: 2,
     name: "Finish Zencon Project",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-08-11T13:00',
-    endDatetime: '2023-08-11T14:30',
+    date: '2023-08-11',
     status: "To Do",
   },
   {
     id: 3,
     name: "Going to the supermarket",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-08-11T13:00',
-    endDatetime: '2023-08-11T14:30',
+    date: '2023-08-11',
     status: "To Do",
   },
   {
     id: 4,
     name: "Attend Justia meeting",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-08-11T13:00',
-    endDatetime: '2023-08-11T14:30',
+    date: '2023-08-11',
     status: "To Do",
   },
   {
     id: 5,
     name: "Buy suplements for gym",
     description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    startDatetime: '2023-08-11T13:00',
-    endDatetime: '2023-08-11T14:30',
+    date: '2023-08-11',
     status: "Done",
   },
 ])
@@ -105,11 +100,21 @@ export default function Calendar() {
   }
 
   let selectedDayMeetings = events.filter((meeting) =>
-    isSameDay(parseISO(meeting.startDatetime), selectedDay)
+    isSameDay(parseISO(meeting.date), selectedDay)
   )
 
-  function createTask(id, name, desc, start, end, status) {
-    console.log('task created');
+  function createTask(id, name, desc, date, status) {
+    
+    const newTask = {
+      id: id,
+      name: name,
+      description: desc,
+      date: date,
+      status: status
+    }
+
+    console.log(newTask)
+    setEvents([newTask, ...events]);
   }
   
   function updateEvent(id, n_name, n_desc, n_end, n_status) {
@@ -222,7 +227,7 @@ export default function Calendar() {
 
                                 <div className="w-2 h-2 mx-auto mt-1">
                                     {events.some((meeting) =>
-                                    isSameDay(parseISO(meeting.startDatetime), day)
+                                    isSameDay(parseISO(meeting.date), day)
                                     ) && (
                                     <div className="w-2 h-2 rounded-full bg-pink-300"></div>
                                     )}
@@ -275,8 +280,6 @@ function Event({ event, task, updateTask, deleteTask }) {
   const handleCloseTask = () => setShowTask(false);
   const handleShowTask = () => setShowTask(true);
   
-  let startDateTime = parseISO(event.startDatetime)
-  let endDateTime = parseISO(event.endDatetime)
 
 
   return (
@@ -304,13 +307,7 @@ function Event({ event, task, updateTask, deleteTask }) {
           
 
           <p className="mt-0.5 mb-0 text-gray-400 text-xs font-light">
-            <time dateTime={event.startDatetime}>
-              {format(startDateTime, 'h:mm a')}
-            </time>{' '}
-            -{' '}
-            <time dateTime={event.endDatetime}>
-              {format(endDateTime, 'h:mm a')}
-            </time>
+            {event.status}
           </p>
         </div>
         <ConfirmModal

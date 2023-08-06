@@ -10,33 +10,32 @@ import ProjectModal from "../components/general/ProjectModal";
 export default function Projects() {
 
     const [projects, setProjects] = useState(
-    [
-      {
-        id: 1,
-        name: "Project 1",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Today",
-        end: "December",
-        members: "2",
-      },
-      {
-        id: 2,
-        name: "Project 2",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Tomorrow",
-        end: "November",
-        members: "5",
-      },
-      {
-        id: 3,
-        name: "Project 3",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Friday",
-        end: "June",
-        members: "10",
-      },
-    ])
-
+        [
+            {
+                id: 1,
+                name: "Project 1",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-08-05",
+                end: "2023-12-25",
+                members: "2",
+            },
+            {
+                id: 2,
+                name: "Project 2",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-07-05",
+                end: "2023-04-08",
+                members: "5",
+            },
+            {
+                id: 3,
+                name: "Project 3",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-08-05",
+                end: "2023-01-10",
+                members: "10",
+            },
+        ]);
     //Children Functions
     function createProject(id, name, desc, start, end, members) {
         const newProject = {

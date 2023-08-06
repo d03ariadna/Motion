@@ -7,7 +7,8 @@ import LittleProject from '../components/dashboard/LittleProject';
 import MainCard from '../components/general/MainCard';
 import CreateButton from '../components/general/CreateButton';
 
-import Example from "../components/dashboard/RadialChart";
+import {Chart} from "../components/dashboard/RadialChart";
+import { RadarData } from '../components/dashboard/StatisticData';
 
 
 import TaskModal from '../components/general/TaskModal';
@@ -31,35 +32,35 @@ function Dashboard() {
                 id: 1,
                 name: "Buy a gift for Christina's Birthday",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Today",
+                date: "2023-08-14",
                 status: "To Do",
             },
             {
                 id: 2,
                 name: "Take a rest",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Wednesday",
+                date: "2023-09-10",
                 status: "To Do",
             },
             {
                 id: 3,
                 name: "Finish Zencon Project",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Nov, 15th",
+                date: "2023-11-14",
                 status: "To Do",
             },
             {
                 id: 4,
                 name: "Richard's Birthday Party",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Friday",
+                date: "2023-06-15",
                 status: "To Do",
             },
             {
                 id: 5,
                 name: "Buy the supplements for gym",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Monday",
+                date: "2023-08-08",
                 status: "To Do",
             }
         ]);
@@ -90,32 +91,32 @@ function Dashboard() {
         ]);
     
     const [projects, setProjects] = useState(
-    [
-      {
-        id: 1,
-        name: "Project 1",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Today",
-        end: "December",
-        members: "2",
-      },
-      {
-        id: 2,
-        name: "Project 2",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Tomorrow",
-        end: "November",
-        members: "5",
-      },
-      {
-        id: 3,
-        name: "Project 3",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Friday",
-        end: "June",
-        members: "10",
-      },
-    ])
+        [
+            {
+                id: 1,
+                name: "Project 1",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-08-05",
+                end: "2023-12-25",
+                members: "2",
+            },
+            {
+                id: 2,
+                name: "Project 2",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-07-05",
+                end: "2023-04-08",
+                members: "5",
+            },
+            {
+                id: 3,
+                name: "Project 3",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-08-05",
+                end: "2023-01-10",
+                members: "10",
+            },
+        ]);
 
 
     //Children Functions
@@ -213,10 +214,16 @@ function Dashboard() {
         setProjects(updatedProjects);
     }
 
+    function deleteProject(id) {
+        console.log(id);
+        const updatedProjects = projects.filter((project) => {
+            return project.id !== id
+        });
 
-    useEffect(() => {
-        console.log('loaded')
-    }, []);
+        setProjects(updatedProjects);
+        console.log('deleted Successfully');
+    }
+
     
 
     return (
@@ -256,8 +263,8 @@ function Dashboard() {
                                 <p>In Progress</p>
                             </div>
                         </div>
-                        <div className='bg-white border-[1px] border-gray-200 w-[35%] h-full rounded-3xl overflow-hidden flex flex-row justify-between'>
-                            <div className='w-[40%] pt-10'>
+                        <div className='bg-white border-[1px] border-gray-200 w-[35%] h-full rounded-3xl flex flex-row justify-between'>
+                            <div className='w-[45%] pt-10'>
                                 <div className='flex flex-row justify-center items-center mb-3'>
                                     <div className='w-[25px] h-[6px] bg-[#B1B2FF] rounded-full mr-3'></div>
                                     <p className='mb-0 text-sm font-medium'>To Do</p>
@@ -271,7 +278,11 @@ function Dashboard() {
                                     <p className='mb-0 text-sm font-medium'>Done</p>
                                 </div>
                             </div>
-                            <div className='w-[60%]'><Example /></div>
+                            <div className='w-[55%]'>
+                                <div className='w-[75%] h-[85%] ml-3 mt-3'><Chart /></div>
+                                {/* <Example data={RadarData}/> */}
+                                
+                            </div>
                             
                         </div>
                     </section>
@@ -285,6 +296,7 @@ function Dashboard() {
                                 activeTasks.length > 0 ?
                                     
                                     activeTasks.map((task) => {
+                                        
 
                                         return (
                                             <LittleTask
@@ -320,7 +332,7 @@ function Dashboard() {
                                     key={project.id}
                                     project={project}
                                     updateProject={updateProject}
-                                    // deleteProject 
+                                    deleteProject={deleteProject}
                                     />
                                 )
                             })}
