@@ -7,7 +7,7 @@ import TaskModal from "../general/TaskModal";
 
 export default function LittleTask(props) {
     const task = props.task;
-
+ 
     const [showTask, setShowTask] = useState(false);
 
     const handleCloseTask = () => setShowTask(false);

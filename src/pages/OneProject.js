@@ -23,37 +23,37 @@ export default function OneProject() {
         [
             {
                 id: 1,
-                name: "Buy a gift for Christina's Birthday ",
+                name: "Buy a gift for Christina's Birthday",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Today",
+                date: "2023-08-14",
                 status: "To Do",
             },
             {
                 id: 2,
                 name: "Take a rest",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Wednesday",
-                status: "Done",
+                date: "2023-09-10",
+                status: "Doing",
             },
             {
                 id: 3,
                 name: "Finish Zencon Project",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Nov, 15",
-                status: "Doing",
+                date: "2023-11-14",
+                status: "To Do",
             },
             {
                 id: 4,
                 name: "Richard's Birthday Party",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Friday",
-                status: "To Do",
+                date: "2023-06-15",
+                status: "Doing",
             },
             {
                 id: 5,
                 name: "Buy the supplements for gym",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Monday",
+                date: "2023-08-08",
                 status: "Done",
             }
         ]);

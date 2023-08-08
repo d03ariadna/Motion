@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { API } from '../components/API';
 
+import { format } from 'date-fns';
 
 import LittleTask from '../components/dashboard/LittleTask';
 import LittleProject from '../components/dashboard/LittleProject';
@@ -17,13 +18,10 @@ import ProjectModal from '../components/general/ProjectModal';
 
 function Dashboard() {
 
-    const [data, setData] = useState('');
 
-    const getData = async () => {
-        const result = await fetch(`${API}/`);
-        const rdata = await result.json();
-        setData(rdata);
-    }
+    const [time, setTime] = useState('');
+
+    const [data, setData] = useState('');
 
     // GET UPCOMING TASKS
     const [activeTasks, setActiveTasks] = useState(
@@ -224,13 +222,35 @@ function Dashboard() {
         console.log('deleted Successfully');
     }
 
+
+    const getData = async () => {
+        const result = await fetch(`${API}/`);
+        const rdata = await result.json();
+        setData(rdata);
+    }
+
+    useEffect(() => {
+
+        let hour = parseInt(format(new Date(), 'HH'));
+
+        if (hour < 12) {
+            setTime('Morning');
+        } else if (hour >= 12 && hour <= 19) {
+            setTime('Afternoon');
+        } else {
+            setTime('Evening');
+        }
+        
+    }, [])
+
+
     
 
     return (
         <>
             {/* Header Section */}
             <header className='w-full h-[10vh] mb-2 flex flex-row justify-between '>
-                <h1 className='mt-2 font-semibold'>Good Afternoon!</h1>
+                <h1 className='mt-2 font-semibold'>Good {time}!</h1>
                 <div className='h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5'>
                     <CreateButton
                         createTask={ createTask }

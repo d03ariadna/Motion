@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { DatePicker } from './DatePicker';
+import ColorPicker from './ColorPicker';
 
 import {
     format,
@@ -215,6 +216,18 @@ function ProjectModal(props) {
                                 setMembers(e.target.value)
                                 }}
                             />
+                            </div>
+                        </div>
+
+                        {/* ColorPicker Input */}
+                        <div className="md:flex md:items-center mb-6">
+                            <div className="md:w-1/3">
+                            <label className="block text-gray-400 font-semibold md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="members">
+                                Color:
+                            </label>
+                            </div>
+                            <div className="md:w-3/4 py-2">
+                                <ColorPicker/>
                             </div>
                         </div>
                             

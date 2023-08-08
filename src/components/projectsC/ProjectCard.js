@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import { EditIcon } from '../icons/icons';
 import ProjectModal from '../general/ProjectModal';
@@ -9,6 +10,8 @@ function classNames(...classes) {
 }
 
 export default function ProjectCard(props) {
+
+    const navigate = useNavigate();
 
     const project = props.project;
 
@@ -50,11 +53,11 @@ export default function ProjectCard(props) {
                             <img src="/img/avatar.png" alt="" className='w-10 h-10 rounded-full ml-[-12px] border-[1px] border-slate-300' />
                             <img src="/img/avatar.png" alt="" className='w-10 h-10 rounded-full ml-[-12px] border-[1px] border-slate-300'/>
                         </div>
-                        <a
-                            href={`/project/${project.id}`}
+                        <button
+                            onClick= {() => navigate(`/project/${project.id}`)}
                             className='px-5 py-2 bg-[#B1B2FF] text-white text-lg font-semibold no-underline hover:bg-black hover:drop-shadow-xl transition-all ease-in-out rounded-3xl'>
                             Open
-                        </a>
+                        </button>
                     </section>
                 </div>
             </div>

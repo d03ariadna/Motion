@@ -72,7 +72,9 @@ function TaskModal(props) {
                         <form onSubmit={(e) => {
                           e.preventDefault();
 
-                            props.edit ? id = task.id : id = uuidv4()
+                        props.edit ? id = task.id : id = uuidv4();
+
+                        //date === '' ? date = actualDay : date = date
                         
                             props.submit(id, name, desc, date, status);
                         
