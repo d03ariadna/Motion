@@ -1,5 +1,8 @@
 import { da } from 'date-fns/locale';
 import React, { useState, useEffect } from 'react';
+
+import { useTasksDispatch } from '../../context/TasksContext';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { DatePicker } from './DatePicker';
@@ -13,6 +16,8 @@ import {
 } from 'date-fns'
 
 function TaskModal(props) {
+
+    const dispatch = useTasksDispatch();
     
     const task = props.task;
     let id;
@@ -27,13 +32,55 @@ function TaskModal(props) {
             
         actualDay = parseISO(task.date);
     }
-            
-    
 
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
     const [date, setDate] = useState('');
     const [status, setStatus] = useState('');
+
+
+    function createTask(id, name, desc, date, status) {
+
+        const newTask = {
+            id: id,
+            name: name,
+            description: desc,
+            date: date,
+            status: status
+        }
+        
+        dispatch({
+            type: 'added',
+            task: newTask
+        })
+
+        
+    }
+
+    function updateTask(id, n_name, n_desc, n_date, n_status) {
+        
+        const updatedTask = {
+            id: id,
+            name: n_name,
+            description: n_desc,
+            date: n_date,
+            status: n_status
+        }
+
+        dispatch({
+            type: 'updated',
+            task: updatedTask
+        });
+    }
+
+    function deleteTask(id) {
+        dispatch({
+            type: 'deleted',
+            id: id
+        });
+    }
+
+
 
     const getDate = (nDate) => {
         //setTempDate(newDate)
@@ -73,10 +120,11 @@ function TaskModal(props) {
                           e.preventDefault();
 
                         props.edit ? id = task.id : id = uuidv4();
-
-                        //date === '' ? date = actualDay : date = date
                         
-                            props.submit(id, name, desc, date, status);
+                        props.edit ?
+                            updateTask(id, name, desc, date, status)
+                        :
+                            createTask(id, name, desc, date, status)
                         
                         if (!props.edit) {
                                 setName('');
@@ -173,7 +221,7 @@ function TaskModal(props) {
                                 <button 
                                     className='bg-gray-300 hover:bg-red-700 text-white transition-all ease-in-out font-bold py-2 px-4 rounded'  
                                 onClick={() => {
-                                    props.delete(task.id)
+                                    deleteTask(task.id);
                                     props.close()
                                 }}>
                                     Delete Task

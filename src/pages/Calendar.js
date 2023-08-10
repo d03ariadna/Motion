@@ -22,6 +22,8 @@ import {
 import { Fragment, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 
+import { useTasks, useTasksDispatch } from "../context/TasksContext";
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -29,43 +31,8 @@ function classNames(...classes) {
 
 export default function Calendar() {
 
-  const [events, setEvents] = useState([
-  {
-    id: 1,
-    name: "Buy a gift for Christina's Birthday",
-    description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: '2023-08-14',
-    status: "To Do",
-    },
-  {
-    id: 2,
-    name: "Finish Zencon Project",
-    description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: '2023-08-11',
-    status: "To Do",
-  },
-  {
-    id: 3,
-    name: "Going to the supermarket",
-    description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: '2023-08-11',
-    status: "To Do",
-  },
-  {
-    id: 4,
-    name: "Attend Justia meeting",
-    description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: '2023-08-11',
-    status: "To Do",
-  },
-  {
-    id: 5,
-    name: "Buy suplements for gym",
-    description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: '2023-08-11',
-    status: "Done",
-  },
-])
+  const tasks = useTasks();
+  const dispatch = useTasksDispatch();
 
   let selectedDate = startOfToday();
   let actualDay = (useParams()).day;
@@ -74,10 +41,6 @@ export default function Calendar() {
     selectedDate = parse(actualDay, 'y-MM-dd', new Date());
   }
 
-  // let {today = startOfToday()} = useParams().day;
-  //     const dayString = (useParams()).day;
-  //     today = parse(dayString, 'y-MM-dd', new Date());
-  //   today = startOfToday();
 
   let [selectedDay, setSelectedDay] = useState(selectedDate);
   let [currentMonth, setCurrentMonth] = useState(format(selectedDate, 'MMM-yyyy'))
@@ -99,49 +62,50 @@ export default function Calendar() {
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
   }
 
-  let selectedDayMeetings = events.filter((meeting) =>
+  let selectedDayMeetings = tasks.filter((meeting) =>
     isSameDay(parseISO(meeting.date), selectedDay)
   )
 
   function createTask(id, name, desc, date, status) {
-    
-    const newTask = {
-      id: id,
-      name: name,
-      description: desc,
-      date: date,
-      status: status
+
+        const newTask = {
+            id: id,
+            name: name,
+            description: desc,
+            date: date,
+            status: status
+        }
+        
+        dispatch({
+            type: 'added',
+            task: newTask
+        })
+
+        
     }
 
-    console.log(newTask)
-    setEvents([newTask, ...events]);
-  }
-  
-  function updateEvent(id, n_name, n_desc, n_end, n_status) {
+    function updateTask(id, n_name, n_desc, n_date, n_status) {
         
-    let updatedTasks = events.map((event) => {
-        if (event.id === id) {
-          return {
-            ...event,
+        const updatedTask = {
+            id: id,
             name: n_name,
             description: n_desc,
-            end: n_end,
+            date: n_date,
             status: n_status
-          }
         }
-        return event;
-      });
 
-    setEvents(updatedTasks);
-  }
+        dispatch({
+            type: 'updated',
+            task: updatedTask
+        });
+    }
 
-  function deleteEvent(id) {
-    const newEvents = events.filter((event) => {
-      return event.id !== id
-    })
-
-    setEvents(newEvents);
-  }
+    function deleteTask(id) {
+        dispatch({
+            type: 'deleted',
+            id: id
+        });
+    }
 
 
 
@@ -226,7 +190,7 @@ export default function Calendar() {
                                 </button>
 
                                 <div className="w-2 h-2 mx-auto mt-1">
-                                    {events.some((meeting) =>
+                                    {tasks.some((meeting) =>
                                     isSameDay(parseISO(meeting.date), day)
                                     ) && (
                                     <div className="w-2 h-2 rounded-full bg-pink-300"></div>
@@ -237,14 +201,13 @@ export default function Calendar() {
                         </div>
                   </div>
           
-                {/* Events Section */}
+                {/* Tasks Section */}
                 <div className="w-[27%] h-[95vh] ml-2 pb-2 flex flex-col justify-between">
                   
                   <div className='w-full flex flex-row justify-between items-center pl-5'>
                       
                       <CreateButton
                         action={'task'}
-                        createTask={createTask}
                       />
                       <img src="/img/avatar.png" alt="" className='w-14 h-14 rounded-full mr-5'/>
                   </div>
@@ -257,9 +220,9 @@ export default function Calendar() {
                           </h2>
                           <div className="h-[75%] mt-4 px-4 space-y-1 text-sm leading-6 text-gray-500 overflow-y-scroll">
                               {selectedDayMeetings.length > 0 ? (
-                              selectedDayMeetings.map((event) => (
+                              selectedDayMeetings.map((task) => (
                                    
-                                      <Event key={event.id} event={event} task={event} updateTask={updateEvent} deleteTask={deleteEvent} />
+                                      <Event key={task.id} task={task} updateTask={updateTask} deleteTask={deleteTask} />
                                       ))
                               ) : (
                                       <p className="mt-40 text-center text-base font-light text-gray-300">No meetings for today.</p>
@@ -273,7 +236,7 @@ export default function Calendar() {
   )
 }
 
-function Event({ event, task, updateTask, deleteTask }) {
+function Event({ task, updateTask, deleteTask }) {
 
   const [showTask, setShowTask] = useState(false);
 
@@ -286,10 +249,10 @@ function Event({ event, task, updateTask, deleteTask }) {
 
     <>
       <li className="border-[1px] border-gray-200 flex items-center px-4 py-3 mb-4 hover:shadow-lg space-x-4 group rounded-xl ">
-        {event.status !== 'Done' ?
+        {task.status !== 'Done' ?
           <div className="p-2 bg-pink-200 rounded-full"></div>
           :
-          <button onClick={() => deleteTask(event.id)}>
+          <button onClick={() => deleteTask(task.id)}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="w-5 h-5 stroke-gray-400 hover:stroke-red-600 cursor-pointer">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
               </svg>
@@ -298,7 +261,7 @@ function Event({ event, task, updateTask, deleteTask }) {
           
         <div className="flex-auto text-black">
 
-          {event.status !== 'Done' ?
+          {task.status !== 'Done' ?
             <button onClick={handleShowTask} className="py-1 ">
                 <p className='mb-0 text-left text-sm font-medium '>{task.name}</p> 
             </button>
@@ -307,13 +270,11 @@ function Event({ event, task, updateTask, deleteTask }) {
           
 
           <p className="mt-0.5 mb-0 text-gray-400 text-xs font-light">
-            {event.status}
+            {task.status}
           </p>
         </div>
         <ConfirmModal
           task={task}
-          updateTask={updateTask}
-          deleteTask = {deleteTask}
         />
       </li>
 
@@ -324,9 +285,7 @@ function Event({ event, task, updateTask, deleteTask }) {
           edit={true}
           show={showTask}
           close={handleCloseTask}
-          open={handleShowTask}
-          submit={updateTask}
-          delete={deleteTask} />
+          open={handleShowTask}/>
       
     </>
   )

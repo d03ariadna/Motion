@@ -82,8 +82,7 @@ export default function CreateButton(props) {
         edit={false}
         show={showTask}
         close={handleCloseTask}
-        open={handleShowTask}
-        submit={props.createTask}/>
+        open={handleShowTask}/>
 
 
       <ProjectModal

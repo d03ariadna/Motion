@@ -33,7 +33,6 @@ function ProjectModal(props) {
         tStart = parseISO(project.start);
         tEnd = parseISO(project.end);
 
-        console.log(tStart);
     }
 
     const [name, setName] = useState('');
@@ -93,7 +92,6 @@ function ProjectModal(props) {
                         
                             props.edit ? id=project.id : id=uuidv4()
                             //Update or Create Project
-                            console.log(start, end)
                             props.submit(id, name, desc, start, end);
                         
                             setName('');

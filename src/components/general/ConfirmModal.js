@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
+import { useTasks, useTasksDispatch } from '../../context/TasksContext';
 
 function ConfirmModal(props) {
+
+    const tasks = useTasks();
+    const dispatch = useTasksDispatch();
 
     const task = props.task;
 
@@ -10,6 +14,30 @@ function ConfirmModal(props) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    function updateTask(id, n_name, n_desc, n_date, n_status) {
+        
+        const updatedTask = {
+            id: id,
+            name: n_name,
+            description: n_desc,
+            date: n_date,
+            status: n_status
+        }
+
+        dispatch({
+            type: 'updated',
+            task: updatedTask
+        });
+
+    }
+
+    function deleteTask(id) {
+        dispatch({
+            type: 'deleted',
+            id: id
+        });
+    }
 
 
     return (
@@ -51,7 +79,7 @@ function ConfirmModal(props) {
                 <Modal.Footer>
                     <button className='bg-gray-300 hover:bg-gray-400 hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded'
                         onClick={() => {
-                                props.updateTask(task.id, task.name, task.description, task.date, 'Done')
+                                updateTask(task.id, task.name, task.description, task.date, 'Done')
                                 handleClose();
                             }
                         }>
@@ -62,8 +90,7 @@ function ConfirmModal(props) {
                         className='bg-red-700 hover:bg-black text-white transition-all ease-in-out font-bold py-2 px-4 rounded'  
                         onClick={(e) => {
                             handleClose();
-                            console.log(task.id)
-                            props.deleteTask(task.id);
+                            deleteTask(task.id);
                         }}>
                         Delete
                     </button>

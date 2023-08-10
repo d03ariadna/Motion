@@ -1,15 +1,27 @@
 import { useState } from "react";
 
+import { useTasksDispatch } from "../../context/TasksContext";
+
 import TaskModal from "../general/TaskModal";
 import ConfirmModal from "../general/ConfirmModal";
 
 export default function TaskCard(props) {
+
+    const dispatch = useTasksDispatch();
+
     const task = props.task;
 
     const [showTask, setShowTask] = useState(false);
 
     const handleCloseTask = () => setShowTask(false);
     const handleShowTask = () => setShowTask(true);
+
+    function deleteTask(id) {
+        dispatch({
+            type: 'deleted',
+            id: id
+        });
+    }
     
 
     return (
@@ -34,8 +46,6 @@ export default function TaskCard(props) {
                         </button> */}
                         <ConfirmModal
                             task={task}
-                            updateTask={props.updateTask}
-                            deleteTask={props.deleteTask}
                         />
                     </section>
                     
@@ -64,7 +74,7 @@ export default function TaskCard(props) {
 
                         <button
                             onClick={() => {
-                                props.deleteTask(task.id, task.status);
+                                deleteTask(task.id);
                             }}
                             className={task.status === 'Done' ?
                             "mr-2 px-4 py-1 border-2 border-red-600 hover:bg-red-600 hover:drop-shadow-lg hover:text-white text-sm text-red-600 font-semibold rounded-2xl float-right"
@@ -83,9 +93,7 @@ export default function TaskCard(props) {
                 edit={true}
                 show={showTask}
                 close={handleCloseTask}
-                open={handleShowTask}
-                submit={props.updateTask}
-                delete={props.deleteTask} />
+                open={handleShowTask}/>
         </>
     )
 }

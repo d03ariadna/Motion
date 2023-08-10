@@ -33,8 +33,6 @@ export default function LittleTask(props) {
                         </button> */}
                         <ConfirmModal
                             task={task}
-                            updateTask={props.updateTask}
-                            deleteTask = {props.deleteTask}
                         />
                     </section>
 
@@ -53,9 +51,7 @@ export default function LittleTask(props) {
                 edit={true}
                 show={showTask}
                 close={handleCloseTask}
-                open={handleShowTask}
-                submit={props.updateTask}
-                delete={props.deleteTask} />
+                open={handleShowTask} />
         </>
     )
 }
