@@ -32,13 +32,14 @@ function ProjectModal(props) {
         
         tStart = parseISO(project.start);
         tEnd = parseISO(project.end);
+
+        console.log(tStart);
     }
 
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
-    const [members, setMembers] = useState('');
 
 
 
@@ -48,12 +49,13 @@ function ProjectModal(props) {
             
             setName(project.name);
             setDesc(project.description);
-            setStart(tStart);
+            setStart(format(tStart, 'y-MM-dd'));
             setEnd(tEnd);
-            setMembers(project.members);
 
+        } else {
+            setStart(format(startOfToday(), 'y-MM-dd'));
+            setEnd(format(startOfToday(), 'y-MM-dd'));
         }
-
         
     }, []);
 
@@ -91,13 +93,13 @@ function ProjectModal(props) {
                         
                             props.edit ? id=project.id : id=uuidv4()
                             //Update or Create Project
-                            props.submit(id, name, desc, start, end, members);
+                            console.log(start, end)
+                            props.submit(id, name, desc, start, end);
                         
                             setName('');
                             setDesc('');
                             setStart('');
                             setEnd('');
-                            setMembers('');
                         
                             tStart = [];
                             tEnd = [];
@@ -199,54 +201,10 @@ function ProjectModal(props) {
                             </div>
                         </div>
                             
-                        {/* Members Input */}
-                        <div className="md:flex md:items-center mb-6">
-                            <div className="md:w-1/3">
-                            <label className="block text-gray-400 font-semibold md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="members">
-                                Members:
-                            </label>
-                            </div>
-                            <div className="md:w-3/4">
-                            <input 
-                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-600 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
-                                id="members" 
-                                type="text" 
-                                value={members}
-                                onChange={(e) => {
-                                setMembers(e.target.value)
-                                }}
-                            />
-                            </div>
-                        </div>
-
-                        {/* ColorPicker Input */}
-                        <div className="md:flex md:items-center mb-6">
-                            <div className="md:w-1/3">
-                            <label className="block text-gray-400 font-semibold md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="members">
-                                Color:
-                            </label>
-                            </div>
-                            <div className="md:w-3/4 py-2">
-                                <ColorPicker/>
-                            </div>
-                        </div>
                             
                     </form>
                 </Modal.Body>
                     <Modal.Footer>
-                        {
-                            props.edit ?
-                                <button 
-                                    className='bg-gray-300 hover:bg-red-700 text-white transition-all ease-in-out font-bold py-2 px-4 rounded'  
-                                onClick={() => {
-                                    props.delete(project.id);
-                                    props.close();
-                                }}>
-                                    Delete Project
-                                </button>
-                                :
-                                <></>
-                        }
                         
                         <button className='bg-[#B1B2FF] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded' form='editmodal'>
                             {props.edit ? 'Update' : 'Create'}

@@ -9,6 +9,8 @@ import {
 import CreateButton from "../components/general/CreateButton";
 import ProjectTask from "../components/projectsC/ProjectTask";
 import NoteModal from "../components/projectsC/NoteModal";
+import ProjectModal from "../components/general/ProjectModal";
+import AddMemberModal from "../components/projectsC/AddMemberModal";
 
 import {Progress} from "../components/dashboard/RadialChart";
 
@@ -66,7 +68,6 @@ export default function OneProject() {
         description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
         start: "2023-08-05",
         end: "2023-12-25",
-        members: "2",
       },
       {
         id: 2,
@@ -74,7 +75,6 @@ export default function OneProject() {
         description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
         start: "2023-07-05",
         end: "2023-04-08",
-        members: "5",
       },
       {
         id: 3,
@@ -82,7 +82,6 @@ export default function OneProject() {
         description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
         start: "2023-08-05",
         end: "2023-01-10",
-        members: "10",
       },
     ])
     
@@ -113,7 +112,19 @@ export default function OneProject() {
         ]
     );
 
+    const [members, setMembers] = useState([
+        'ariadna@hotmail.com',
+        'mariana@hotmail.com',
+        'arturo@gmail.com',
+        'gibranksr@outlook.com'
+    ]);
+
     const [trigger, setTrigger] = useState(false);
+
+    const [showProject, setShowProject] = useState(false);
+
+    const handleCloseProject = () => setShowProject(false);
+    const handleShowProject = () => setShowProject(true);
 
     //Children Functions
     function createTask(id, name, desc, date, status) {
@@ -189,6 +200,27 @@ export default function OneProject() {
         setNotes(newNotes);
     }
 
+    function updateProject(id, n_name, n_desc, n_start, n_end) {
+
+        const updatedProjects = projects.map((project) => {
+            if (project.id === id) {
+                return {
+                    ...project,
+                    name: n_name,
+                    description: n_desc,
+                    start: n_start,
+                    end: n_end
+                }
+            }
+            return project;
+        });
+        setProjects(updatedProjects);
+    }
+
+
+    function updateMembers(email) {
+        setMembers([email, ...members])
+    }
 
     useEffect(() => {
         let tempTasks = [];
@@ -215,8 +247,13 @@ export default function OneProject() {
                     
                     {/* Header Section */}
                     <header className="w-full  flex flex-row justify-between items-center">
-                        <div>
+                        <div className="flex flex-row items-center py-1">
                             <h1 className="font-semibold">{project.name}</h1>
+                            <button onClick={handleShowProject} className="py-1 ml-5 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="w-10 h-10 cursor-pointer stroke-black hover:stroke-[#B1B2FF]">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                </svg>
+                            </button>
                         </div>
                         <div className="flex flex-row w-[35%] mr-10 justify-between items-end">
                             <div>
@@ -235,9 +272,10 @@ export default function OneProject() {
                     <section className="mt-[2.5rem] flex flex-row justify-between items-center">
                         
                         <CreateButton
-                        action='task'
-                        createTask={ createTask }
-                    />
+                            action='task'
+                            createTask={ createTask }
+                        />
+                        
 
                         <div className="w-[20%] flex flex-row justify-between items-center">
                             <div className="flex flex-row">
@@ -246,9 +284,7 @@ export default function OneProject() {
                                 <img src="/img/avatar.png" alt="" className='w-12 h-12 rounded-full border-[1px] border-slate-300  ml-[-20px]' />
                             </div>
                             <div className="h-10 w-[3px] ml-[-20px] bg-gray-300 rounded-lg"></div>
-                            <button className="py-1 px-3 text-white bg-gray-300 hover:bg-purple-400 rounded-full ml-[-20px] text-3xl font-medium">
-                                +
-                            </button>
+                            <AddMemberModal members={members} addMember={updateMembers}/>
                         </div>
                     </section>
 
@@ -402,6 +438,15 @@ export default function OneProject() {
                     </div>
                 </section>
             </div>
+
+            <ProjectModal
+                id={project.id}
+                project={project}
+                edit={true}
+                show={showProject}
+                close={handleCloseProject}
+                open={handleShowProject}
+                submit={updateProject}/>
             
         </>
     )

@@ -95,24 +95,21 @@ function Dashboard() {
                 name: "Project 1",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
                 start: "2023-08-05",
-                end: "2023-12-25",
-                members: "2",
+                end: "2023-12-25"
             },
             {
                 id: 2,
                 name: "Project 2",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
                 start: "2023-07-05",
-                end: "2023-04-08",
-                members: "5",
+                end: "2023-04-08"
             },
             {
                 id: 3,
                 name: "Project 3",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
                 start: "2023-08-05",
-                end: "2023-01-10",
-                members: "10",
+                end: "2023-01-10"
             },
         ]);
 
@@ -181,20 +178,19 @@ function Dashboard() {
     }
 
     //PROJECTS
-    function createProject(id, name, desc, start, end, members) {
+    function createProject(id, name, desc, start, end) {
         const newProject = {
             id: id,
             name: name,
             description: desc,
             start: start,
             end: end,
-            members: members
         }
         console.log(newProject);
         setProjects([...projects, newProject]);
     }
 
-    function updateProject(id, n_name, n_desc, n_start, n_end, n_members) {
+    function updateProject(id, n_name, n_desc, n_start, n_end) {
 
         const updatedProjects = projects.map((project) => {
             if (project.id === id) {
@@ -203,8 +199,7 @@ function Dashboard() {
                     name: n_name,
                     description: n_desc,
                     start: n_start,
-                    end: n_end,
-                    members: n_members
+                    end: n_end
                 }
             }
             return project;
