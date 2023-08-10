@@ -12,9 +12,13 @@
 }
 
 * {
+  
   scrollbar-width: thin;
   scrollbar-color: var(--primary);
 }
 
+.container {
+  width: 75% !important;
+}
 
 

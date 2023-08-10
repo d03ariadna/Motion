@@ -3,8 +3,13 @@ import { useState } from "react";
 import TaskModal from "../general/TaskModal";
 import ConfirmModal from "../general/ConfirmModal";
 
+import {useTranslation} from "react-i18next";
+
 export default function TaskCard(props) {
     const task = props.task;
+
+
+    const [t, i18n] = useTranslation("global");
 
     const [showTask, setShowTask] = useState(false);
 
@@ -19,7 +24,7 @@ export default function TaskCard(props) {
                     <section className=' mb-3 mr-2 border-2 border-white  flex flex-row flex-nowrap justify-between items-center '>
                         {task.status === 'Done' ? 
                             <p className='text-xs text-gray-700 mb-0 ml-2'>
-                                Task Completed
+                                {t("tasks.my-completed")}
                             </p>
                             :
                             <p className='text-xs text-[#B1B2FF] mb-0 ml-2'>
@@ -70,7 +75,7 @@ export default function TaskCard(props) {
                             "mr-2 px-4 py-1 border-2 border-red-600 hover:bg-red-600 hover:drop-shadow-lg hover:text-white text-sm text-red-600 font-semibold rounded-2xl float-right"
                             : "mr-2 px-4 py-1 bg-gray-300 hover:bg-red-600 hover:drop-shadow-lg text-sm text-white font-semibold rounded-2xl float-right" 
                         }>
-                            Delete
+                            {t("tasks.delete")}
                         </button>
                     </section>
                 </div>

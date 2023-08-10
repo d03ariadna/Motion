@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import {useTranslation} from "react-i18next";
 import ProjectCard from "../components/projectsC/ProjectCard";
 import CreateButton from "../components/general/CreateButton";
 import MainCard from "../components/general/MainCard";
@@ -8,6 +8,8 @@ import ProjectModal from "../components/general/ProjectModal";
 
 
 export default function Projects() {
+
+    const [t, i18n] = useTranslation("global");
 
     const [projects, setProjects] = useState(
     [
@@ -73,7 +75,7 @@ export default function Projects() {
         <>
             {/* Header Section */}
             <header className='w-full h-[10vh] mb-2 flex flex-row justify-between '>
-                <h1 className='mt-2 font-semibold'>My Projects</h1>
+                <h1 className='mt-2 font-semibold'>{t("project.my-projects")}</h1>
                 <div className='h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5'>
                     
                     <CreateButton

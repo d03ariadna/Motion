@@ -1,4 +1,5 @@
 import { Fragment, useState, useEffect } from 'react'
+import {useTranslation} from "react-i18next";
 import { Menu, Transition } from '@headlessui/react';
 
 import TaskModal from './TaskModal';
@@ -14,6 +15,8 @@ function classNames(...classes) {
 
 
 export default function CreateButton(props) {
+
+  const [t, i18n] = useTranslation("global");
   
   const [showTask, setShowTask] = useState(false);
 
@@ -31,7 +34,7 @@ export default function CreateButton(props) {
             <div>
               <Menu.Button className="inline-flex flex-row w-full justify-center items-center gap-x-1.5 rounded-full bg-[#B1B2FF] px-10 py-2.5 text-2xl font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 focus-within:bg-black hover:bg-black transition-all ease-in-out">
                 <AddIcon />
-                Create
+                {t("create.d-create")}
               </Menu.Button>
             </div>
 
@@ -48,20 +51,20 @@ export default function CreateButton(props) {
                 
               {props.action == 'task' ? 
                 <button onClick={handleShowTask} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
-                    New Task
+                    {t("create.task")}
                 </button>
               :
                 props.action == 'project' ?
                   <button onClick={handleShowProject} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
-                        New Project
+                    {t("create.project")}
                   </button>
                 :
                 <>
                     <button onClick={handleShowTask} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
-                        New Task
+                      {t("create.task")}
                     </button>
                     <button onClick={handleShowProject} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
-                          New Project
+                      {t("create.project")}
                     </button>
                 </>
               }

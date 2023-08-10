@@ -1,7 +1,10 @@
 import { useState } from "react";
 import TaskModal from "../general/TaskModal";
+import {useTranslation} from "react-i18next";
 
 export default function ProjectTask(props) {
+
+    const [t, i18n] = useTranslation("global");
 
     const task = props.task;
 
@@ -22,7 +25,7 @@ export default function ProjectTask(props) {
                     
                     <section className='mb-2 py-2 border-2 border-white  flex flex-row flex-nowrap justify-between items-center '>
                         <p className='text-[.6rem] text-gray-400 mb-0'>
-                            Deadline: {task.deadline}
+                            {t("project.deadline")} {task.deadline}
                         </p>
                         <div className="flex flex-row">
                             <img src="/img/avatar.png" alt="" className='w-7 h-7 rounded-full border-[1px] border-slate-300 mr-[-10px]' />

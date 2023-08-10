@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-
+import {useTranslation} from "react-i18next";
 import ProjectModal from '../general/ProjectModal';
 import { EditIcon } from '../icons/icons';
 
@@ -17,6 +17,8 @@ function classNames(...classes) {
 }
 
 export default function LittleProject(props) {
+
+    const [t, i18n] = useTranslation("global");
 
     const project = props.project;
 
@@ -46,7 +48,7 @@ export default function LittleProject(props) {
                         <a href='/project' className='text-black text-base font-medium no-underline mb-0'>
                             {project.name}
                         </a>
-                        <p className="text-xs text-gray-300 mt-1 mb-0">Deadline: {project.end}</p>
+                        <p className="text-xs text-gray-300 mt-1 mb-0">{t("project.deadline")} {project.end}</p>
                     </section>
                         
                     <section className="w-full px-2 flex flex-row items-center justify-between">

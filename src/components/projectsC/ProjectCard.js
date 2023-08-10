@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-
+import {useTranslation} from "react-i18next";
 import { EditIcon } from '../icons/icons';
 import ProjectModal from '../general/ProjectModal';
 
@@ -9,6 +9,8 @@ function classNames(...classes) {
 }
 
 export default function ProjectCard(props) {
+
+    const [t, i18n] = useTranslation("global");
 
     const project = props.project;
 
@@ -53,7 +55,7 @@ export default function ProjectCard(props) {
                         <a
                             href={'/project'}
                             className='px-5 py-2 bg-[#B1B2FF] text-white text-lg font-semibold no-underline hover:bg-black hover:drop-shadow-xl transition-all ease-in-out rounded-3xl'>
-                            Open
+                            {t("project.open")}
                         </a>
                     </section>
                 </div>

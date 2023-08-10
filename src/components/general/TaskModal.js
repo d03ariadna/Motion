@@ -1,5 +1,6 @@
 import { da } from 'date-fns/locale';
 import React, { useState, useEffect } from 'react';
+import {useTranslation} from "react-i18next";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { DatePicker } from './DatePicker';
@@ -22,6 +23,8 @@ import {
 } from 'date-fns'
 
 function TaskModal(props) {
+
+    const [t, i18n] = useTranslation("global");
 
     const task = props.task;
     let id;
@@ -88,7 +91,7 @@ function TaskModal(props) {
                         <div className="md:flex md:items-center mt-3 mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4" htmlFor="name">
-                                Name:
+                                {t("t-modal.name")}
                             </label>
                             </div>
                             <div className="md:w-3/4">
@@ -108,7 +111,7 @@ function TaskModal(props) {
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="role">
-                                Description:
+                                {t("t-modal.description")}
                             </label>
                             </div>
                             <div className="md:w-3/4">
@@ -128,7 +131,7 @@ function TaskModal(props) {
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="role">
-                                Date:
+                             {t("t-modal.date")}
                             </label>
                             </div>
                                 <div className="md:w-3/4">
@@ -149,7 +152,7 @@ function TaskModal(props) {
                         <div className="md:flex md:items-center mt-3 mb-6">
                             <div className="md:w-1/3">
                                 <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4" htmlFor="name">
-                                    Status:
+                                    {t("t-modal.status")}
                                 </label>
                             </div>
                             <div className="relative w-3/4">
@@ -159,9 +162,9 @@ function TaskModal(props) {
                                             setStatus(event.target.value);
                                         }}
                                         className='block appearance-none w-full border-2 border-gray-200 rounded-xl text-gray-500 py-2 pl-3 pr-8 focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800' id="grid-state">
-                                    <option value={'To Do'} className='text-gray-400'>To Do</option>
-                                    <option value={'Doing'} className='text-gray-400'>Doing</option>
-                                    <option value={'Done'} className='text-gray-400'>Done</option>
+                                    <option value={'To Do'} className='text-gray-400'>{t("dashboard.do")}</option>
+                                    <option value={'Doing'} className='text-gray-400'>{t("dashboard.doing")}</option>
+                                    <option value={'Done'} className='text-gray-400'>{t("dashboard.done")}</option>
                                 </select>
                             </div>
                         </div>
@@ -177,7 +180,7 @@ function TaskModal(props) {
                                     props.delete(task.id)
                                     props.close()
                                 }}>
-                                    Delete Task
+                                    {t("t-modal.delete")}
                                 </button>
                                 :
                                 <></>

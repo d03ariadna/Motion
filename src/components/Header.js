@@ -1,13 +1,18 @@
 import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { DashboardIcon, CalendarIcon, TaskIcon, ProjectIcon, SettingsIcon, LogOutIcon } from './icons/icons';
+import { DashboardIcon, CalendarIcon, TaskIcon, ProjectIcon, SettingsIcon, LogOutIcon, LanguageIcon } from './icons/icons';
 import { NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import {useTranslation} from "react-i18next";
+
 
 
 
 export default function Header(props) {
+
+  const [t, i18n] = useTranslation("global");
+
   const navigation = [
 
     { name: 'Dashboard', href: '/dashboard', icon: <DashboardIcon/>},
@@ -46,22 +51,50 @@ export default function Header(props) {
             ))}
           </section>
           <section>
-                <NavLink
-                    key={'settings'}
-                    to={'/settings'}
-                    className={({ isActive }) => {
-                        return (
-                          (!isActive
-                            ? 'rounded-2xl py-3 lg:mt-32 mt-32 w-full no-underline hover:bg-[#bec1ff]'
-                            : 'rounded-2xl py-3 lg:mt-32 mt-32 w-full no-underline bg-[#8b8bff]')
-                          );
-                      } }>
-                    <SettingsIcon/>
-                </NavLink>
-            
+            <Menu as="div" >
+              
+                <Menu.Button className="flex mx-auto mt-4 py-3">
+                  <LanguageIcon/>
+                </Menu.Button>
+              
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+              <Menu.Items className="absolute left-2  mt-2 w-20 origin-bottom-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                
+              {props.action == 'EN' ? 
+                <button onClick={() => i18n.changeLanguage("en")} className='w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md' >EN</button>
+              :
+                props.action == 'ES' ?
+                  <button onClick={() => i18n.changeLanguage("es")}   className='w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
+                    ES
+                  </button>
+                :
+                <>
+                    <button onClick={() => i18n.changeLanguage("en")} 
+                      className='w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
+                        EN
+                    </button>
+                    <button onClick={() => i18n.changeLanguage("es")}  
+                      className='w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
+                        ES
+                    </button>
+                </>
+              }
+              </Menu.Items>
+            </Transition>
+          </Menu>
+
                   <button
                       type="button"
-                      className="flex rounded-2xl mx-auto mt-4 hover:bg-[#bec1ff] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 py-3"
+                      className="flex rounded-2xl mx-auto mt-3 hover:bg-[#bec1ff] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 py-3"
                       onClick={logOut}>
                     <LogOutIcon/>
                   </button>

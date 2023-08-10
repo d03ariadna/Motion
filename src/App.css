@@ -1,4 +1,4 @@
-/* 
+
 button:active {
 	transform: scale(0.95);
 }
@@ -15,13 +15,21 @@ button:focus {
 	position: relative;
 	overflow: hidden;
 	width: 960px;
-	max-width: 100%;
-	min-height: 480px;
+	/* max-width: 100%; */
+	min-height: 650px;
+
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+  	/* height: 104vh; */
+  	margin: 80px 0 50px;
 }
 
 .form-container {
 	position: absolute;
-	top: 0;
+	top: 0; 
 	height: 100%;
 	transition: all 0.6s ease-in-out;
 }
@@ -60,7 +68,7 @@ button:focus {
 		opacity: 1;
 		z-index: 5;
 	}
-}
+} 
 
 .overlay-container {
 	position: absolute;
@@ -127,4 +135,15 @@ button:focus {
 
 .container.right-panel-active .overlay-right {
 	transform: translateX(20%);
-} */
+}
+
+.login-contenedor{
+	background: #f6f5f7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+  	height: 104vh;
+  	margin: -20px 0 50px;
+  
+}

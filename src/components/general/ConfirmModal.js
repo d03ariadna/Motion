@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-
+import {useTranslation} from "react-i18next";
 
 function ConfirmModal(props) {
+
+    const [t, i18n] = useTranslation("global");
+
 
     const task = props.task;
 
@@ -46,7 +49,7 @@ function ConfirmModal(props) {
                     
             </Modal.Header>
             <Modal.Body>
-                <p className='text-center text-lg font-semibold'>Would you also like to delete this task?</p>
+                <p className='text-center text-lg font-semibold'>{t("conf-modal.question")}</p>
             </Modal.Body>
                 <Modal.Footer>
                     <button className='bg-gray-300 hover:bg-gray-400 hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded'
@@ -55,7 +58,7 @@ function ConfirmModal(props) {
                                 handleClose();
                             }
                         }>
-                        Just Mark as Done
+                        {t("conf-modal.mark")}
                     </button>
                     
                     <button 
@@ -65,7 +68,7 @@ function ConfirmModal(props) {
                             console.log(task.id)
                             props.deleteTask(task.id);
                         }}>
-                        Delete
+                        {t("conf-modal.delete")}
                     </button>
 
                 </Modal.Footer>

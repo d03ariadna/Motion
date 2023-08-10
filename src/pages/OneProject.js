@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import {useTranslation} from "react-i18next";
 import CreateButton from "../components/general/CreateButton"
 import { AddIcon } from "../components/icons/icons";
 import ProjectTask from "../components/projectsC/ProjectTask";
@@ -7,6 +7,8 @@ import TaskModal from '../components/general/TaskModal';
 import { Toast } from "bootstrap";
 
 export default function OneProject() {
+    const [t, i18n] = useTranslation("global");
+
     // GET PROJECT'S TASKS
     const [tasks, setTasks] = useState(
         [
@@ -117,11 +119,11 @@ export default function OneProject() {
                         </div>
                         <div className="flex flex-row w-[35%] mr-10 justify-between items-end">
                             <div>
-                                <h5 className="mb-1 text-sm font-normal text-gray-400">CREATED</h5>
+                                <h5 className="mb-1 text-sm font-normal text-gray-400">{t("project.created")}</h5>
                                 <p className="mb-0 text-sm">March 2, 9:45 am</p>
                             </div>
                             <div>
-                                <h5 className="mb-1 text-sm font-normal text-gray-400">DUE DATE</h5>
+                                <h5 className="mb-1 text-sm font-normal text-gray-400">{t("project.due-date")}</h5>
                                 <p className="mb-0 text-sm">Sep 2, 9:45 am</p>
                             </div>
                         </div>
@@ -152,7 +154,7 @@ export default function OneProject() {
                     {/* Tasks Section */}
                     <section className="h-[63vh] mt-5 flex flex-row justify-between">
                         <section className="w-[30%] h-full pl-2">
-                            <h3 className="text-2xl font-semibold">To Do</h3>
+                            <h3 className="text-2xl font-semibold">{t("dashboard.do")}</h3>
                             <div className="w-full h-[55vh] mt-3 flex flex-col flex-nowrap overflow-y-scroll">
                                 {
                                     toDo.length > 0 ?
@@ -169,12 +171,12 @@ export default function OneProject() {
                                             );
                                         })
                                         :
-                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">No tasks yet</p>
+                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">{t("project.no-tasks")}</p>
                                 }
                             </div>
                         </section>
                         <section className="w-[30%] h-full pl-2">
-                            <h3 className="text-2xl font-semibold">Doing</h3>
+                            <h3 className="text-2xl font-semibold">{t("dashboard.doing")}</h3>
                             <div className="w-full h-[55vh] mt-3 flex flex-col flex-nowrap overflow-y-scroll">
                                 {
                                     doing.length > 0 ?
@@ -191,12 +193,12 @@ export default function OneProject() {
                                             );
                                         })
                                         :
-                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">No tasks yet</p>
+                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">{t("project.no-tasks")}</p>
                                 }
                             </div>
                         </section>
                         <section className="w-[30%] h-full pl-2">
-                            <h3 className="text-2xl font-semibold">Done</h3>
+                            <h3 className="text-2xl font-semibold">{t("dashboard.done")}</h3>
                             <div className="w-full h-[55vh] mt-3 flex flex-col flex-nowrap overflow-y-scroll">
                                 {
                                     done.length > 0 ?
@@ -213,7 +215,7 @@ export default function OneProject() {
                                             );
                                         })
                                         :
-                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">No tasks yet</p>
+                                        <p className="pl-1 pt-2 text-sm text-gray-400 font-light">{t("project.no-tasks")}</p>
                                 }
                             </div>
                         </section>
@@ -224,7 +226,7 @@ export default function OneProject() {
                 <section className="w-[22vw] h-[95vh] px-2">
                     <div className="w-full h-full py-3 px-4 bg-white rounded-3xl drop-shadow-lg">
                         <section className="w-full h-[8%] flex flex-row justify-between items-center">
-                            <h3 className="text-2xl font-medium mb-0">Hello, Username</h3>
+                            <h3 className="text-2xl font-medium mb-0">{t("project.name")}</h3>
                             <img src="/img/avatar.png" alt="" className='w-12 h-12 rounded-full border-[1px] border-slate-300' />
                         </section>
 
@@ -235,18 +237,18 @@ export default function OneProject() {
 
                         {/* Statistics */}
                         <section className="w-full h-[20%] border-b-2 border-gray-200">
-                            <h4 className="ml-2 text-lg">Tasks</h4>
+                            <h4 className="ml-2 text-lg">{t("dashboard.task")}</h4>
 
                             <div className="w-full flex flex-row justify-between px-2 mt-2">
                                 <div className="w-[50%] pl-1 flex flex-row items-center mr-5">
                                     <p className="mb-0 text-base font-medium">8</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
-                                    <p className="mb-0 text-xs text-gray-400">IN TOTAL</p>   
+                                    <p className="mb-0 text-xs text-gray-400">{t("project.total")}</p>   
                                 </div>
                                 <div className="w-[50%] pl-1 flex flex-row items-center">
                                     <p className="mb-0 text-base font-medium">8</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
-                                    <p className="mb-0 text-xs text-gray-400">WAITING</p>
+                                    <p className="mb-0 text-xs text-gray-400">{t("project.waiting")}</p>
                                 </div>
                             </div>
 
@@ -254,12 +256,12 @@ export default function OneProject() {
                                 <div className="w-[50%] pl-1 flex flex-row items-center mr-5">
                                     <p className="mb-0 text-base font-medium">8</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
-                                    <p className="mb-0 text-xs text-gray-400">IN PROGRESS</p>
+                                    <p className="mb-0 text-xs text-gray-400">{t("project.progress")}</p>
                                 </div>
                                 <div className="w-[50%] pl-1 flex flex-row items-center">
                                     <p className="mb-0 text-base font-medium">8</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
-                                    <p className="mb-0 text-xs text-gray-400">COMPLETED</p>
+                                    <p className="mb-0 text-xs text-gray-400">{t("project.completed")}</p>
                                 </div>
                             </div>
 
@@ -267,7 +269,7 @@ export default function OneProject() {
 
                         {/* Project Notes */}
                         <section className="w-full h-[35%] mt-4">
-                            <h4 className="text-lg">Project Notes</h4>
+                            <h4 className="text-lg">{t("project.notes")}</h4>
                             <div className="w-full h-[75%] mt-3 px-2 drop-shadow-md overflow-y-scroll">
                                 <div className="px-3 py-3 bg-gray-200 mb-3 rounded-2xl">
                                     <p className="text-[.65rem] mb-0">Lorem ipsit. Quaerat consequuntur quod mollitia tempore deleniti, cupiditate ha aerat consequuntur quod mollitia tempore deleniti, cupiditate haru</p>

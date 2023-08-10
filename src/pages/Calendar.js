@@ -20,6 +20,7 @@ import {
   startOfToday,
 } from 'date-fns'
 import { Fragment, useEffect, useState } from 'react';
+import {useTranslation} from "react-i18next";
 import { useParams } from "react-router-dom";
 
 const events = [
@@ -70,6 +71,8 @@ function classNames(...classes) {
 }
 
 export default function Calendar() {
+
+  const [t, i18n] = useTranslation("global");
 
   let selectedDate = startOfToday();
   let actualDay = (useParams()).day;
@@ -163,13 +166,13 @@ export default function Calendar() {
                             </button>
                         </div>
                         <div className="grid grid-cols-7 mt-12 text-sm leading-6 text-center font-light text-[#B1B2FF]">
-                            <div>S</div>
-                            <div>M</div>
-                            <div>T</div>
-                            <div>W</div>
-                            <div>T</div>
-                            <div>F</div>
-                            <div>S</div>
+                            <div>{t("calendar.s")}</div>
+                            <div>{t("calendar.m")}</div>
+                            <div>{t("calendar.t")}</div>
+                            <div>{t("calendar.w")}</div>
+                            <div>{t("calendar.t2")}</div>
+                            <div>{t("calendar.f")}</div>
+                            <div>{t("calendar.s2")}</div>
                         </div>
             
                         {/* Days Section */}
@@ -238,7 +241,7 @@ export default function Calendar() {
                   </div>
                   <section className="h-[88%] pt-6 ml-6 bg-white rounded-2xl drop-shadow-2xl">
                           <h2 className="pl-8 font-semibold text-gray-900 text-2xl">
-                                    <p className="mb-2 text-gray-300 font-normal text-lg">Schedule for</p>
+                                    <p className="mb-2 text-gray-300 font-normal text-lg">{t("calendar.s-f")}</p>
                                   <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
                                       {format(selectedDay, 'E do, MMMM yyy')}
                                   </time>
@@ -250,7 +253,7 @@ export default function Calendar() {
                                       <Event key={event.id} event={event} task={event} updateTask={updateTask} />
                                       ))
                               ) : (
-                                      <p className="mt-40 text-center text-base font-light text-gray-300">No meetings for today.</p>
+                                      <p className="mt-40 text-center text-base font-light text-gray-300">{t("calendar.n-m")}</p>
                               )}
                           </div>
                   </section>

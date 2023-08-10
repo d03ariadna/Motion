@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import {useTranslation} from "react-i18next";
 import { API } from '../components/API';
 
 
@@ -15,6 +16,8 @@ import ProjectModal from '../components/general/ProjectModal';
 
 
 function Dashboard() {
+
+    const [t, i18n] = useTranslation("global");
 
     const [data, setData] = useState('');
 
@@ -223,7 +226,7 @@ function Dashboard() {
         <>
             {/* Header Section */}
             <header className='w-full h-[10vh] mb-2 flex flex-row justify-between '>
-                <h1 className='mt-2 font-semibold'>Good Afternoon!</h1>
+                <h1 className='mt-2 font-semibold'>{t("dashboard.hello")}</h1>
                 <div className='h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5'>
                     <CreateButton
                         createTask={ createTask }
@@ -241,34 +244,34 @@ function Dashboard() {
                         <div className='bg-white border-[1px] border-gray-200 w-[65%] h-full mr-8 py-4 px-8 flex flex-row justify-between rounded-3xl'>
                             <div className='w-[22%] bg-[#b1b2ff] text-white rounded-3xl text-center pt-4'>
                                 <h2>10</h2>
-                                <p>Projects</p>
+                                <p>{t("dashboard.project")}</p>
                             </div>
                             <div className='w-[22%] bg-[#FFDCA9] text-white rounded-3xl text-center pt-4'>
                                 <h2>15</h2>
-                                <p>Tasks</p>
+                                <p>{t("dashboard.task")}</p>
                             </div>
                             <div className='w-[22%] bg-[#B0DAFF] text-white rounded-3xl text-center pt-4'>
                                 <h2>8</h2>
-                                <p>Events</p>
+                                <p>{t("dashboard.event")}</p>
                             </div>
                             <div className='w-[22%] bg-[#E8A0BF] text-white rounded-3xl text-center pt-4'>
                                 <h2>10</h2>
-                                <p>In Progress</p>
+                                <p>{t("dashboard.progress")}</p>
                             </div>
                         </div>
                         <div className='bg-white border-[1px] border-gray-200 w-[35%] h-full rounded-3xl overflow-hidden flex flex-row justify-between'>
                             <div className='w-[40%] pt-10'>
                                 <div className='flex flex-row justify-center items-center mb-3'>
                                     <div className='w-[25px] h-[6px] bg-[#B1B2FF] rounded-full mr-3'></div>
-                                    <p className='mb-0 text-sm font-medium'>To Do</p>
+                                    <p className='mb-0 text-sm font-medium'>{t("dashboard.do")}</p>
                                 </div>
                                 <div className='flex flex-row justify-center items-center mb-3'>
                                     <div className='w-[25px] h-[6px] bg-black rounded-full mr-3'></div>
-                                    <p className='mb-0 text-sm font-medium'>Doing</p>
+                                    <p className='mb-0 text-sm font-medium'>{t("dashboard.doing")}</p>
                                 </div>
                                 <div className='flex flex-row justify-center items-center mb-3'>
                                     <div className='w-[25px] h-[6px] bg-[#E8A0BF] rounded-full mr-3'></div>
-                                    <p className='mb-0 text-sm font-medium'>Done</p>
+                                    <p className='mb-0 text-sm font-medium'>{t("dashboard.done")}</p>
                                 </div>
                             </div>
                             <div className='w-[60%]'><Example /></div>
@@ -278,7 +281,7 @@ function Dashboard() {
 
                     {/* Tasks Section */}
                     <section className='mt-4'>
-                        <h2 className='text-lg font-semibold'>Upcoming Tasks</h2>
+                        <h2 className='text-lg font-semibold'>{t("dashboard.upcoming-tasks")}</h2>
                         <div className='w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll'>
                             
                             {
@@ -297,7 +300,7 @@ function Dashboard() {
                                     })
                                     :
                                     <div className='w-full h-[9rem]'>
-                                    <p className='pt-14 text-sm font-light text-center text-gray-400'>No tasks upcoming</p>
+                                    <p className='pt-14 text-sm font-light text-center text-gray-400'>{t("dashboard.no-upcoming-tasks")}</p>
                                     </div>
                                         
                                 }
@@ -310,7 +313,7 @@ function Dashboard() {
 
                     {/* Projects Section */}
                     <section className='mt-3'>
-                        <h2 className='text-lg font-semibold'>Recent Projects</h2>
+                        <h2 className='text-lg font-semibold'>{t("dashboard.recent-p")}</h2>
                         <div className='w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll'>
                             
                             {projects.map((project) => {

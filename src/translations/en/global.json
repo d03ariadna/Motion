@@ -1,0 +1,89 @@
+{
+    "dashboard":{
+        "hello":"Good Afternoon!",
+        "project" : "Projects",
+        "task" : "Tasks",
+        "event" : "Events",
+        "progress" : "In Progress",
+        "do": "To Do",
+        "doing": "Doing",
+        "done" : "Done",
+        "upcoming-tasks" : "Upcoming Tasks",
+        "no-upcoming-tasks" : "No Upcoming Tasks",
+        "recent-p": "Recent Projects"
+    },
+
+    "create" :{
+       "d-create" : "Create",
+       "task": "New Task",
+       "project" : "New Project" 
+    },
+
+    "p-modal":{
+        "edit": "Edit Project",
+        "create": "Create New Project",
+        "name": "Name:", 
+        "description" : "Description:",
+        "s-date": "Start Date:",
+        "e-date": "End Date:", 
+        "members": "Members:",
+        "delete": "Delete Project", 
+        "update": "Update",
+        "create2": "Create"
+    },
+
+    "t-modal":{
+        "edit": "Edit Task",
+        "create": "Create New Task",
+        "name": "Name:", 
+        "description" : "Description:",
+        "date": "Date:",
+        "status": "Status:", 
+        "members": "Members:",
+        "delete": "Delete Task", 
+        "update": "Update",
+        "create2": "Create"
+    },
+
+    "calendar":{
+        "s": "S",
+        "m": "M",
+        "t": "T",
+        "w": "W",
+        "t2": "T",
+        "f": "F",
+        "s2": "S",
+        "s-f": "Schedule for",
+        "n-m": "No meetings for today."
+
+    },
+
+    "tasks":{
+        "my-tasks":"My Tasks",
+        "important":"Important",
+        "all-tasks":"All Tasks",
+        "completed":"Task Completed",
+        "delete": "Delete"
+    },
+
+    "project":{
+        "my-projects":"My Projects",
+        "open":"Opne",
+        "created":"CREATED", 
+        "due-date":"DUE DATE",
+        "no-tasks":"Sin Tareas",
+        "name":"Hello, {user}",
+        "total": "IN TOTAL",
+        "waiting": "WAITING",
+        "progress":"IN PROGRESS",
+        "completed":"COMPLETED",
+        "deadline":"Deadline:",
+        "notes":"Project Notes"
+    },
+
+    "conf-modal":{
+        "question":"Would you also like to delete this task?",
+        "mark":"Just Mark as Done",
+        "delete":"DELETE"
+    }
+}

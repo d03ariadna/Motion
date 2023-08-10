@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react'
 import { LeftIcon, RightIcon } from '../icons/icons'
 import { useNavigate } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 import {
   add,
@@ -68,6 +69,8 @@ function classNames(...classes) {
 }
 
 export default function MiniCalendar() {
+
+  const [t, i18n] = useTranslation("global");
     const navigate = useNavigate();
 
   let today = startOfToday()
@@ -104,13 +107,13 @@ export default function MiniCalendar() {
                         
                     </div>
                     <div className="grid grid-cols-7 mt-3 text-[0.6rem] leading-6 text-center text-[#B1B2FF]">
-                    <div>S</div>
-                    <div>M</div>
-                    <div>T</div>
-                    <div>W</div>
-                    <div>T</div>
-                    <div>F</div>
-                    <div>S</div>
+                      <div>{t("calendar.s")}</div>
+                      <div>{t("calendar.m")}</div>
+                      <div>{t("calendar.t")}</div>
+                      <div>{t("calendar.w")}</div>
+                      <div>{t("calendar.t2")}</div>
+                      <div>{t("calendar.f")}</div>
+                      <div>{t("calendar.s2")}</div>
                     </div>
                     <div className="grid grid-cols-7 text-xs">
                         {days.map((day, dayIdx) => (

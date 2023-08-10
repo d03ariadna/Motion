@@ -5,9 +5,13 @@ import TaskModal from "../components/general/TaskModal";
 import CreateButton from "../components/general/CreateButton";
 import MainCard from "../components/general/MainCard";
 
+import {useTranslation} from "react-i18next";
+
 
 
 export default function Tasks() {
+
+    const [t, i18n] = useTranslation("global");
 
     // GET UPCOMING TASKS
     
@@ -153,7 +157,7 @@ export default function Tasks() {
         <>
             {/* Header Section */}
             <header className='w-full h-[10vh] mb-2 flex flex-row justify-between '>
-                <h1 className='mt-2 font-semibold'>My Tasks</h1>
+                <h1 className='mt-2 font-semibold'>{t("tasks.my-tasks")}</h1>
                 <div className='h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5'>
                     
                     <CreateButton
@@ -170,7 +174,7 @@ export default function Tasks() {
                 <div>
                     {/* Tasks Section */}
                     <section className='mt-4'>
-                        <h2 className='text-lg font-semibold'>Important</h2>
+                        <h2 className='text-lg font-semibold'>{t("tasks.important")}</h2>
                         <div className='w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll'>
                             
                             {activeTasks.map((task) => {
@@ -190,7 +194,7 @@ export default function Tasks() {
 
                     {/* Tasks Section */}
                     <section className='mt-4'>
-                        <h2 className='text-lg font-semibold'>All Tasks</h2>
+                        <h2 className='text-lg font-semibold'>{t("tasks.all-tasks")}</h2>
                         <div className='w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll'>
                             
                             {activeTasks.map((task) => {

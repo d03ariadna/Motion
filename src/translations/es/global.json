@@ -1,0 +1,90 @@
+{
+    "dashboard":{
+        "hello":"Buenas Tardes!", 
+        "project" : "Proyectos",
+        "task" : "Tareas",
+        "event" : "Eventos",
+        "progress" : "En Progreso",
+        "do": "Pendiente",
+        "doing": "En curso",
+        "done" : "Hecho",
+        "upcoming-tasks" : "Próximas Tareas",
+        "no-upcoming-tasks" : "Sin Próximas Tareas",
+        "recent-p": "Proyectos Recientes"
+    },
+
+    "create" :{
+        "d-create" : "Crear",
+        "task": "Nueva Tarea",
+        "project" : "Nuevo Proyecto"
+    },
+
+    "p-modal":{
+        "edit": "Editar Proyecto",
+        "create": "Crear Nuevo Proyecto",
+        "name": "Nombre:", 
+        "description" : "Descripcion:",
+        "s-date": "Fecha de Inicio:",
+        "e-date": "Fecha de Caducidad:", 
+        "members": "Miembros:",
+        "delete": "Borrar Proyecto", 
+        "update": "Actualizar",
+        "create2": "Crear"
+    },
+
+    "t-modal":{
+        "edit": "Editar Tarea",
+        "create": "Crear Nueva Tarea",
+        "name": "Nombre:", 
+        "description" : "Descripcion:",
+        "date": "Fecha",
+        "status": "Estado", 
+        "members": "Miembros:",
+        "delete": "Borrar Tarea", 
+        "update": "Actualizar",
+        "create2": "Crear"
+    },
+
+    "calendar":{
+        "s": "D",
+        "m": "L",
+        "t": "M",
+        "w": "M",
+        "t2": "J",
+        "f": "V",
+        "s2": "S",
+        "s-f": "Horario para",
+        "n-m": "No hay reuniones para hoy."
+
+    },
+
+    "tasks":{
+        "my-tasks":"Mis Tareas",
+        "important":"Importante",
+        "all-tasks":"Todas Las Tareas",
+        "completed": "Tarea completada",
+        "delete":"Borrar"
+    },
+
+    "project":{
+        "my-projects":"Mis Proyectos",
+        "open":"Abrir",
+        "created":"CREADO", 
+        "due-date":"FECHA DE VENCIMIENTO",
+        "no-tasks":"Sin Tareas",
+        "name":"Hola, {user}",
+        "total": "EN TOTAL",
+        "waiting": "ESPERANDO",
+        "progress":"EN PROGRESO",
+        "completed":"COMPLETADAS",
+        "deadline":"Fecha Limite:",
+        "notes":"Notas Del Proyecto"
+    },
+
+    "conf-modal":{
+        "question":"¿También te gustaría eliminar esta tarea?",
+        "mark":"Solo marcar como hecho",
+        "delete":"BORRAR"
+    }
+
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {useTranslation} from "react-i18next";
 import Modal from 'react-bootstrap/Modal';
 import { DatePicker } from './DatePicker';
 
@@ -12,6 +13,8 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 function ProjectModal(props) {
+
+    const [t, i18n] = useTranslation("global");
 
     const project = props.project;
     let id;
@@ -85,7 +88,7 @@ function ProjectModal(props) {
                         <div className="md:flex md:items-center mt-3 mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4" htmlFor="name">
-                                Name:
+                                {t("p-modal.name")}
                             </label>
                             </div>
                             <div className="md:w-3/4">
@@ -105,7 +108,7 @@ function ProjectModal(props) {
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="role">
-                                Description:
+                                {t("p-modal.description")}
                             </label>
                             </div>
                             <div className="md:w-3/4">
@@ -125,7 +128,7 @@ function ProjectModal(props) {
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="start">
-                                Start Date:
+                                {t("p-modal.s-date")}
                             </label>
                             </div>
                                 <div className="md:w-3/4">
@@ -143,7 +146,7 @@ function ProjectModal(props) {
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="end">
-                                End Date:
+                                {t("p-modal.e-date")}
                             </label>
                             </div>
                             <div className="md:w-3/4">
@@ -164,7 +167,7 @@ function ProjectModal(props) {
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="members">
-                                Members:
+                                {t("p-modal.members")}
                             </label>
                             </div>
                             <div className="md:w-3/4">
@@ -188,7 +191,7 @@ function ProjectModal(props) {
                                 <button 
                                     className='bg-gray-300 hover:bg-red-700 text-white transition-all ease-in-out font-bold py-2 px-4 rounded'  
                                     onClick={() => props.close()}>
-                                    Delete Project
+                                    {t("p-modal.delete")}
                                 </button>
                                 :
                                 <></>
