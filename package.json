@@ -25,7 +25,7 @@
     "react-i18next": "^13.0.3",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "recharts": "^2.7.2",
     "tailwind-datepicker-react": "^1.4.0",
     "uuid": "^9.0.0",
