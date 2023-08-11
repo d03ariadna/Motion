@@ -13,16 +13,6 @@ const TasksContext = createContext(null);
 const TasksDispatchContext = createContext(null);
 
 export function TasksProvider({ children }) {
-  //   const getData = async () => {
-  //     const result = await fetch(`${API}/tasks`);
-  //     const data = await result.json();
-  //     setInitTasks(data);
-  //   };
-
-  //   useEffect(() => {
-  //     console.log(initTasks);
-  //   }, [initTasks]);
-
   const [tasks, dispatch] = useReducer(tasksReducer, initTasks);
 
   return (
@@ -45,10 +35,18 @@ export function useTasksDispatch() {
 function tasksReducer(tasks, action) {
   switch (action.type) {
     case "added": {
+      createData(action.task);
       return [...tasks, action.task];
     }
 
     case "updated": {
+      updateData(
+        action.task.id,
+        action.task.name,
+        action.task.description,
+        action.task.date,
+        action.task.status
+      );
       return tasks.map((t) => {
         if (t.id === action.task.id) {
           return action.task;
@@ -59,6 +57,7 @@ function tasksReducer(tasks, action) {
     }
 
     case "deleted": {
+      deleteData(action.id);
       return tasks.filter((t) => t.id !== action.id);
     }
 
@@ -68,77 +67,44 @@ function tasksReducer(tasks, action) {
   }
 }
 
-const initialTasks = [
-  {
-    id: 1,
-    name: "Buy a gift for Christina's Birthday",
-    description:
-      "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: "2023-08-14",
-    status: "To Do",
-  },
-  {
-    id: 2,
-    name: "Take a rest",
-    description:
-      "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: "2023-09-10",
-    status: "To Do",
-  },
-  {
-    id: 3,
-    name: "Finish Zencon Project",
-    description:
-      "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: "2023-11-14",
-    status: "To Do",
-  },
-  {
-    id: 4,
-    name: "Richard's Birthday Party",
-    description:
-      "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: "2023-06-15",
-    status: "To Do",
-  },
-  {
-    id: 5,
-    name: "Buy the supplements for gym",
-    description:
-      "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: "2023-08-08",
-    status: "To Do",
-  },
-  {
-    id: 6,
-    name: "Task Done 1st",
-    description:
-      "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: "2023-08-08",
-    status: "Done",
-  },
-  {
-    id: 7,
-    name: "Task Done 2nd",
-    description:
-      "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: "2023-08-08",
-    status: "Done",
-  },
-  {
-    id: 8,
-    name: "Task Done 3rd",
-    description:
-      "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-    date: "2023-08-08",
-    status: "Done",
-  },
-];
-
 const getData = async () => {
   const result = await fetch(`${API}/tasks`);
   const data = await result.json();
   return data;
+};
+
+const createData = async (task) => {
+  const result = await fetch(`${API}/tasks/`, {
+    method: "POST",
+    body: JSON.stringify(task),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(result);
+};
+
+const updateData = async (id, name, description, date, status) => {
+  const result = await fetch(`${API}/tasks/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      name: name,
+      description: description,
+      date: date,
+      status: status,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(result);
+};
+
+const deleteData = async (id) => {
+  const result = await fetch(`${API}/tasks/${id}`, {
+    method: "DELETE",
+  });
+  console.log(result);
 };
 
 const initTasks = await getData();
