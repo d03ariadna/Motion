@@ -5,8 +5,8 @@ import Cookies from "js-cookie";
 export function ProtectedRoutes() {
     //cookie modified in order to get access
     
-    // const cookie = Cookies.get('Session');
-    let cookie = true;
+    const cookie = Cookies.get('Session');
+    //let cookie = true;
     
     return (cookie ?
         <>
@@ -17,8 +17,8 @@ export function ProtectedRoutes() {
 }
 
 export function VerifySession() {
-    //const cookie = Cookies.get('Session');
-    let cookie = false;
+    const cookie = Cookies.get('Session');
+    //let cookie = false;
     
     return (cookie ?
         <Navigate to='/dashboard'/>
