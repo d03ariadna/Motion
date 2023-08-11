@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { API } from "../components/API";
 
-import { useTasks, useTasksDispatch } from "../context/TasksContext";
+import { useTasks } from "../context/TasksContext";
+import { useProjects, useProjectsDispatch } from "../context/ProjectsContext";
 
 import { format } from "date-fns";
 
@@ -21,8 +22,9 @@ function Dashboard() {
   const [data, setData] = useState("");
 
   const tasks = useTasks();
-  const dispatch = useTasksDispatch();
 
+    const projects2 = useProjects();
+    console.log(projects2);
   const [projects, setProjects] = useState([
     {
       id: 1,
@@ -50,41 +52,6 @@ function Dashboard() {
     },
   ]);
 
-  //PROJECTS
-  function createProject(id, name, desc, start, end) {
-    const newProject = {
-      id: id,
-      name: name,
-      description: desc,
-      start: start,
-      end: end,
-    };
-    setProjects([...projects, newProject]);
-  }
-
-  function updateProject(id, n_name, n_desc, n_start, n_end) {
-    const updatedProjects = projects.map((project) => {
-      if (project.id === id) {
-        return {
-          ...project,
-          name: n_name,
-          description: n_desc,
-          start: n_start,
-          end: n_end,
-        };
-      }
-      return project;
-    });
-    setProjects(updatedProjects);
-  }
-
-  function deleteProject(id) {
-    const updatedProjects = projects.filter((project) => {
-      return project.id !== id;
-    });
-
-    setProjects(updatedProjects);
-  }
 
   const getData = async () => {
     const result = await fetch(`${API}/`);
@@ -110,7 +77,7 @@ function Dashboard() {
       <header className="w-full h-[10vh] mb-2 flex flex-row justify-between ">
         <h1 className="mt-2 font-semibold">{t("dashboard.hello")}</h1>
         <div className="h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5">
-          <CreateButton createProject={createProject} />
+          <CreateButton />
           <img
             src="/img/avatar.png"
             alt=""
@@ -179,7 +146,7 @@ function Dashboard() {
             <div className="w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll">
               {tasks.length > 0 ? (
                 tasks.map((task) => {
-                  if (task.status !== "Done") {
+                  if (task.status !== "DONE") {
                     return <LittleTask key={task.id} task={task} />;
                   }
                 })
@@ -202,8 +169,6 @@ function Dashboard() {
                   <LittleProject
                     key={project.id}
                     project={project}
-                    updateProject={updateProject}
-                    deleteProject={deleteProject}
                   />
                 );
               })}

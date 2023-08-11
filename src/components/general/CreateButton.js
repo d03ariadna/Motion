@@ -94,8 +94,7 @@ export default function CreateButton(props) {
         edit={false}
         show={showProject}
         close={handleCloseProject}
-        open={handleShowProject}
-        submit={props.createProject}/>
+        open={handleShowProject}/>
     </>
   )
 }

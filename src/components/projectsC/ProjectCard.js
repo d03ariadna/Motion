@@ -71,8 +71,7 @@ export default function ProjectCard(props) {
                 edit={true}
                 show={showProject}
                 close={handleCloseProject}
-                open={handleShowProject}
-                submit={props.updateProject}/>
+                open={handleShowProject}/>
         </>
     )
 }

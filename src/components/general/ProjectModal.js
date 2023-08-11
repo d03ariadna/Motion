@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {useTranslation} from "react-i18next";
 import Modal from 'react-bootstrap/Modal';
 import { DatePicker } from './DatePicker';
-import ColorPicker from './ColorPicker';
+
+import { useProjectsDispatch } from '../../context/ProjectsContext';
 
 import {
     format,
@@ -18,6 +19,8 @@ import { te } from 'date-fns/locale';
 function ProjectModal(props) {
 
     const [t, i18n] = useTranslation("global");
+
+    const dispatch = useProjectsDispatch();
 
     const project = props.project;
     let id;
@@ -42,6 +45,39 @@ function ProjectModal(props) {
     const [desc, setDesc] = useState('');
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
+
+
+
+function createProject(id, name, desc, start, end) {
+        const newProject = {
+        id: id,
+        name: name,
+        description: desc,
+        start: start,
+        end: end,
+        };
+    
+        dispatch({
+            type: 'added',
+            project: newProject,
+        });
+  }
+
+  function updateProject(id, n_name, n_desc, n_start, n_end) {
+    
+      const updatedProject = {
+        id: id,
+        name: n_name,
+        description: n_desc,
+        start: n_start,
+        end: n_end,
+    };
+    
+        dispatch({
+            type: 'updated',
+            project: updatedProject,
+        });
+  }
 
 
 
@@ -95,7 +131,10 @@ function ProjectModal(props) {
                         
                             props.edit ? id=project.id : id=uuidv4()
                             //Update or Create Project
-                            props.submit(id, name, desc, start, end);
+                        
+                            props.edit 
+                            ? updateProject(id, name, desc, start, end)
+                            : createProject(id, name, desc, start, end)
                         
                             setName('');
                             setDesc('');
@@ -190,15 +229,6 @@ function ProjectModal(props) {
                             </div>
                             <div className="md:w-3/4">
                             <DatePicker dateSet={tEnd} setDate={getEnd}/>
-                                    {/* <input
-                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
-                                id="end"
-                                type="text"
-                                value={end}
-                                onChange={(e) => {
-                                setEnd(e.target.value)
-                                }}
-                            /> */}
                             </div>
                         </div>
                             

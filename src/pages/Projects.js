@@ -3,13 +3,18 @@ import {useTranslation} from "react-i18next";
 import ProjectCard from "../components/projectsC/ProjectCard";
 import CreateButton from "../components/general/CreateButton";
 import MainCard from "../components/general/MainCard";
-import ProjectModal from "../components/general/ProjectModal";
+
+import { useProjects, useProjectsDispatch } from "../context/ProjectsContext";
 
 
 
 export default function Projects() {
 
     const [t, i18n] = useTranslation("global");
+
+    const dispatch = useProjectsDispatch();
+
+    const projects2 = useProjects();
 
     const [projects, setProjects] = useState(
         [
@@ -35,35 +40,7 @@ export default function Projects() {
                 end: "2023-01-10"
             },
         ]);
-    //Children Functions
-    function createProject(id, name, desc, start, end) {
-        const newProject = {
-            id: id,
-            name: name,
-            description: desc,
-            start: start,
-            end: end
-        }
-        console.log(newProject);
-        setProjects([newProject, ...projects]);
-    }
-
-    function updateProject(id, n_name, n_desc, n_start, n_end) {
-
-        const updatedProjects = projects.map((project) => {
-            if (project.id === id) {
-                return {
-                    ...project,
-                    name: n_name,
-                    description: n_desc,
-                    start: n_start,
-                    end: n_end
-                }
-            }
-            return project;
-        });
-        setProjects(updatedProjects);
-    }
+    
 
     return (
         <>
@@ -74,7 +51,6 @@ export default function Projects() {
                     
                     <CreateButton
                         action='project'
-                        createProject={ createProject }
                     />
 
                     <img src="/img/avatar.png" alt="" className='w-14 h-14 rounded-full mr-5'/>
@@ -93,7 +69,6 @@ export default function Projects() {
                                 <ProjectCard
                                     key={project.id}
                                     project={project}
-                                    updateProject={updateProject}
                                 />
                             );
                         })}

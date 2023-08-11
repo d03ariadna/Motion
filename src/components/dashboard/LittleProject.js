@@ -68,9 +68,7 @@ export default function LittleProject(props) {
                 edit={true}
                 show={showProject}
                 close={handleCloseProject}
-                open={handleShowProject}
-                submit={props.updateProject}
-                delete={props.deleteProject} />
+                open={handleShowProject} />
         </>
     )
 }
