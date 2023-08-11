@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { format, parseISO } from 'date-fns';
 import TaskModal from "../general/TaskModal";
 import {useTranslation} from "react-i18next";
 
@@ -12,6 +13,8 @@ export default function ProjectTask(props) {
 
     const handleCloseTask = () => setShowTask(false);
     const handleShowTask = () => setShowTask(true);
+
+    const pDate = parseISO(task.date);
 
     return (
         <>

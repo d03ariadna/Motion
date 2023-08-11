@@ -33,7 +33,7 @@ export default function Header(props) {
       <header className='top-0 left-0 fixed bg-[#B1B2FF] lg:w-[5vw] sm:w-[10vw] h-full px-2 pt-6'>
         <div className='flex flex-col justify-between h-full'>
           <section className='flex flex-col'>
-              <img src='img/logoM.png' width={'50px'} className='mx-auto mb-3'></img>
+              <img src='img/m2.png' width={'55px'} className='mx-auto mb-3'></img>
               {navigation.map((item) => (
               <NavLink
                 key={item.name}
@@ -41,8 +41,8 @@ export default function Header(props) {
                 className={({ isActive }) => {
                   return (
                     (!isActive
-                      ? 'rounded-2xl py-3 mt-3 text-lg w-full font-medium no-underline hover:bg-[#bec1ff] hover:text-white font-bold no-underline'
-                      : 'rounded-2xl py-3 mt-3 text-lg  w-full  font-medium no-underline bg-[#8f8fff] no-underline')
+                      ? 'rounded-2xl py-3 mt-3 text-lg w-full hover:bg-[#bec1ff] hover:text-white font-bold no-underline'
+                      : 'rounded-2xl py-3 mt-3 text-lg  w-full  font-medium no-underline bg-[#8f8fff]')
                     );
                 } }
               >

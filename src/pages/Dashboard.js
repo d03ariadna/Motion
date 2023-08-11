@@ -2,203 +2,70 @@ import { useState, useEffect } from 'react';
 import {useTranslation} from "react-i18next";
 import { API } from '../components/API';
 
+import { useTasks, useTasksDispatch } from '../context/TasksContext';
+
+import { format } from 'date-fns';
 
 import LittleTask from '../components/dashboard/LittleTask';
 import LittleProject from '../components/dashboard/LittleProject';
 import MainCard from '../components/general/MainCard';
 import CreateButton from '../components/general/CreateButton';
 
-import Example from "../components/dashboard/RadialChart";
-
-
-import TaskModal from '../components/general/TaskModal';
-import ProjectModal from '../components/general/ProjectModal';
+import {Chart} from "../components/dashboard/RadialChart";
 
 
 function Dashboard() {
 
     const [t, i18n] = useTranslation("global");
+    
+
+    const [time, setTime] = useState('');
 
     const [data, setData] = useState('');
 
-    const getData = async () => {
-        const result = await fetch(`${API}/`);
-        const rdata = await result.json();
-        setData(rdata);
-    }
 
-    // GET UPCOMING TASKS
-    const [activeTasks, setActiveTasks] = useState(
+    const tasks = useTasks();
+    const dispatch = useTasksDispatch();
+
+    const [projects, setProjects] = useState(
         [
             {
                 id: 1,
-                name: "Buy a gift for Christina's Birthday",
+                name: "Project 1",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Today",
-                status: "To Do",
+                start: "2023-08-05",
+                end: "2023-12-25"
             },
             {
                 id: 2,
-                name: "Take a rest",
+                name: "Project 2",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Wednesday",
-                status: "To Do",
+                start: "2023-07-05",
+                end: "2023-04-08"
             },
             {
                 id: 3,
-                name: "Finish Zencon Project",
+                name: "Project 3",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Nov, 15th",
-                status: "To Do",
+                start: "2023-08-05",
+                end: "2023-01-10"
             },
-            {
-                id: 4,
-                name: "Richard's Birthday Party",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Friday",
-                status: "To Do",
-            },
-            {
-                id: 5,
-                name: "Buy the supplements for gym",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Monday",
-                status: "To Do",
-            }
-        ]);
-    
-    const [doneTasks, setDoneTasks] = useState(
-        [
-            {
-                id: 6,
-                name: "Task Done 1st",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Today",
-                status: "Done",
-            },
-            {
-                id: 7,
-                name: "Task Done 2nd",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Wednesday",
-                status: "Done",
-            },
-            {
-                id: 8,
-                name: "Task Done 3rd",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "Nov, 15th",
-                status: "Done",
-            }
-        ]);
-    
-    const [projects, setProjects] = useState(
-    [
-      {
-        id: 1,
-        name: "Project 1",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Today",
-        end: "December",
-        members: "2",
-      },
-      {
-        id: 2,
-        name: "Project 2",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Tomorrow",
-        end: "November",
-        members: "5",
-      },
-      {
-        id: 3,
-        name: "Project 3",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Friday",
-        end: "June",
-        members: "10",
-      },
-    ])
+    ]);
 
-
-    //Children Functions
-    function createTask(id, name, desc, date, status) {
-        const newTask = {
-            id: id,
-            name: name,
-            description: desc,
-            date: date,
-            status: status
-        }
-
-        setActiveTasks([newTask, ...activeTasks]);
-    }
-
-
-    function updateTask(id, n_name, n_desc, n_date, n_status) {
-        
-        let updatedTasks;
-
-        if (n_status === 'Done') {
-            const newTask = {
-                id: id,
-                name: n_name,
-                description: n_desc,
-                date: n_date,
-                status: n_status
-            }
-
-            setDoneTasks([...doneTasks, newTask]);
-
-            updatedTasks = activeTasks.filter((task) => {
-                return task.id != id;
-            });
-
-        } else {
-
-            updatedTasks = activeTasks.map((task) => {
-                if (task.id === id) {
-                    return {
-                        ...task,
-                        name: n_name,
-                        description: n_desc,
-                        date: n_date,
-                        status: n_status
-                    }
-                }
-                return task;
-            });
-        }
-
-        setActiveTasks(updatedTasks);
-        
-    }
-
-    function deleteTask(id) {
-        console.log(id);
-        const updatedTasks = activeTasks.filter((task) => {
-            return task.id !== id
-        });
-
-        setActiveTasks(updatedTasks);
-        console.log('deleted Successfully');
-    }
 
     //PROJECTS
-    function createProject(id, name, desc, start, end, members) {
+    function createProject(id, name, desc, start, end) {
         const newProject = {
             id: id,
             name: name,
             description: desc,
             start: start,
             end: end,
-            members: members
         }
-        console.log(newProject);
         setProjects([...projects, newProject]);
     }
 
-    function updateProject(id, n_name, n_desc, n_start, n_end, n_members) {
+    function updateProject(id, n_name, n_desc, n_start, n_end) {
 
         const updatedProjects = projects.map((project) => {
             if (project.id === id) {
@@ -207,8 +74,7 @@ function Dashboard() {
                     name: n_name,
                     description: n_desc,
                     start: n_start,
-                    end: n_end,
-                    members: n_members
+                    end: n_end
                 }
             }
             return project;
@@ -216,10 +82,36 @@ function Dashboard() {
         setProjects(updatedProjects);
     }
 
+    function deleteProject(id) {
+        const updatedProjects = projects.filter((project) => {
+            return project.id !== id
+        });
+
+        setProjects(updatedProjects);
+    }
+
+
+    const getData = async () => {
+        const result = await fetch(`${API}/`);
+        const rdata = await result.json();
+        setData(rdata);
+    }
 
     useEffect(() => {
-        getData();
-    }, []);
+
+        let hour = parseInt(format(new Date(), 'HH'));
+
+        if (hour < 12) {
+            setTime('Morning');
+        } else if (hour >= 12 && hour <= 19) {
+            setTime('Afternoon');
+        } else {
+            setTime('Evening');
+        }
+        
+    }, [])
+
+
     
 
     return (
@@ -229,7 +121,6 @@ function Dashboard() {
                 <h1 className='mt-2 font-semibold'>{t("dashboard.hello")}</h1>
                 <div className='h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5'>
                     <CreateButton
-                        createTask={ createTask }
                         createProject={ createProject }/>
                     <img src="/img/avatar.png" alt="" className='w-14 h-14 rounded-full mr-5'/>
                 </div>
@@ -259,8 +150,8 @@ function Dashboard() {
                                 <p>{t("dashboard.progress")}</p>
                             </div>
                         </div>
-                        <div className='bg-white border-[1px] border-gray-200 w-[35%] h-full rounded-3xl overflow-hidden flex flex-row justify-between'>
-                            <div className='w-[40%] pt-10'>
+                        <div className='bg-white border-[1px] border-gray-200 w-[35%] h-full rounded-3xl flex flex-row justify-between'>
+                            <div className='w-[45%] pt-10'>
                                 <div className='flex flex-row justify-center items-center mb-3'>
                                     <div className='w-[25px] h-[6px] bg-[#B1B2FF] rounded-full mr-3'></div>
                                     <p className='mb-0 text-sm font-medium'>{t("dashboard.do")}</p>
@@ -274,7 +165,10 @@ function Dashboard() {
                                     <p className='mb-0 text-sm font-medium'>{t("dashboard.done")}</p>
                                 </div>
                             </div>
-                            <div className='w-[60%]'><Example /></div>
+                            <div className='w-[55%]'>
+                                <div className='w-[75%] h-[85%] ml-3 mt-3'><Chart /></div>
+                                
+                            </div>
                             
                         </div>
                     </section>
@@ -285,18 +179,20 @@ function Dashboard() {
                         <div className='w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll'>
                             
                             {
-                                activeTasks.length > 0 ?
+                                tasks.length > 0 ?
                                     
-                                    activeTasks.map((task) => {
+                                    tasks.map((task) => {
+                                        
 
-                                        return (
-                                            <LittleTask
-                                                key={task.id}
-                                                task={task}
-                                                updateTask={updateTask}
-                                                deleteTask={deleteTask}
-                                            />
-                                        )
+                                        if (task.status !== 'Done') {
+                                            return (
+
+                                                <LittleTask
+                                                    key={task.id}
+                                                    task={task}
+                                                />
+                                            )
+                                        }
                                     })
                                     :
                                     <div className='w-full h-[9rem]'>
@@ -323,7 +219,7 @@ function Dashboard() {
                                     key={project.id}
                                     project={project}
                                     updateProject={updateProject}
-                                    // deleteProject 
+                                    deleteProject={deleteProject}
                                     />
                                 )
                             })}

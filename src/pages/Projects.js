@@ -12,48 +12,43 @@ export default function Projects() {
     const [t, i18n] = useTranslation("global");
 
     const [projects, setProjects] = useState(
-    [
-      {
-        id: 1,
-        name: "Project 1",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Today",
-        end: "December",
-        members: "2",
-      },
-      {
-        id: 2,
-        name: "Project 2",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Tomorrow",
-        end: "November",
-        members: "5",
-      },
-      {
-        id: 3,
-        name: "Project 3",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "Friday",
-        end: "June",
-        members: "10",
-      },
-    ])
-
+        [
+            {
+                id: 1,
+                name: "Project 1",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-08-05",
+                end: "2023-12-25"
+            },
+            {
+                id: 2,
+                name: "Project 2",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-07-05",
+                end: "2023-04-08"
+            },
+            {
+                id: 3,
+                name: "Project 3",
+                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+                start: "2023-08-05",
+                end: "2023-01-10"
+            },
+        ]);
     //Children Functions
-    function createProject(id, name, desc, start, end, members) {
+    function createProject(id, name, desc, start, end) {
         const newProject = {
             id: id,
             name: name,
             description: desc,
             start: start,
-            end: end,
-            members: members
+            end: end
         }
         console.log(newProject);
-        setProjects([...projects, newProject]);
+        setProjects([newProject, ...projects]);
     }
 
-    function updateProject(id, n_name, n_desc, n_start, n_end, n_members) {
+    function updateProject(id, n_name, n_desc, n_start, n_end) {
 
         const updatedProjects = projects.map((project) => {
             if (project.id === id) {
@@ -62,8 +57,7 @@ export default function Projects() {
                     name: n_name,
                     description: n_desc,
                     start: n_start,
-                    end: n_end,
-                    members: n_members
+                    end: n_end
                 }
             }
             return project;
@@ -80,7 +74,7 @@ export default function Projects() {
                     
                     <CreateButton
                         action='project'
-                        createTask={ createProject }
+                        createProject={ createProject }
                     />
 
                     <img src="/img/avatar.png" alt="" className='w-14 h-14 rounded-full mr-5'/>

@@ -28,11 +28,13 @@ export default function CreateButton(props) {
   const handleCloseProject = () => setShowProject(false);
   const handleShowProject = () => setShowProject(true);
 
+  const [mainColor, setMainColor] = useState('#b1b2ff');
+
   return (
       <>
-          <Menu as="div" className="relative inline-block text-left w-[250px]">
+          <Menu as="div" className=" relative inline-block text-left w-[250px]">
             <div>
-              <Menu.Button className="inline-flex flex-row w-full justify-center items-center gap-x-1.5 rounded-full bg-[#B1B2FF] px-10 py-2.5 text-2xl font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 focus-within:bg-black hover:bg-black transition-all ease-in-out">
+              <Menu.Button className={`inline-flex flex-row w-full justify-center items-center gap-x-1.5 rounded-full bg-[${mainColor}] px-10 py-2.5 text-2xl font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 focus-within:bg-black hover:bg-black transition-all ease-in-out`}>
                 <AddIcon />
                 {t("create.d-create")}
               </Menu.Button>
@@ -83,8 +85,7 @@ export default function CreateButton(props) {
         edit={false}
         show={showTask}
         close={handleCloseTask}
-        open={handleShowTask}
-        submit={props.createTask}/>
+        open={handleShowTask}/>
 
 
       <ProjectModal

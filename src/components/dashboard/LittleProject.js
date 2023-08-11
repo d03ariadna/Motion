@@ -6,8 +6,6 @@ import { EditIcon } from '../icons/icons';
 
 import {
     format,
-    formatISO,
-    parse,
     parseISO,
 } from 'date-fns';
 
@@ -21,6 +19,8 @@ export default function LittleProject(props) {
     const [t, i18n] = useTranslation("global");
 
     const project = props.project;
+
+    const pEnd = parseISO(project.end);
 
     const [showProject, setShowProject] = useState(false);
 
@@ -45,7 +45,7 @@ export default function LittleProject(props) {
                     </section>
                     
                     <section className='pl-2 mb-2'>
-                        <a href='/project' className='text-black text-base font-medium no-underline mb-0'>
+                        <a href={`/project/${project.id}`} className='text-black text-base font-medium no-underline mb-0'>
                             {project.name}
                         </a>
                         <p className="text-xs text-gray-300 mt-1 mb-0">{t("project.deadline")} {project.end}</p>
@@ -69,7 +69,8 @@ export default function LittleProject(props) {
                 show={showProject}
                 close={handleCloseProject}
                 open={handleShowProject}
-                submit={props.updateProject}/>
+                submit={props.updateProject}
+                delete={props.deleteProject} />
         </>
     )
 }

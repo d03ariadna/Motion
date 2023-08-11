@@ -1,6 +1,9 @@
 import { da } from 'date-fns/locale';
 import React, { useState, useEffect } from 'react';
 import {useTranslation} from "react-i18next";
+
+import { useTasksDispatch } from '../../context/TasksContext';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { DatePicker } from './DatePicker';
@@ -8,47 +11,97 @@ import { DatePicker } from './DatePicker';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  add,
-  eachDayOfInterval,
-  endOfMonth,
   format,
-  getDay,
-  isEqual,
-  isSameDay,
-  isSameMonth,
-  isToday,
-  parse,
   parseISO,
-  startOfToday,
+    startOfToday,
 } from 'date-fns'
 
 function TaskModal(props) {
 
     const [t, i18n] = useTranslation("global");
 
+    const dispatch = useTasksDispatch();
+    
     const task = props.task;
     let id;
+
+    let actualDay;
+
+    if (task.length === 0) {
+            
+        actualDay = startOfToday();
+            
+    } else {
+            
+        actualDay = parseISO(task.date);
+    }
 
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
     const [date, setDate] = useState('');
     const [status, setStatus] = useState('');
 
-    const getDate = (newDate) => {
-        //setTempDate(newDate)
-        setDate( format(newDate, 'MMMM do') );
+
+    function createTask(id, name, desc, date, status) {
+
+        const newTask = {
+            id: id,
+            name: name,
+            description: desc,
+            date: date,
+            status: status
+        }
+        
+        dispatch({
+            type: 'added',
+            task: newTask
+        })
+
+        
     }
 
-    useEffect(() => {
+    function updateTask(id, n_name, n_desc, n_date, n_status) {
+        
+        const updatedTask = {
+            id: id,
+            name: n_name,
+            description: n_desc,
+            date: n_date,
+            status: n_status
+        }
 
+        dispatch({
+            type: 'updated',
+            task: updatedTask
+        });
+    }
+
+    function deleteTask(id) {
+        dispatch({
+            type: 'deleted',
+            id: id
+        });
+    }
+
+
+
+    const getDate = (nDate) => {
+        //setTempDate(newDate)
+        console.log(nDate)
+        setDate(format(nDate, 'y-MM-dd'));
+    }
+    useEffect(() => {
+        
         if (props.edit) {   
             setName(task.name);
             setDesc(task.description);
             setDate(task.date);
             setStatus(task.status);
         }
-    }, []);
 
+            
+        
+    }, []);
 
     return (
         <>
@@ -69,9 +122,12 @@ function TaskModal(props) {
                         <form onSubmit={(e) => {
                           e.preventDefault();
 
-                            props.edit ? id = task.id : id = uuidv4()
+                        props.edit ? id = task.id : id = uuidv4();
                         
-                            props.submit(id, name, desc, date, status);
+                        props.edit ?
+                            updateTask(id, name, desc, date, status)
+                        :
+                            createTask(id, name, desc, date, status)
                         
                         if (!props.edit) {
                                 setName('');
@@ -135,16 +191,7 @@ function TaskModal(props) {
                             </label>
                             </div>
                                 <div className="md:w-3/4">
-                                <DatePicker setDate={getDate}/>
-                            {/* <input 
-                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
-                                id="date" 
-                                type="text" 
-                                value={date}
-                                onChange={(e) => {
-                                setDate(e.target.value)
-                                }}
-                            />*/}
+                                <DatePicker dateSet={actualDay} setDate={getDate}/>
                             </div> 
                         </div>
                             
@@ -177,7 +224,7 @@ function TaskModal(props) {
                                 <button 
                                     className='bg-gray-300 hover:bg-red-700 text-white transition-all ease-in-out font-bold py-2 px-4 rounded'  
                                 onClick={() => {
-                                    props.delete(task.id)
+                                    deleteTask(task.id);
                                     props.close()
                                 }}>
                                     {t("t-modal.delete")}
