@@ -1,6 +1,5 @@
-import MiniCalendar from "../components/general/MiniCalendar";
+import { useNavigate } from "react-router-dom";
 
-import { Menu, Transition } from "@headlessui/react";
 import { LeftIcon, RightIcon } from "../components/icons/icons";
 import TaskModal from "../components/general/TaskModal";
 import CreateButton from "../components/general/CreateButton";
@@ -30,6 +29,9 @@ function classNames(...classes) {
 }
 
 export default function Calendar() {
+
+  const navigate = useNavigate();
+  
   const [t, i18n] = useTranslation("global");
   const tasks = useTasks();
   const dispatch = useTasksDispatch();

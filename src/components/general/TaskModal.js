@@ -23,15 +23,15 @@ function TaskModal(props) {
   let actualDay;
 
   if (task.length === 0) {
-    actualDay = startOfToday();
+    actualDay = format(startOfToday(), 'y-MM-dd');
   } else {
-    actualDay = parseISO(task.date);
+    actualDay = task.date;
   }
 
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-  const [date, setDate] = useState("");
-  const [status, setStatus] = useState("");
+  const [date, setDate] = useState(actualDay);
+  const [status, setStatus] = useState("TO DO");
 
   function createTask(id, name, desc, date, status) {
     const newTask = {
@@ -179,7 +179,7 @@ function TaskModal(props) {
                 </label>
               </div>
               <div className="md:w-3/4">
-                <DatePicker dateSet={actualDay} setDate={getDate} />
+                <DatePicker dateSet={parseISO(actualDay)} setDate={getDate} />
               </div>
             </div>
 

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { API } from "../components/API";
+import Cookies from "js-cookie";
 
 import { useTasks } from "../context/TasksContext";
 import { useProjects, useProjectsDispatch } from "../context/ProjectsContext";
+import { useUser } from "../context/UserContext";
 
 import { format } from "date-fns";
 
@@ -17,14 +18,19 @@ import { Chart } from "../components/dashboard/RadialChart";
 function Dashboard() {
   const [t, i18n] = useTranslation("global");
 
+  //const user = useUser();
+  
+
   const [time, setTime] = useState("");
 
   const [data, setData] = useState("");
 
   const tasks = useTasks();
 
-    const projects2 = useProjects();
-    console.log(projects2);
+  const projects2 = useProjects();
+  
+  console.log(tasks);
+  console.log(projects2);
   const [projects, setProjects] = useState([
     {
       id: 1,
@@ -52,12 +58,7 @@ function Dashboard() {
     },
   ]);
 
-
-  const getData = async () => {
-    const result = await fetch(`${API}/`);
-    const rdata = await result.json();
-    setData(rdata);
-  };
+ 
 
   useEffect(() => {
     let hour = parseInt(format(new Date(), "HH"));
@@ -69,7 +70,9 @@ function Dashboard() {
     } else {
       setTime("Evening");
     }
+
   }, []);
+
 
   return (
     <>

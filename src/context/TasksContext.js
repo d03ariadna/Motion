@@ -1,5 +1,7 @@
 import { set } from "date-fns";
 import { API } from "../components/API";
+import Cookies from "js-cookie";
+
 import {
   createContext,
   useContext,
@@ -7,6 +9,8 @@ import {
   useState,
   useEffect,
 } from "react";
+
+import { getUser } from "./UserContext";
 
 const TasksContext = createContext(null);
 
@@ -68,20 +72,35 @@ function tasksReducer(tasks, action) {
 }
 
 const getData = async () => {
-  const result = await fetch(`${API}/tasks`);
+
+  const cookie = Cookies.get("Session");
+  let id;
+
+  if (cookie) {
+    const user = JSON.parse(cookie);
+    id = user.id;
+  } else {
+    id=1
+  }
+
+  const result = await fetch(`${API}/${id}/tasks`);
   const data = await result.json();
   return data;
 };
 
 const createData = async (task) => {
-  const result = await fetch(`${API}/tasks/`, {
+
+  const cookie = Cookies.get("Session");
+  const user = JSON.parse(cookie);
+
+
+  const result = await fetch(`${API}/${user.id}/tasks/`, {
     method: "POST",
     body: JSON.stringify(task),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  console.log(result);
 };
 
 const updateData = async (id, name, description, date, status) => {
@@ -97,14 +116,12 @@ const updateData = async (id, name, description, date, status) => {
       "Content-Type": "application/json",
     },
   });
-  console.log(result);
 };
 
 const deleteData = async (id) => {
   const result = await fetch(`${API}/tasks/${id}`, {
     method: "DELETE",
   });
-  console.log(result);
 };
 
 const initTasks = await getData();

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useTasks } from "../context/TasksContext";
+import { useUser } from "../context/UserContext";
 
 import TaskCard from "../components/projectsC/TaskCard";
 import CreateButton from "../components/general/CreateButton";
@@ -9,6 +10,11 @@ import MainCard from "../components/general/MainCard";
 import { useTranslation } from "react-i18next";
 
 export default function Tasks() {
+
+  const user = useUser();
+
+  console.log(user);
+  
   const [t, i18n] = useTranslation("global");
   const [trigger, setTrigger] = useState(false);
 
@@ -35,6 +41,7 @@ export default function Tasks() {
       return task.status === "DONE";
     });
     setDone(tempTasks);
+
   }, [tasks]);
 
   return (

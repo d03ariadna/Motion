@@ -1,4 +1,5 @@
 import { API } from "../components/API";
+import Cookies from "js-cookie";
 import {
   createContext,
   useContext,
@@ -7,11 +8,17 @@ import {
   useEffect,
 } from "react";
 
+import { getUser } from "./UserContext";
+
 const ProjectsContext = createContext(null);
 
 const ProjectsDispatchContext = createContext(null);
 
+let user;
+
 export function ProjectsProvider({ children }) {
+
+  
   const [projects, dispatch] = useReducer(projectsReducer, initProjects);
 
   return (
@@ -60,8 +67,19 @@ function projectsReducer(projects, action) {
   }
 }
 
-const getData = async (id) => {
-  const result = await fetch(`${API}/user/2/projects`);
+const getData = async () => {
+  
+  const cookie = Cookies.get("Session");
+  let id;
+
+  if (cookie) {
+    const user = JSON.parse(cookie);
+    id = user.id;
+  } else {
+    id=1
+  }
+  
+  const result = await fetch(`${API}/${id}/projects`);
   const data = await result.json();
   return data;
 };
@@ -100,4 +118,4 @@ const deleteData = async (id) => {
   console.log(result);
 };
 
-const initProjects = await getData();
+const initProjects = await getData()

@@ -6,11 +6,14 @@ import TaskModal from "../general/TaskModal";
 import ConfirmModal from "../general/ConfirmModal";
 
 import { useTranslation } from "react-i18next";
+import { parseISO } from "date-fns/esm";
+import { format } from "date-fns";
 
 export default function TaskCard(props) {
   const dispatch = useTasksDispatch();
 
   const task = props.task;
+  const nDate = parseISO(task.date);
 
   const [t, i18n] = useTranslation("global");
 
@@ -36,14 +39,9 @@ export default function TaskCard(props) {
                 {t("tasks.my-completed")}
               </p>
             ) : (
-              <p className="text-xs text-[#B1B2FF] mb-0 ml-2">{task.date}</p>
+              <p className="text-xs text-[#B1B2FF] mb-0 ml-2">{format(nDate, 'MMMM do')}</p>
             )}
 
-            {/* <button className='border-2 border-[#B1B2FF] hover:bg-[#B1B2FF] rounded-full p-1' title="Mark as Done">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-5 h-5 stroke-[#B1B2FF] hover:stroke-white">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                            </svg>
-                        </button> */}
             <ConfirmModal task={task} />
           </section>
 
@@ -54,7 +52,7 @@ export default function TaskCard(props) {
           ) : (
             <section className="pl-2">
               <button onClick={handleShowTask} className="py-1 ">
-                <p className="mb-0 text-left text-sm font-medium ">
+                <p className="mb-0 text-left text-lg font-semibold ">
                   {task.name}
                 </p>
               </button>
@@ -65,8 +63,8 @@ export default function TaskCard(props) {
             <p
               className={
                 task.status === "DONE"
-                  ? "pl-2 mt-[5px] mb-0 text-[.65rem] tracking-wide leading-4 text-gray-300"
-                  : "pl-2 mt-[5px] mb-0 text-[.65rem] tracking-wide leading-4 text-gray-400"
+                  ? "pl-2 mt-[5px] mb-0 text-xs font-light tracking-wide leading-4 text-gray-300"
+                  : "pl-2 mt-[5px] mb-0 text-xs font-light tracking-wide leading-4 text-gray-400"
               }
             >
               {task.description}
