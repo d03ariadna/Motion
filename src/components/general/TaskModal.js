@@ -20,6 +20,9 @@ function TaskModal(props) {
   const task = props.task;
   let id;
 
+  //Identify a personal or project task
+  const personal = props.personal
+
   let actualDay;
 
   if (task.length === 0) {
@@ -57,10 +60,18 @@ function TaskModal(props) {
       status: n_status,
     };
 
-    dispatch({
-      type: "updated",
-      task: updatedTask,
-    });
+    if (personal) {
+      dispatch({
+        type: "updated",
+        task: updatedTask,
+      });
+    } else {
+      dispatch({
+        type: "updatedProject",
+        task: updatedTask
+      })
+    }
+    
   }
 
   function deleteTask(id) {

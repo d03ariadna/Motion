@@ -63,6 +63,16 @@ function tasksReducer(tasks, action) {
       deleteData(action.id);
       return tasks.filter((t) => t.id !== action.id);
     }
+      
+    case "updatedProject": {
+      updateProjectTask(
+        action.task.id,
+        action.task.name,
+        action.task.description,
+        action.task.date,
+        action.task.status
+      );
+    }
 
     default: {
       throw Error("Unknown action: " + action.type);
@@ -122,6 +132,21 @@ const deleteData = async (id) => {
     method: "DELETE",
   });
 };
+
+const updateProjectTask = async (id, name, description, date, status) => {
+  const result = await fetch(`${API}/projects/tasks/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      name: name,
+      description: description,
+      date: date,
+      status: status,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
 
 const initTasks = await getData();
 

@@ -27,8 +27,8 @@ export default function ProjectTask(props) {
                     </section>
                     
                     <section className='mb-2 py-2 border-2 border-white  flex flex-row flex-nowrap justify-between items-center '>
-                        <p className='text-[.6rem] text-gray-400 mb-0'>
-                            {t("project.deadline")} {task.deadline}
+                        <p className='text-[.7rem] text-gray-300 mb-0'>
+                            {t("project.deadline")} <span className="text-purple-300"> {format(pDate, 'MMM do')}</span>
                         </p>
                         <div className="flex flex-row">
                             <img src="/img/avatar.png" alt="" className='w-7 h-7 rounded-full border-[1px] border-slate-300 mr-[-10px]' />
@@ -47,8 +47,7 @@ export default function ProjectTask(props) {
                 show={showTask}
                 close={handleCloseTask}
                 open={handleShowTask}
-                submit={props.updateTask}
-                delete={props.deleteTask} />
+                personal={false} />
         </>
     )
 }

@@ -51,7 +51,8 @@ export default function LittleTask(props) {
                 edit={true}
                 show={showTask}
                 close={handleCloseTask}
-                open={handleShowTask} />
+                open={handleShowTask}
+                personal={true}/>
         </>
     )
 }

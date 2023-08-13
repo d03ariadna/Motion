@@ -138,48 +138,6 @@ export default function OneProject() {
     const handleCloseProject = () => setShowProject(false);
     const handleShowProject = () => setShowProject(true);
 
-    //Children Functions
-    function createTask(id, name, desc, date, status) {
-        const newTask = {
-            id: id,
-            name: name,
-            description: desc,
-            date: date,
-            status: status
-        }
-
-        setTasks([newTask, ...tasks]);
-        setTrigger(!trigger);
-    }
-
-    function updateTask(id, n_name, n_desc, n_date, n_status) {
-        
-        const updatedTasks = tasks.map((task) => {
-            if (task.id === id) {
-                return {
-                    ...task,
-                    name: n_name,
-                    description: n_desc,
-                    date: n_date,
-                    status: n_status
-                }
-            }
-            return task
-        });
-
-        setTasks(updatedTasks);
-        setTrigger(!trigger);
-
-    }
-
-    function deleteTask(id) {
-        const updatedTasks = tasks.filter((task) => {
-            return task.id !== id
-        });
-
-        setTasks(updatedTasks);
-        setTrigger(!trigger);
-    }
 
     function createNote(id, text){
         const newNote = {
@@ -293,7 +251,6 @@ export default function OneProject() {
                         
                         <CreateButton
                             action='task'
-                            createTask={ createTask }
                         />
                         
 
@@ -322,8 +279,6 @@ export default function OneProject() {
                                                 <ProjectTask
                                                     key={task.id}
                                                     task={task}
-                                                    updateTask={updateTask}
-                                                    deleteTask={deleteTask}
                                                 />
                                             );
                                         })
@@ -344,8 +299,6 @@ export default function OneProject() {
                                                 <ProjectTask
                                                     key={task.id}
                                                     task={task}
-                                                    updateTask={updateTask}
-                                                    deleteTask={deleteTask}
                                                 />
                                             );
                                         })
@@ -366,8 +319,6 @@ export default function OneProject() {
                                                 <ProjectTask
                                                     key={task.id}
                                                     task={task}
-                                                    updateTask={updateTask}
-                                                    deleteTask={deleteTask}
                                                 />
                                             );
                                         })
