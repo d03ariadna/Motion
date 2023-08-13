@@ -10,7 +10,6 @@ import {
   useEffect,
 } from "react";
 
-import { getUser } from "./UserContext";
 
 const TasksContext = createContext(null);
 
@@ -125,3 +124,4 @@ const deleteData = async (id) => {
 };
 
 const initTasks = await getData();
+

@@ -48,14 +48,12 @@ import {
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-export function Chart() {
-
-    const percentage = 66;
+export function Chart({percentages}) {
 
   return (
     <>
       <CircularProgressbarWithChildren
-        value={75}
+        value={percentages[0]}
         strokeWidth={8}
         styles={buildStyles({
           pathColor: "#b1b2ff",
@@ -68,7 +66,7 @@ export function Chart() {
         */}
         <div style={{ width: "75%" }}>
           <CircularProgressbarWithChildren
-            value={70}
+            value={percentages[1]}
             strokeWidth={11}
             styles={buildStyles({
               pathColor: "#000",
@@ -77,7 +75,7 @@ export function Chart() {
           >
             <div style={{ width: "62%" }}>
                 <CircularProgressbar
-                  value={70}
+                  value={percentages[2]}
                   strokeWidth={16}
                 styles={buildStyles({
                     pathColor: "#e8a0bf",
@@ -95,17 +93,18 @@ export function Chart() {
 }
 
 
-export function Progress() {
-  const data = 80;
+export function Progress({progress}) {
+  
   return (
     <>
       <CircularProgressbar
-        value={data} text={`${data}%`}
+        value={progress}
+        strokeWidth={12}
+        text={`${progress}%`}
         styles={buildStyles({
-            textColor: "#404555",
+            textColor: "#000",
             pathColor: "#b1b2ff",
-            trailColor: "#e5e7eb",
-            textWidth: "900"
+            trailColor: "#e5e7eb"
         })}
       />
     </>

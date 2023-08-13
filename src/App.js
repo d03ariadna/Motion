@@ -3,7 +3,6 @@ import './index.css';
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { UserProvider } from './context/UserContext';
 
 import Dashboard from './pages/Dashboard';
 import Calendar from './pages/Calendar';

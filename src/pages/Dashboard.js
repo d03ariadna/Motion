@@ -4,16 +4,17 @@ import Cookies from "js-cookie";
 
 import { useTasks } from "../context/TasksContext";
 import { useProjects, useProjectsDispatch } from "../context/ProjectsContext";
-import { useUser } from "../context/UserContext";
 
 import { format } from "date-fns";
 
+import GeneralStc from "../components/statistics/GeneralStc";
+import TasksStc from "../components/statistics/TasksStc";
 import LittleTask from "../components/dashboard/LittleTask";
 import LittleProject from "../components/dashboard/LittleProject";
 import MainCard from "../components/general/MainCard";
 import CreateButton from "../components/general/CreateButton";
 
-import { Chart } from "../components/dashboard/RadialChart";
+
 
 function Dashboard() {
   const [t, i18n] = useTranslation("global");
@@ -29,8 +30,8 @@ function Dashboard() {
 
   const projects2 = useProjects();
   
-  console.log(tasks);
-  console.log(projects2);
+  //console.log(tasks);
+  //console.log(projects2);
   const [projects, setProjects] = useState([
     {
       id: 1,
@@ -64,11 +65,11 @@ function Dashboard() {
     let hour = parseInt(format(new Date(), "HH"));
 
     if (hour < 12) {
-      setTime("Morning");
+      setTime("dashboard.mrng");
     } else if (hour >= 12 && hour <= 19) {
-      setTime("Afternoon");
+      setTime("dashboard.aftn");
     } else {
-      setTime("Evening");
+      setTime("dashboard.evng");
     }
 
   }, []);
@@ -78,7 +79,7 @@ function Dashboard() {
     <>
       {/* Header Section */}
       <header className="w-full h-[10vh] mb-2 flex flex-row justify-between ">
-        <h1 className="mt-2 font-semibold">{t("dashboard.hello")}</h1>
+        <h1 className="mt-2 font-semibold">{t(time)}</h1>
         <div className="h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5">
           <CreateButton />
           <img
@@ -94,51 +95,8 @@ function Dashboard() {
         <section>
           {/* Statistics Section */}
           <section className=" w-[64vw] h-[24vh] flex flex-row">
-            <div className="bg-white border-[1px] border-gray-200 w-[65%] h-full mr-8 py-4 px-8 flex flex-row justify-between rounded-3xl">
-              <div className="w-[22%] bg-[#b1b2ff] text-white rounded-3xl text-center pt-4">
-                <h2>10</h2>
-                <p>{t("dashboard.project")}</p>
-              </div>
-              <div className="w-[22%] bg-[#FFDCA9] text-white rounded-3xl text-center pt-4">
-                <h2>15</h2>
-                <p>{t("dashboard.task")}</p>
-              </div>
-              <div className="w-[22%] bg-[#B0DAFF] text-white rounded-3xl text-center pt-4">
-                <h2>8</h2>
-                <p>{t("dashboard.event")}</p>
-              </div>
-              <div className="w-[22%] bg-[#E8A0BF] text-white rounded-3xl text-center pt-4">
-                <h2>10</h2>
-                <p>{t("dashboard.progress")}</p>
-              </div>
-            </div>
-            <div className="bg-white border-[1px] border-gray-200 w-[35%] h-full rounded-3xl flex flex-row justify-between">
-              <div className="w-[45%] pt-10">
-                <div className="flex flex-row justify-center items-center mb-3">
-                  <div className="w-[25px] h-[6px] bg-[#B1B2FF] rounded-full mr-3"></div>
-                  <p className="mb-0 text-sm font-medium">
-                    {t("dashboard.do")}
-                  </p>
-                </div>
-                <div className="flex flex-row justify-center items-center mb-3">
-                  <div className="w-[25px] h-[6px] bg-black rounded-full mr-3"></div>
-                  <p className="mb-0 text-sm font-medium">
-                    {t("dashboard.doing")}
-                  </p>
-                </div>
-                <div className="flex flex-row justify-center items-center mb-3">
-                  <div className="w-[25px] h-[6px] bg-[#E8A0BF] rounded-full mr-3"></div>
-                  <p className="mb-0 text-sm font-medium">
-                    {t("dashboard.done")}
-                  </p>
-                </div>
-              </div>
-              <div className="w-[55%]">
-                <div className="w-[75%] h-[85%] ml-3 mt-3">
-                  <Chart />
-                </div>
-              </div>
-            </div>
+            <GeneralStc/>
+            <TasksStc/>
           </section>
 
           {/* Tasks Section */}

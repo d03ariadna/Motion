@@ -1,25 +1,30 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import CreateButton from "../components/general/CreateButton"
+import { useTranslation } from "react-i18next";
+import Cookies from 'js-cookie'
 
 import {
     format,
     parseISO,
 } from 'date-fns';
 
+import CreateButton from "../components/general/CreateButton"
 import ProjectTask from "../components/projectsC/ProjectTask";
 import NoteModal from "../components/projectsC/NoteModal";
 import ProjectModal from "../components/general/ProjectModal";
 import AddMemberModal from "../components/projectsC/AddMemberModal";
+import ProjectStc from "../components/statistics/ProjectStc";
 
-import {Progress} from "../components/dashboard/RadialChart";
+
 
 
 export default function OneProject() {
     const [t, i18n] = useTranslation("global");
 
     const projectId = (useParams()).id;
+
+    const user = JSON.parse(Cookies.get('Session')).name;
+
     
 
     // GET PROJECT'S TASKS
@@ -30,35 +35,35 @@ export default function OneProject() {
                 name: "Buy a gift for Christina's Birthday",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
                 date: "2023-08-14",
-                status: "To Do",
+                status: "TO DO",
             },
             {
                 id: 2,
                 name: "Take a rest",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
                 date: "2023-09-10",
-                status: "Doing",
+                status: "DOING",
             },
             {
                 id: 3,
                 name: "Finish Zencon Project",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
                 date: "2023-11-14",
-                status: "To Do",
+                status: "TO DO",
             },
             {
                 id: 4,
                 name: "Richard's Birthday Party",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
                 date: "2023-06-15",
-                status: "Doing",
+                status: "DOING",
             },
             {
                 id: 5,
                 name: "Buy the supplements for gym",
                 description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
                 date: "2023-08-08",
-                status: "Done",
+                status: "DONE",
             }
         ]);
     
@@ -92,6 +97,11 @@ export default function OneProject() {
     const [toDo, setToDo] = useState([]);
     const [doing, setDoing] = useState([]);
     const [done, setDone] = useState([]);
+
+    const [totalNo, setTotalNo] = useState(tasks.length)
+    const [toDoNo, setToDoNo] = useState(toDo.length);
+    const [doingNo, setDoingNo] = useState(doing.length);
+    const [doneNo, setDoneNo] = useState(done.length);
 
     const [notes, setNotes] = useState(
         [
@@ -224,20 +234,28 @@ export default function OneProject() {
         setMembers([email, ...members])
     }
 
+
     useEffect(() => {
+        console.log(tasks)
         let tempTasks = [];
 
         //Get TO DO tasks
-        tempTasks = tasks.filter((task) => { return task.status === 'To Do' });
+        tempTasks = tasks.filter((task) => { return task.status === 'TO DO' });
         setToDo(tempTasks);
+        setToDoNo(tempTasks.length);
 
         //Get DOING tasks
-        tempTasks = tasks.filter((task) => { return task.status === 'Doing' });
+        tempTasks = tasks.filter((task) => { return task.status === 'DOING' });
         setDoing(tempTasks);
+        setDoingNo(tempTasks.length);
 
         //Get DONE tasks
-        tempTasks = tasks.filter((task) => { return task.status === 'Done' });
+        tempTasks = tasks.filter((task) => { return task.status === 'DONE' });
         setDone(tempTasks);
+        setDoneNo(tempTasks.length);
+
+        setTotalNo(tasks.length);
+
     }, [trigger]);
 
 
@@ -364,14 +382,14 @@ export default function OneProject() {
                 {/* Project Card Section */}
                 <section className="w-[22vw] h-[95vh] px-2">
                     <div className="w-full h-full py-3 px-4 bg-white rounded-3xl drop-shadow-lg">
-                        <section className="w-full h-[8%] flex flex-row justify-between items-center">
-                            <h3 className="text-2xl font-medium mb-0">{t("project.name")}</h3>
+                        <section className="w-full h-[8%] mt-2 flex flex-row justify-between items-center">
+                            <h3 className="text-2xl font-medium mb-0">{t("project.name") + user}</h3>
                             <img src="/img/avatar.png" alt="" className='w-12 h-12 rounded-full border-[1px] border-slate-300' />
                         </section>
 
                         {/* Statistics */}
                         <section className="w-full mt-3 mb-2 pt-3 border-t-2 border-gray-200">
-                            <div className='w-[60%] mx-auto'><Progress/></div>
+                            <ProjectStc id={projectId}/>
                         </section>
 
                         {/* Statistics */}
@@ -380,12 +398,12 @@ export default function OneProject() {
 
                             <div className="w-full flex flex-row justify-between px-2 mt-2">
                                 <div className="w-[50%] pl-1 flex flex-row items-center mr-5">
-                                    <p className="mb-0 text-base font-medium">8</p>
+                                    <p className="mb-0 text-base font-medium">{tasks.length}</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
                                     <p className="mb-0 text-xs text-gray-400">{t("project.total")}</p>   
                                 </div>
                                 <div className="w-[50%] pl-1 flex flex-row items-center">
-                                    <p className="mb-0 text-base font-medium">8</p>
+                                    <p className="mb-0 text-base font-medium">{toDo.length}</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
                                     <p className="mb-0 text-xs text-gray-400">{t("project.waiting")}</p>
                                 </div>
@@ -393,12 +411,12 @@ export default function OneProject() {
 
                             <div className="w-full flex flex-row justify-between mt-3 px-2">
                                 <div className="w-[50%] pl-1 flex flex-row items-center mr-5">
-                                    <p className="mb-0 text-base font-medium">8</p>
+                                    <p className="mb-0 text-base font-medium">{doing.length}</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
                                     <p className="mb-0 text-xs text-gray-400">{t("project.progress")}</p>
                                 </div>
                                 <div className="w-[50%] pl-1 flex flex-row items-center">
-                                    <p className="mb-0 text-base font-medium">8</p>
+                                    <p className="mb-0 text-base font-medium">{done.length}</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
                                     <p className="mb-0 text-xs text-gray-400">{t("project.completed")}</p>
                                 </div>

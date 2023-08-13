@@ -1,9 +1,11 @@
 {
     "dashboard":{
-        "hello":"Good Afternoon!",
+        "mrng":"Good Morning!", 
+        "aftn":"Good Afternoon!", 
+        "evng":"Good Evening!", 
         "project" : "Projects",
-        "task" : "Tasks",
-        "event" : "Events",
+        "task" : "Total Tasks",
+        "event" : "Today Tasks",
         "progress" : "In Progress",
         "do": "To Do",
         "doing": "Doing",
@@ -68,11 +70,11 @@
 
     "project":{
         "my-projects":"My Projects",
-        "open":"Opne",
+        "open":"Open",
         "created":"CREATED", 
         "due-date":"DUE DATE",
-        "no-tasks":"Sin Tareas",
-        "name":"Hello, {user}",
+        "no-tasks":"No Tasks",
+        "name":"Hello, ",
         "total": "IN TOTAL",
         "waiting": "WAITING",
         "progress":"IN PROGRESS",
@@ -84,6 +86,6 @@
     "conf-modal":{
         "question":"Would you also like to delete this task?",
         "mark":"Just Mark as Done",
-        "delete":"DELETE"
+        "delete":"Delete"
     }
 }

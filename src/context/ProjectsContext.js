@@ -8,13 +8,11 @@ import {
   useEffect,
 } from "react";
 
-import { getUser } from "./UserContext";
 
 const ProjectsContext = createContext(null);
 
 const ProjectsDispatchContext = createContext(null);
 
-let user;
 
 export function ProjectsProvider({ children }) {
 

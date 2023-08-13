@@ -1,6 +1,8 @@
 {
     "dashboard":{
-        "hello":"Buenas Tardes!", 
+        "mrng":"Buenos Días!", 
+        "aftn":"Buenas Tardes!", 
+        "evng":"Buenas Noches!", 
         "project" : "Proyectos",
         "task" : "Tareas",
         "event" : "Eventos",
@@ -72,7 +74,7 @@
         "created":"CREADO", 
         "due-date":"FECHA DE VENCIMIENTO",
         "no-tasks":"Sin Tareas",
-        "name":"Hola, {user}",
+        "name":"Hola, ",
         "total": "EN TOTAL",
         "waiting": "ESPERANDO",
         "progress":"EN PROGRESO",
@@ -84,7 +86,7 @@
     "conf-modal":{
         "question":"¿También te gustaría eliminar esta tarea?",
         "mark":"Solo marcar como hecho",
-        "delete":"BORRAR"
+        "delete":"Borrar"
     }
 
 }
