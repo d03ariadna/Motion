@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Cookies from 'js-cookie'
 
+import { API } from "../components/API";
+
 import {
     format,
     parseISO,
@@ -129,11 +131,17 @@ export default function OneProject() {
         //setProjects(updatedProjects);
     }
 
+    const getMembers = async () => {
+        const result = await fetch(`${API}/projects/${projectId}/members`);
+        const data = await result.json();
+        console.log(data);
+    }
 
     function updateMembers(email) {
         setMembers([email, ...members])
     }
 
+    getMembers();
 
     useEffect(() => {
 

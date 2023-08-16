@@ -33,7 +33,7 @@ export default function Header(props) {
       <header className='top-0 left-0 fixed bg-[#B1B2FF] lg:w-[5vw] sm:w-[10vw] h-full px-2 pt-6'>
         <div className='flex flex-col justify-between h-full'>
           <section className='flex flex-col'>
-              <img src='img/m2.png' width={'55px'} className='mx-auto mb-3'></img>
+              <img src='./public/img/m2.png' width={'55px'} className='mx-auto mb-3'></img>
               {navigation.map((item) => (
               <NavLink
                 key={item.name}

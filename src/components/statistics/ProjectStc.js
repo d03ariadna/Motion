@@ -13,16 +13,20 @@ export default function ProjectStc({id}) {
     const pTasks = tasks.filter((task) => {
         return task.idProwner === id
     })
-    console.log(pTasks);
     
     const getProgress = () => {
         let tasksDone = 0;
+        pTasks.map((task) => {
+            if (task.status === 'DONE') {
+                tasksDone += 1;
+            }
+        })
 
-        
+        return (tasksDone / (pTasks.length) * 100);        
     }
 
+    const progress = getProgress();
 
-    const progress = 50;
 
     return (
         <>

@@ -80,11 +80,18 @@ const LogIn = () => {
 
   const assignUser = async (email) => {
 
+    // let user;
+    // fetch(`${API}/user/${email}`).then((response) => {
+    //   response.json().then((data) => {
+    //     user = data;
+    //   })
+    // })
     const result = await fetch(`${API}/user/${email}`)
     const user = await (result.json());
     const userCookie = JSON.stringify(user);
     
     Cookies.set("Session", userCookie);
+    //console.log(userCookie);
     
     //navigate('/dashboard');
     window.location.reload();
