@@ -5,11 +5,7 @@ import { API } from "../components/API";
 import Cookies from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
 
-
-import {
-    format,
-    parseISO,
-} from 'date-fns';
+import { format, parseISO } from "date-fns";
 
 import { usePTasks } from "../context/ProjectTasksContext";
 import { useProjects } from "../context/ProjectsContext";
@@ -20,7 +16,7 @@ import NoteModal from "../components/projectsC/NoteModal";
 import ProjectModal from "../components/general/ProjectModal";
 import AddMemberModal from "../components/projectsC/AddMemberModal";
 import ProjectStc from "../components/statistics/ProjectStc";
-import {BigIMG, MainIMG} from "../components/projectsC/MemberImg";
+import { BigIMG, MainIMG } from "../components/projectsC/MemberImg";
 
 export default function OneProject() {
   const [t, i18n] = useTranslation("global");
@@ -45,7 +41,6 @@ export default function OneProject() {
   const [doneNo, setDoneNo] = useState(done.length);
   const [notes, setNotes] = useState([]);
 
-
   const [members, setMembers] = useState([
     // "ariadna@hotmail.com",
     // "mariana@hotmail.com",
@@ -63,12 +58,10 @@ export default function OneProject() {
   function getData() {
     fetch(`${API}/${projectId}/notes`).then((response) => {
       response.json().then((data) => {
-
         setNotes(data);
-
       });
     });
-  };
+  }
 
   function createNote(id, text) {
     fetch(`${API}/${projectId}/notes`, {
@@ -131,7 +124,6 @@ export default function OneProject() {
     });
 
     setNotes(newNotes);
-
   }
 
   function updateProject(id, n_name, n_desc, n_start, n_end) {
@@ -147,19 +139,34 @@ export default function OneProject() {
       }
       return project;
     });
-    setProjects(updatedProjects);
   }
 
-  function getMembers(){
-    fetch(`${API}/projects/${projectId}/members`)
-      .then((response) => {
-        response.json().then((data) => {
-          console.log(data);
-          setMembers(data);
-        })
-      })
-    
-    }
+  function getMembers() {
+    fetch(`${API}/projects/${projectId}/members`).then((response) => {
+      response.json().then((data) => {
+        console.log(data);
+        setMembers(data);
+      });
+    });
+  }
+
+  function addMember(email) {
+    fetch(`${API}/projects/${projectId}/members`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        idPro: projectId,
+        type: 2,
+      }),
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => {
+      console.log(response);
+    });
+    const newMember = {
+      email: email,
+    };
+    setMembers([newMember, ...members]);
+  }
 
   function updateMembers(email) {
     setMembers([email, ...members]);
@@ -253,14 +260,14 @@ export default function OneProject() {
               <div className="flex flex-row">
                 {members.map((member) => {
                   return (
-                      <div key={uuidv4()} className='w-11 h-11 ml-1'>
-                        <BigIMG member={member} />
-                      </div>
-                    )
+                    <div key={uuidv4()} className="w-11 h-11 ml-1">
+                      <BigIMG member={member} />
+                    </div>
+                  );
                 })}
               </div>
               <div className="h-10 w-[3px] bg-gray-300 rounded-lg"></div>
-              <AddMemberModal members={members} addMember={updateMembers} />
+              <AddMemberModal members={members} addMember={addMember} />
             </div>
           </section>
 
@@ -330,10 +337,10 @@ export default function OneProject() {
               <h3 className="text-2xl font-medium mb-0">
                 {t("project.name") + user.name}
               </h3>
-                <div className='w-11 h-11'>
-                  <MainIMG member={user}/>
-               </div>
-              
+              <div className="w-11 h-11">
+                <MainIMG member={user} />
+              </div>
+
               {/* <img
                 src="/img/avatar.png"
                 alt=""
