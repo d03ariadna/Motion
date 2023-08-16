@@ -4,11 +4,10 @@ import { Progress } from "./RadialChart";
 import { useProjects } from "../../context/ProjectsContext";
 import { usePTasks } from "../../context/ProjectTasksContext";
 
-export default function ProjectStc({id}) {
-    
-    const [t, i18n] = useTranslation("global");
+export default function ProjectStc({ id }) {
+  const [t, i18n] = useTranslation("global");
 
-    const tasks = usePTasks();
+  const tasks = usePTasks();
 
     const pTasks = tasks.filter((task) => {
         return task.idProwner === id
@@ -34,4 +33,3 @@ export default function ProjectStc({id}) {
         </>
     )
 }
-
