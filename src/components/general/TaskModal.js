@@ -90,7 +90,6 @@ function TaskModal(props) {
       });
 
     } else {
-      console.log('project ', proID)
       dispatch2({
         type: "updated",
         task: updatedTask

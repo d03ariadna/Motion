@@ -38,13 +38,14 @@ export function useProjectsDispatch() {
 
 function projectsReducer(projects, action) {
   switch (action.type) {
+    
     case "added": {
-      createData(action.project);
+      createData(action.id, action.project);
       return [...projects, action.project];
     }
 
     case "updated": {
-      updateData(action.project.name, action.project.description);
+      updateData(action.project);
       return projects.map((p) => {
         if (p.id === action.project.id) {
           return action.project;
@@ -82,10 +83,10 @@ const getData = async () => {
   return data;
 };
 
-const createData = async (task) => {
-  const result = await fetch(`${API}/user/2/projects`, {
+const createData = async (id, project) => {
+  const result = await fetch(`${API}/${id}/projects`, {
     method: "POST",
-    body: JSON.stringify(task),
+    body: JSON.stringify(project),
     headers: {
       "Content-Type": "application/json",
     },
@@ -93,15 +94,10 @@ const createData = async (task) => {
   console.log(result);
 };
 
-const updateData = async (id, name, description, date, status) => {
-  const result = await fetch(`${API}/user/2/projects`, {
+const updateData = async (project) => {
+  const result = await fetch(`${API}/projects/${project.id}`, {
     method: "PUT",
-    body: JSON.stringify({
-      name: name,
-      description: description,
-      date: date,
-      status: status,
-    }),
+    body: JSON.stringify(project),
     headers: {
       "Content-Type": "application/json",
     },
