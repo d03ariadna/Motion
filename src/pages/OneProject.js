@@ -4,8 +4,7 @@ import { useTranslation } from "react-i18next";
 import { API } from "../components/API";
 import Cookies from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
-
-import { format, parseISO } from "date-fns";
+import { format, parseISO } from 'date-fns';
 
 import { usePTasks } from "../context/ProjectTasksContext";
 import { useProjects } from "../context/ProjectsContext";
@@ -18,12 +17,18 @@ import AddMemberModal from "../components/projectsC/AddMemberModal";
 import ProjectStc from "../components/statistics/ProjectStc";
 import { BigIMG, MainIMG } from "../components/projectsC/MemberImg";
 
+
+
+
 export default function OneProject() {
   const [t, i18n] = useTranslation("global");
 
   const projectId = parseInt(useParams().id);
 
   const user = JSON.parse(Cookies.get("Session"));
+
+  let userType;
+
 
   const projects = useProjects();
   const project = projects.find((project) => project.id == projectId);
@@ -41,12 +46,8 @@ export default function OneProject() {
   const [doneNo, setDoneNo] = useState(done.length);
   const [notes, setNotes] = useState([]);
 
-  const [members, setMembers] = useState([
-    // "ariadna@hotmail.com",
-    // "mariana@hotmail.com",
-    // "arturo@gmail.com",
-    // "gibranksr@outlook.com",
-  ]);
+
+  const [members, setMembers] = useState([]);
 
   const [trigger, setTrigger] = useState(false);
 
@@ -126,29 +127,25 @@ export default function OneProject() {
     setNotes(newNotes);
   }
 
-  function updateProject(id, n_name, n_desc, n_start, n_end) {
-    const updatedProjects = projects.map((project) => {
-      if (project.id === id) {
-        return {
-          ...project,
-          name: n_name,
-          description: n_desc,
-          start: n_start,
-          end: n_end,
-        };
-      }
-      return project;
-    });
-  }
+  function getMembers(){
+    fetch(`${API}/projects/${projectId}/members`)
+      .then((response) => {
+        response.json().then((data) => {
+          console.log(data);
+          setMembers(data);
 
-  function getMembers() {
-    fetch(`${API}/projects/${projectId}/members`).then((response) => {
-      response.json().then((data) => {
-        console.log(data);
-        setMembers(data);
-      });
-    });
-  }
+          data.map((member) => {
+            if (member.id === user.id) {
+              userType = member.type;
+              console.log(userType);
+            }
+          })
+
+        });
+      });    
+    
+    
+    }
 
   function addMember(email) {
     fetch(`${API}/projects/${projectId}/members`, {
@@ -167,6 +164,7 @@ export default function OneProject() {
     };
     setMembers([newMember, ...members]);
   }
+
 
   function updateMembers(email) {
     setMembers([email, ...members]);
@@ -446,7 +444,6 @@ export default function OneProject() {
         show={showProject}
         close={handleCloseProject}
         open={handleShowProject}
-        submit={updateProject}
       />
     </>
   );

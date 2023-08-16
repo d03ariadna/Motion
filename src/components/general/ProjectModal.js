@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useTranslation} from "react-i18next";
 import Modal from 'react-bootstrap/Modal';
 import { DatePicker } from './DatePicker';
+import Cookies from "js-cookie";
 
 import { useProjectsDispatch } from '../../context/ProjectsContext';
 
@@ -20,10 +21,12 @@ function ProjectModal(props) {
 
     const [t, i18n] = useTranslation("global");
 
+    let id;
+
     const dispatch = useProjectsDispatch();
 
     const project = props.project;
-    let id;
+    let userID  = JSON.parse(Cookies.get("Session")).id;
     
     let tStart = [];
     let tEnd = [];
@@ -49,16 +52,18 @@ function ProjectModal(props) {
 
 
 function createProject(id, name, desc, start, end) {
-        const newProject = {
-        id: id,
+    const newProject = {
+        id:id,
         name: name,
         description: desc,
-        start: start,
-        end: end,
-        };
+        startDate: start,
+        endDate: end,
+    };
+    console.log(newProject)
     
         dispatch({
             type: 'added',
+            id: userID,
             project: newProject,
         });
   }
@@ -67,11 +72,11 @@ function createProject(id, name, desc, start, end) {
     
       const updatedProject = {
         id: id,
-        name: n_name,
+        name: n_name, 
         description: n_desc,
-        start: n_start,
-        end: n_end,
-    };
+        startDate: n_start,
+        endDate: n_end,
+      };
     
         dispatch({
             type: 'updated',
@@ -88,7 +93,7 @@ function createProject(id, name, desc, start, end) {
             setName(project.name);
             setDesc(project.description);
             setStart(format(tStart, 'y-MM-dd'));
-            setEnd(tEnd);
+            setEnd(format(tEnd, 'y-MM-dd'));
 
         } else {
             setStart(format(startOfToday(), 'y-MM-dd'));
@@ -96,7 +101,6 @@ function createProject(id, name, desc, start, end) {
         }
         
     }, []);
-
 
     const getStart = (newDate) => {
         
@@ -131,7 +135,7 @@ function createProject(id, name, desc, start, end) {
                         
                             props.edit ? id=project.id : id=uuidv4()
                             //Update or Create Project
-                        
+                        console.log(start);
                             props.edit 
                             ? updateProject(id, name, desc, start, end)
                             : createProject(id, name, desc, start, end)
