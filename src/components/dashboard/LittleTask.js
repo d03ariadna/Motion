@@ -46,13 +46,13 @@ export default function LittleTask(props) {
             </div>
 
             <TaskModal
-                id={task.id}
                 task={task}
                 edit={true}
                 show={showTask}
                 close={handleCloseTask}
                 open={handleShowTask}
-                personal={true}/>
+                personal={true}
+                />
         </>
     )
 }

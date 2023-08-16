@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
+import { v4 as uuidv4 } from "uuid";
+
 function AddMemberModal(props) {
 
     const [show, setShow] = useState(false);
@@ -67,7 +69,7 @@ function AddMemberModal(props) {
                             <section className='h-[80%]'>
                                 {members.map((member) => {
                                     return (
-                                        <div className='flex flex-row items-center mt-4 pb-3 border-b-2 border-gray-200'>
+                                        <div key={uuidv4()} className='flex flex-row items-center mt-4 pb-3 border-b-2 border-gray-200'>
                                             <div className=' h-8 w-8 text-center rounded-full font-medium text-lg bg-black text-white'>A</div>
                                             <p className='mb-1 text-gray-500 ml-3 text-xl font-light'>{member}</p>
                                         </div>

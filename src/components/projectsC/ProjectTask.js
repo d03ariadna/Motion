@@ -47,7 +47,7 @@ export default function ProjectTask(props) {
                 show={showTask}
                 close={handleCloseTask}
                 open={handleShowTask}
-                personal={false} />
+                personal={false}/>
         </>
     )
 }

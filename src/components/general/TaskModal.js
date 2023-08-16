@@ -1,8 +1,10 @@
 import { da } from "date-fns/locale";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
 import { useTasksDispatch } from "../../context/TasksContext";
+import { usePTDispatch } from "../../context/ProjectTasksContext";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -12,16 +14,20 @@ import { v4 as uuidv4 } from "uuid";
 
 import { format, parseISO, startOfToday } from "date-fns";
 
+
+
+
 function TaskModal(props) {
+
   const [t, i18n] = useTranslation("global");
 
   const dispatch = useTasksDispatch();
+  const dispatch2 = usePTDispatch();
 
   const task = props.task;
   let id;
+  let proID  = parseInt(useParams().id);
 
-  //Identify a personal or project task
-  const personal = props.personal
 
   let actualDay;
 
@@ -31,24 +37,39 @@ function TaskModal(props) {
     actualDay = task.date;
   }
 
+
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState(actualDay);
   const [status, setStatus] = useState("TO DO");
 
   function createTask(id, name, desc, date, status) {
+    
     const newTask = {
       id: id,
       name: name,
       description: desc,
       date: date,
       status: status,
+      idProwner: proID
     };
 
-    dispatch({
-      type: "added",
-      task: newTask,
-    });
+    if (props.personal) {
+      console.log('personal')
+      dispatch({
+        type: "added",
+        task: newTask,
+      });
+
+    } else {
+      console.log('project ', proID)
+      dispatch2({
+        type: "added",
+        task: newTask,
+        proID: proID,
+      });
+    }
+    
   }
 
   function updateTask(id, n_name, n_desc, n_date, n_status) {
@@ -58,27 +79,41 @@ function TaskModal(props) {
       description: n_desc,
       date: n_date,
       status: n_status,
+      idProwner: proID
     };
 
-    if (personal) {
+    if (props.personal) {
+      console.log('personal')
       dispatch({
         type: "updated",
         task: updatedTask,
       });
+
     } else {
-      dispatch({
-        type: "updatedProject",
+      console.log('project ', proID)
+      dispatch2({
+        type: "updated",
         task: updatedTask
-      })
+      });
     }
     
   }
 
   function deleteTask(id) {
-    dispatch({
-      type: "deleted",
-      id: id,
-    });
+
+    if (props.personal) {
+      dispatch({
+        type: "deleted",
+        id: id,
+      });
+
+    } else {
+      dispatch2({
+        type: "deleted",
+        id: id
+      });
+    }
+    
   }
 
   const getDate = (nDate) => {
@@ -116,7 +151,6 @@ function TaskModal(props) {
               e.preventDefault();
 
               props.edit ? (id = task.id) : (id = uuidv4());
-
               props.edit
                 ? updateTask(id, name, desc, date, status)
                 : createTask(id, name, desc, date, status);

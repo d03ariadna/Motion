@@ -40,7 +40,7 @@ export default function GeneralStc() {
         return total;
     }
 
-    const totalTasks = tasks.length;
+  const totalTasks = tasks.length;
     const totalProjects = projects.length
     const dayTasks = getTodayTasks();
     const progressTasks = getProgressTasks();

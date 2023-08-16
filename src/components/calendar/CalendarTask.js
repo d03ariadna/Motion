@@ -51,7 +51,6 @@ export default function CalendarTask({ task, deleteTask }) {
       </li>
 
       <TaskModal
-        id={task.id}
         task={task}
         edit={true}
         show={showTask}

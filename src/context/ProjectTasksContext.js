@@ -11,47 +11,52 @@ import {
 } from "react";
 
 
-const TasksContext = createContext(null);
+const ProjectTasks = createContext(null);
 
-const TasksDispatchContext = createContext(null);
+const PTDispatchContext = createContext(null);
 
-export function TasksProvider({ children }) {
-  const [tasks, dispatch] = useReducer(tasksReducer, initTasks);
+export function ProjectTasksProvider({ children }) {
+  const [projectTasks, dispatchPT] = useReducer(ptReducer, initPTasks);
 
   return (
-    <TasksContext.Provider value={tasks}>
-      <TasksDispatchContext.Provider value={dispatch}>
+    <ProjectTasks.Provider value={projectTasks}>
+      <PTDispatchContext.Provider value={dispatchPT}>
         {children}
-      </TasksDispatchContext.Provider>
-    </TasksContext.Provider>
+      </PTDispatchContext.Provider>
+    </ProjectTasks.Provider>
   );
 }
 
-export function useTasks() {
-  return useContext(TasksContext);
+export function usePTasks() {
+  return useContext(ProjectTasks);
 }
 
-export function useTasksDispatch() {
-  return useContext(TasksDispatchContext);
+export function usePTDispatch() {
+  return useContext(PTDispatchContext);
 }
 
-function tasksReducer(tasks, action) {
+function ptReducer(projectTasks, action) {
+  
   switch (action.type) {
     case "added": {
-      createData(action.task);
-      return [...tasks, action.task];
+      createData(action.task, action.proID);
+
+      return [...projectTasks, action.task];
     }
 
-    case "updated": {
+    case "updated" : {
       updateData(
         action.task.id,
         action.task.name,
         action.task.description,
         action.task.date,
-        action.task.status
+        action.task.status,
+        action.task.idProwner
       );
-      return tasks.map((t) => {
+
+      return projectTasks.map((t) => {
         if (t.id === action.task.id) {
+          console.log(action.task);
           return action.task;
         } else {
           return t;
@@ -61,9 +66,11 @@ function tasksReducer(tasks, action) {
 
     case "deleted": {
       deleteData(action.id);
-      return tasks.filter((t) => t.id !== action.id);
+
+      return projectTasks.filter((t) => t.id !== action.id);
     }
-      
+
+
     default: {
       throw Error("Unknown action: " + action.type);
     }
@@ -82,18 +89,14 @@ const getData = async () => {
     id=1
   }
 
-  const result = await fetch(`${API}/${id}/tasks`);
+  const result = await fetch(`${API}/projects/tasks/${id}`);
   const data = await result.json();
   return data;
 };
 
-const createData = async (task) => {
+const createData = async (task, idPro) => {
 
-  const cookie = Cookies.get("Session");
-  const user = JSON.parse(cookie);
-
-
-  const result = await fetch(`${API}/${user.id}/tasks/`, {
+  const result = await fetch(`${API}/projects/tasks/${idPro}`, {
     method: "POST",
     body: JSON.stringify(task),
     headers: {
@@ -102,14 +105,15 @@ const createData = async (task) => {
   });
 };
 
-const updateData = async (id, name, description, date, status) => {
-  const result = await fetch(`${API}/tasks/${id}`, {
+const updateData = async (id, name, description, date, status, proID) => {
+  const result = await fetch(`${API}/projects/tasks/${id}`, {
     method: "PUT",
     body: JSON.stringify({
       name: name,
       description: description,
       date: date,
       status: status,
+      idProwner: proID,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -118,11 +122,11 @@ const updateData = async (id, name, description, date, status) => {
 };
 
 const deleteData = async (id) => {
-  const result = await fetch(`${API}/tasks/${id}`, {
+  const result = await fetch(`${API}/projects/tasks/${id}`, {
     method: "DELETE",
   });
 };
 
 
-const initTasks = await getData();
+const initPTasks = await getData();
 

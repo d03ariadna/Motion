@@ -47,7 +47,7 @@ export default function Tasks() {
       <header className="w-full h-[10vh] mb-2 flex flex-row justify-between ">
         <h1 className="mt-2 font-semibold">{t("tasks.my-tasks")}</h1>
         <div className="h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5">
-          <CreateButton action="task" />
+          <CreateButton action="task" personal={true}/>
 
           <img
             src="/img/avatar.png"

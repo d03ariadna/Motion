@@ -30,6 +30,8 @@ export default function CreateButton(props) {
 
   const [mainColor, setMainColor] = useState('#b1b2ff');
 
+  const personal = props.personal;
+
   return (
       <>
           <Menu as="div" className=" relative inline-block text-left w-[250px]">
@@ -80,12 +82,12 @@ export default function CreateButton(props) {
 
       
       <TaskModal
-        id={1}
         task={[]}
         edit={false}
         show={showTask}
         close={handleCloseTask}
-        open={handleShowTask}/>
+        open={handleShowTask}
+        personal={personal} />
 
 
       <ProjectModal

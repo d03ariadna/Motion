@@ -28,36 +28,36 @@ function Dashboard() {
 
   const tasks = useTasks();
 
-  const projects2 = useProjects();
+  const projects = useProjects();
   
   //console.log(tasks);
   //console.log(projects2);
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      name: "Project 1",
-      description:
-        "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-      start: "2023-08-05",
-      end: "2023-12-25",
-    },
-    {
-      id: 2,
-      name: "Project 2",
-      description:
-        "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-      start: "2023-07-05",
-      end: "2023-04-08",
-    },
-    {
-      id: 3,
-      name: "Project 3",
-      description:
-        "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-      start: "2023-08-05",
-      end: "2023-01-10",
-    },
-  ]);
+  // const [projects, setProjects] = useState([
+  //   {
+  //     id: 1,
+  //     name: "Project 1",
+  //     description:
+  //       "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+  //     start: "2023-08-05",
+  //     end: "2023-12-25",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Project 2",
+  //     description:
+  //       "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+  //     start: "2023-07-05",
+  //     end: "2023-04-08",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Project 3",
+  //     description:
+  //       "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
+  //     start: "2023-08-05",
+  //     end: "2023-01-10",
+  //   },
+  // ]);
 
  
 
@@ -81,7 +81,7 @@ function Dashboard() {
       <header className="w-full h-[10vh] mb-2 flex flex-row justify-between ">
         <h1 className="mt-2 font-semibold">{t(time)}</h1>
         <div className="h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5">
-          <CreateButton />
+          <CreateButton personal={true}/>
           <img
             src="/img/avatar.png"
             alt=""

@@ -66,7 +66,6 @@ export default function ProjectCard(props) {
 
             
             <ProjectModal
-                id={project.id}
                 project={project}
                 edit={true}
                 show={showProject}

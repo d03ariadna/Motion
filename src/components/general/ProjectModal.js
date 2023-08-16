@@ -36,11 +36,11 @@ function ProjectModal(props) {
             
     } else {
         
-        tStart = parseISO(project.start);
-        tEnd = parseISO(project.end);
+        tStart = parseISO(project.startDate);
+        tEnd = parseISO(project.endDate);
 
     }
-
+    
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
     const [start, setStart] = useState('');

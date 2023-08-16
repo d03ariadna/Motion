@@ -8,6 +8,9 @@ import {
     parseISO,
 } from 'date-fns';
 
+import { usePTasks } from "../context/ProjectTasksContext";
+import { useProjects } from "../context/ProjectsContext";
+
 import CreateButton from "../components/general/CreateButton"
 import ProjectTask from "../components/projectsC/ProjectTask";
 import NoteModal from "../components/projectsC/NoteModal";
@@ -21,84 +24,23 @@ import ProjectStc from "../components/statistics/ProjectStc";
 export default function OneProject() {
     const [t, i18n] = useTranslation("global");
 
-    const projectId = (useParams()).id;
+    const projectId = parseInt((useParams()).id);
 
     const user = JSON.parse(Cookies.get('Session')).name;
 
-    
-
-    // GET PROJECT'S TASKS
-    const [tasks, setTasks] = useState(
-        [
-            {
-                id: 1,
-                name: "Buy a gift for Christina's Birthday",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "2023-08-14",
-                status: "TO DO",
-            },
-            {
-                id: 2,
-                name: "Take a rest",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "2023-09-10",
-                status: "DOING",
-            },
-            {
-                id: 3,
-                name: "Finish Zencon Project",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "2023-11-14",
-                status: "TO DO",
-            },
-            {
-                id: 4,
-                name: "Richard's Birthday Party",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "2023-06-15",
-                status: "DOING",
-            },
-            {
-                id: 5,
-                name: "Buy the supplements for gym",
-                description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-                date: "2023-08-08",
-                status: "DONE",
-            }
-        ]);
-    
-    const [projects, setProjects] = useState(
-    [
-      {
-        id: 1,
-        name: "Project 1",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "2023-08-05",
-        end: "2023-12-25",
-      },
-      {
-        id: 2,
-        name: "Project 2",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "2023-07-05",
-        end: "2023-04-08",
-      },
-      {
-        id: 3,
-        name: "Project 3",
-        description: "elit. Optio iusto accusantium dolores id incidunt? Dolorem mollitia nihil esse molestias ipsum! Fuga optio enim, eveniet sint natus omnis debitis ad nesciunt.",
-        start: "2023-08-05",
-        end: "2023-01-10",
-      },
-    ])
-    
+    const projects = useProjects();
     const project = projects.find((project) => project.id == projectId);
+
+    const allTasks = usePTasks();
+    let pTasks = allTasks.filter((task) => task.idProwner === projectId );
+    
+    
     
     const [toDo, setToDo] = useState([]);
     const [doing, setDoing] = useState([]);
     const [done, setDone] = useState([]);
 
-    const [totalNo, setTotalNo] = useState(tasks.length)
+    const [totalNo, setTotalNo] = useState(pTasks.length)
     const [toDoNo, setToDoNo] = useState(toDo.length);
     const [doingNo, setDoingNo] = useState(doing.length);
     const [doneNo, setDoneNo] = useState(done.length);
@@ -184,7 +126,7 @@ export default function OneProject() {
             }
             return project;
         });
-        setProjects(updatedProjects);
+        //setProjects(updatedProjects);
     }
 
 
@@ -194,27 +136,28 @@ export default function OneProject() {
 
 
     useEffect(() => {
-        console.log(tasks)
+
+        console.log(pTasks);
         let tempTasks = [];
 
         //Get TO DO tasks
-        tempTasks = tasks.filter((task) => { return task.status === 'TO DO' });
+        tempTasks = pTasks.filter((task) => { return task.status === 'TO DO' });
         setToDo(tempTasks);
         setToDoNo(tempTasks.length);
 
         //Get DOING tasks
-        tempTasks = tasks.filter((task) => { return task.status === 'DOING' });
+        tempTasks = pTasks.filter((task) => { return task.status === 'DOING' });
         setDoing(tempTasks);
         setDoingNo(tempTasks.length);
 
         //Get DONE tasks
-        tempTasks = tasks.filter((task) => { return task.status === 'DONE' });
+        tempTasks = pTasks.filter((task) => { return task.status === 'DONE' });
         setDone(tempTasks);
         setDoneNo(tempTasks.length);
 
-        setTotalNo(tasks.length);
+        setTotalNo(pTasks.length);
 
-    }, [trigger]);
+    }, [allTasks]);
 
 
     return (
@@ -236,11 +179,13 @@ export default function OneProject() {
                         <div className="flex flex-row w-[35%] mr-10 justify-between items-end">
                             <div>
                                 <h5 className="mb-1 text-sm font-normal text-gray-400">{t("project.created")}</h5>
-                                <p className="mb-0 text-sm">{format(parseISO(project.start), 'MMMM, do')}</p>
+                                <p className="mb-0 text-sm">{format(parseISO(project.startDate), 'MMMM, do')}</p>
+                                {/* <p className="mb-0 text-sm">temporal</p> */}
                             </div>
                             <div>
                                 <h5 className="mb-1 text-sm font-normal text-gray-400">{t("project.due-date")}</h5>
-                                <p className="mb-0 text-sm">{format(parseISO(project.end), 'MMMM, do')}</p>
+                                <p className="mb-0 text-sm">{format(parseISO(project.endDate), 'MMMM, do')}</p>
+                                {/* <p className="mb-0 text-sm">temporal</p> */}
                             </div>
                         </div>
                     </header>
@@ -251,6 +196,7 @@ export default function OneProject() {
                         
                         <CreateButton
                             action='task'
+                            personal={false}
                         />
                         
 
@@ -299,6 +245,7 @@ export default function OneProject() {
                                                 <ProjectTask
                                                     key={task.id}
                                                     task={task}
+                                                    proID={project.id}
                                                 />
                                             );
                                         })
@@ -319,6 +266,7 @@ export default function OneProject() {
                                                 <ProjectTask
                                                     key={task.id}
                                                     task={task}
+                                                    proID={project.id}
                                                 />
                                             );
                                         })
@@ -349,12 +297,12 @@ export default function OneProject() {
 
                             <div className="w-full flex flex-row justify-between px-2 mt-2">
                                 <div className="w-[50%] pl-1 flex flex-row items-center mr-5">
-                                    <p className="mb-0 text-base font-medium">{tasks.length}</p>
+                                    <p className="mb-0 text-base font-medium">{totalNo}</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
                                     <p className="mb-0 text-xs text-gray-400">{t("project.total")}</p>   
                                 </div>
                                 <div className="w-[50%] pl-1 flex flex-row items-center">
-                                    <p className="mb-0 text-base font-medium">{toDo.length}</p>
+                                    <p className="mb-0 text-base font-medium">{toDoNo}</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
                                     <p className="mb-0 text-xs text-gray-400">{t("project.waiting")}</p>
                                 </div>
@@ -362,12 +310,12 @@ export default function OneProject() {
 
                             <div className="w-full flex flex-row justify-between mt-3 px-2">
                                 <div className="w-[50%] pl-1 flex flex-row items-center mr-5">
-                                    <p className="mb-0 text-base font-medium">{doing.length}</p>
+                                    <p className="mb-0 text-base font-medium">{doingNo}</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
                                     <p className="mb-0 text-xs text-gray-400">{t("project.progress")}</p>
                                 </div>
                                 <div className="w-[50%] pl-1 flex flex-row items-center">
-                                    <p className="mb-0 text-base font-medium">{done.length}</p>
+                                    <p className="mb-0 text-base font-medium">{doneNo}</p>
                                     <div className="w-1 h-5 bg-lime-400 mx-2 rounded-2xl"></div>
                                     <p className="mb-0 text-xs text-gray-400">{t("project.completed")}</p>
                                 </div>

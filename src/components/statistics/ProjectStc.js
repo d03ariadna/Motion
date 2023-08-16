@@ -2,16 +2,23 @@ import { useTranslation } from "react-i18next";
 import { Progress } from "./RadialChart";
 
 import { useProjects } from "../../context/ProjectsContext";
+import { usePTasks } from "../../context/ProjectTasksContext";
 
 export default function ProjectStc({id}) {
     
     const [t, i18n] = useTranslation("global");
 
-    const projects = useProjects();
-    const project = projects.map((project) => { return project.id === id })
+    const tasks = usePTasks();
+
+    const pTasks = tasks.filter((task) => {
+        return task.idProwner === id
+    })
+    console.log(pTasks);
     
     const getProgress = () => {
-        //waiting for
+        let tasksDone = 0;
+
+        
     }
 
 

@@ -20,7 +20,7 @@ export default function LittleProject(props) {
 
     const project = props.project;
 
-    const pEnd = parseISO(project.end);
+    const pEnd = parseISO(project.endDate);
 
     const [showProject, setShowProject] = useState(false);
 
@@ -48,7 +48,7 @@ export default function LittleProject(props) {
                         <a href={`/project/${project.id}`} className='text-black text-base font-medium no-underline mb-0'>
                             {project.name}
                         </a>
-                        <p className="text-xs text-gray-300 mt-1 mb-0">{t("project.deadline")} {project.end}</p>
+                        <p className="text-xs text-gray-300 mt-1 mb-0">{t("project.deadline")} {format(pEnd, 'MMM do')}</p>
                     </section>
                         
                     <section className="w-full px-2 flex flex-row items-center justify-between">

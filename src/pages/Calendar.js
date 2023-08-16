@@ -173,7 +173,7 @@ export default function Calendar() {
           {/* Tasks Section */}
           <div className="w-[27%] h-[95vh] ml-2 pb-2 flex flex-col justify-between">
             <div className="w-full flex flex-row justify-between items-center pl-5">
-              <CreateButton action={"task"} />
+              <CreateButton action={"task"} personal={true} />
               <img
                 src="/img/avatar.png"
                 alt=""
