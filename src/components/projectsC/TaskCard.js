@@ -96,6 +96,7 @@ export default function TaskCard(props) {
         close={handleCloseTask}
         open={handleShowTask}
         personal={true}
+        userType={1}
       />
     </>
   );

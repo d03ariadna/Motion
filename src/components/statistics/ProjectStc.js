@@ -4,6 +4,7 @@ import { Progress } from "./RadialChart";
 import { useProjects } from "../../context/ProjectsContext";
 import { usePTasks } from "../../context/ProjectTasksContext";
 
+
 export default function ProjectStc({ id }) {
   const [t, i18n] = useTranslation("global");
 
@@ -40,3 +41,4 @@ export default function ProjectStc({ id }) {
         </>
     )
 }
+

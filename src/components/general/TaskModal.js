@@ -21,12 +21,14 @@ function TaskModal(props) {
 
   const [t, i18n] = useTranslation("global");
 
+
+
   const dispatch = useTasksDispatch();
   const dispatch2 = usePTDispatch();
 
   const task = props.task;
   let id;
-  let proID  = parseInt(useParams().id);
+  let proID = parseInt(useParams().id);
 
 
   let actualDay;
@@ -262,25 +264,26 @@ function TaskModal(props) {
         </Modal.Body>
         <Modal.Footer>
           {props.edit ? (
-            <button
-              className="bg-gray-300 hover:bg-red-700 text-white transition-all ease-in-out font-bold py-2 px-4 rounded"
-              onClick={() => {
-                deleteTask(task.id);
-                props.close();
-              }}
-            >
-              {t("t-modal.delete")}
-            </button>
+              <button
+                className="bg-gray-300 hover:bg-red-700 text-white transition-all ease-in-out font-bold py-2 px-4 rounded"
+                onClick={() => {
+                  deleteTask(task.id);
+                  props.close();
+                }}
+              >
+                {t("t-modal.delete")}
+              </button>
           ) : (
             <></>
           )}
 
-          <button
-            className="bg-[#B1B2FF] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded"
-            form="editmodal"
-          >
-            {props.edit ? "Update" : "Create"}
-          </button>
+              <button
+                className="bg-[#B1B2FF] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded"
+                form="editmodal"
+              >
+                {props.edit ? "Update" : "Create"}
+              </button>
+          
         </Modal.Footer>
       </Modal>
     </>

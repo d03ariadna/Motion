@@ -23,7 +23,9 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { useTasks, useTasksDispatch } from "../context/TasksContext";
+import { useProjects } from "../context/ProjectsContext";
 import CalendarTask from "../components/calendar/CalendarTask";
+import CalendarProject from "../components/calendar/CalendarProject";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -36,6 +38,7 @@ export default function Calendar() {
   const [t, i18n] = useTranslation("global");
   const tasks = useTasks();
   const dispatch = useTasksDispatch();
+  const projects = useProjects();
 
   let selectedDate = startOfToday();
   let actualDay = useParams().day;
@@ -69,6 +72,9 @@ export default function Calendar() {
     isSameDay(parseISO(meeting.date), selectedDay)
   );
 
+  let selectedDayProjects = projects.filter((project) =>
+    isSameDay(parseISO(project.endDate), selectedDay)
+  );
 
   function deleteTask(id) {
     dispatch({
@@ -158,11 +164,17 @@ export default function Calendar() {
                     </time>
                   </button>
 
-                  <div className="w-2 h-2 mx-auto mt-1">
+                  <div className="w-6 h-2 mx-auto mt-1 flex flex-row justify-around">
                     {tasks.some((meeting) =>
                       isSameDay(parseISO(meeting.date), day)
                     ) && (
                       <div className="w-2 h-2 rounded-full bg-pink-300"></div>
+                      )}
+                    
+                    {projects.some((project) =>
+                      isSameDay(parseISO(project.endDate), day)
+                    ) && (
+                      <div className="w-2 h-2 rounded-full bg-[#b1b2ff]"></div>
                     )}
                   </div>
                 </div>
@@ -198,11 +210,24 @@ export default function Calendar() {
                       deleteTask={deleteTask}
                     />
                   ))
+                  
+                  
                 ) : (
-                  <p className="mt-40 text-center text-base font-light text-gray-300">
-                    {t("calendar.n-m")}
-                  </p>
-                )}
+                    <></>
+                  // <p className="mt-40 text-center text-base font-light text-gray-300">
+                  //   {t("calendar.n-m")}
+                  // </p>
+                )
+                }
+                {selectedDayProjects.length > 0 ? (
+                  selectedDayProjects.map((project) => (
+                    <CalendarProject key={project.id} project={project}/>
+                  ))
+                  )
+                    :
+                    <></>
+                }
+                
               </div>
             </section>
           </div>

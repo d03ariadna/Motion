@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react'
 import {useTranslation} from "react-i18next";
 import ProjectModal from '../general/ProjectModal';
 import { EditIcon } from '../icons/icons';
+import { usePTasks } from '../../context/ProjectTasksContext';
 
 import {
     format,
@@ -27,6 +28,24 @@ export default function LittleProject(props) {
     const handleCloseProject = () => setShowProject(false);
     const handleShowProject = () => setShowProject(true);
 
+
+    const tasks = usePTasks();
+
+    const pTasks = tasks.filter((task) => {
+        return task.idProwner === project.id
+    })
+
+    let tasksDone = 0;
+    pTasks.map((task) => {
+        if (task.status === 'DONE') {
+            tasksDone += 1;
+        }
+    })
+
+    const progress = (tasksDone / (pTasks.length) * 100); 
+
+    console.log(progress);
+
     return (
         <>
             <div>
@@ -38,9 +57,9 @@ export default function LittleProject(props) {
                                 <img src="/img/avatar.png" alt="" className='w-8 h-8 rounded-full ml-[-12px] border-[1px] border-slate-300' />
                                 <img src="/img/avatar.png" alt="" className='w-8 h-8 rounded-full ml-[-12px] border-[1px] border-slate-300'/>
                             </div>
-                            <button onClick={handleShowProject} className="py-1 ">
+                            {/* <button onClick={handleShowProject} className="py-1 ">
                                 <EditIcon/>
-                            </button>
+                            </button> */}
                         </div>
                     </section>
                     
@@ -53,10 +72,10 @@ export default function LittleProject(props) {
                         
                     <section className="w-full px-2 flex flex-row items-center justify-between">
                         <div className="w-[80%] h-[3px] bg-gray-300 rounded-full">
-                            <div className="w-[80%] h-[3px] bg-gray-800"></div>
+                            <div className={`w-[${progress}%] h-[3px] ${progress === 0 ? 'bg-gray-300':'bg-gray-800'} `}></div>
                         </div>
                         <div className="w-[15%]">
-                            <p className="text-xs text-slate-400 mb-0">60%</p>
+                            <p className="text-xs text-slate-400 mb-0">{progress}%</p>
                         </div>
                     </section>    
                 </div>
@@ -68,7 +87,7 @@ export default function LittleProject(props) {
                 edit={true}
                 show={showProject}
                 close={handleCloseProject}
-                open={handleShowProject} />
+                open={handleShowProject}/>
         </>
     )
 }

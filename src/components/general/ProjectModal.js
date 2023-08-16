@@ -23,6 +23,9 @@ function ProjectModal(props) {
 
     let id;
 
+
+    
+
     const dispatch = useProjectsDispatch();
 
     const project = props.project;
@@ -59,7 +62,6 @@ function createProject(id, name, desc, start, end) {
         startDate: start,
         endDate: end,
     };
-    console.log(newProject)
     
         dispatch({
             type: 'added',
@@ -99,6 +101,7 @@ function createProject(id, name, desc, start, end) {
             setStart(format(startOfToday(), 'y-MM-dd'));
             setEnd(format(startOfToday(), 'y-MM-dd'));
         }
+
         
     }, []);
 
@@ -225,6 +228,9 @@ function createProject(id, name, desc, start, end) {
                         </div>
                             
                         {/* End Date Input */}
+                        
+                            
+                        
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                             <label className="block text-gray-400 font-medium md:text-left mb-1 ml-4 md:mb-0 pr-4"  htmlFor="end">
@@ -232,7 +238,7 @@ function createProject(id, name, desc, start, end) {
                             </label>
                             </div>
                             <div className="md:w-3/4">
-                            <DatePicker dateSet={tEnd} setDate={getEnd}/>
+                                    <DatePicker dateSet={tEnd} setDate={getEnd} />
                             </div>
                         </div>
                             
@@ -240,10 +246,11 @@ function createProject(id, name, desc, start, end) {
                     </form>
                 </Modal.Body>
                     <Modal.Footer>
-                        
                         <button className='bg-[#B1B2FF] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded' form='editmodal'>
                             {props.edit ? 'Update' : 'Create'}
                         </button>
+                    
+                        
                     </Modal.Footer>
             </Modal>
         </>

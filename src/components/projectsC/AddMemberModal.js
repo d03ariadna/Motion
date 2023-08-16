@@ -10,7 +10,6 @@ function AddMemberModal(props) {
   const members = props.members;
   const [email, setEmail] = useState("");
 
-  console.log(members);
 
   const handleShow = () => {
     setShow(!show);

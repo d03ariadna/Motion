@@ -18,6 +18,7 @@ import {
 import { Fragment, useState } from "react";
 
 import { useTasks } from "../../context/TasksContext";
+import { useProjects } from "../../context/ProjectsContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -27,6 +28,7 @@ export default function MiniCalendar() {
   const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const tasks = useTasks();
+  const projects = useProjects();
 
   let today = startOfToday();
   let [selectedDay, setSelectedDay] = useState(today);
@@ -100,11 +102,16 @@ export default function MiniCalendar() {
                     </time>
                   </button>
 
-                  <div className="w-1 h-1 mx-auto mt-1">
+                  <div className="w-3 h-1 mx-auto mt-1 flex flex-row justify-around">
                     {tasks.some((task) =>
                       isSameDay(parseISO(task.date), day)
                     ) && (
-                      <div className="w-1 h-1 rounded-full bg-[#B1B2FF]"></div>
+                      <div className="w-1 h-1 rounded-full bg-pink-300"></div>
+                      )}
+                    {projects.some((project) =>
+                      isSameDay(parseISO(project.endDate), day)
+                    ) && (
+                      <div className="w-1 h-1 rounded-full bg-[#b1b2ff]"></div>
                     )}
                   </div>
                 </div>

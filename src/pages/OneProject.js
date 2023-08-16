@@ -27,7 +27,7 @@ export default function OneProject() {
 
   const user = JSON.parse(Cookies.get("Session"));
 
-  let userType;
+  const [userType, setUserType] = useState(2);
 
 
   const projects = useProjects();
@@ -131,15 +131,15 @@ export default function OneProject() {
     fetch(`${API}/projects/${projectId}/members`)
       .then((response) => {
         response.json().then((data) => {
-          console.log(data);
+          console.log(data)
           setMembers(data);
 
           data.map((member) => {
             if (member.id === user.id) {
-              userType = member.type;
-              console.log(userType);
+              setUserType(member.type);
+              console.log(member.type)
             }
-          })
+          });
 
         });
       });    
@@ -165,10 +165,6 @@ export default function OneProject() {
     setMembers([newMember, ...members]);
   }
 
-
-  function updateMembers(email) {
-    setMembers([email, ...members]);
-  }
 
   useEffect(() => {
     let tempTasks = [];
@@ -211,21 +207,27 @@ export default function OneProject() {
           <header className="w-full  flex flex-row justify-between items-center">
             <div className="flex flex-row items-center py-1">
               <h1 className="font-semibold">{project.name}</h1>
-              <button onClick={handleShowProject} className="py-1 ml-5 mb-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  className="w-10 h-10 cursor-pointer stroke-black hover:stroke-[#B1B2FF]"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                  />
-                </svg>
-              </button>
+
+              {userType === 1 ?
+                  <button onClick={handleShowProject} className="py-1 ml-5 mb-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      className="w-10 h-10 cursor-pointer stroke-black hover:stroke-[#B1B2FF]"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                      />
+                    </svg>
+                </button>
+                :
+                <></>
+              }
+              
             </div>
             <div className="flex flex-row w-[35%] mr-10 justify-between items-end">
               <div>
@@ -252,7 +254,9 @@ export default function OneProject() {
 
           {/* Create & Members Section */}
           <section className="mt-[2.5rem] flex flex-row justify-between items-center">
-            <CreateButton action="task" personal={false} />
+
+            {userType === 1 ? <CreateButton action="task" personal={false} /> : <></>}
+            
 
             <div className="w-[20%] flex flex-row justify-between items-center">
               <div className="flex flex-row">
@@ -265,7 +269,9 @@ export default function OneProject() {
                 })}
               </div>
               <div className="h-10 w-[3px] bg-gray-300 rounded-lg"></div>
-              <AddMemberModal members={members} addMember={addMember} />
+
+              {userType === 1 ? <AddMemberModal members={members} addMember={addMember} /> : <></>}
+              
             </div>
           </section>
 
@@ -276,7 +282,14 @@ export default function OneProject() {
               <div className="w-full h-[55vh] mt-3 flex flex-col flex-nowrap overflow-y-scroll">
                 {toDo.length > 0 ? (
                   toDo.map((task) => {
-                    return <ProjectTask key={task.id} task={task} />;
+                    return(
+                      <ProjectTask
+                        key={task.id}
+                        task={task}
+                        proID={project.id}
+                        userType={userType}
+                      />
+                    );
                   })
                 ) : (
                   <p className="pl-1 pt-2 text-sm text-gray-400 font-light">
@@ -295,6 +308,7 @@ export default function OneProject() {
                         key={task.id}
                         task={task}
                         proID={project.id}
+                        userType={userType}
                       />
                     );
                   })
@@ -315,6 +329,7 @@ export default function OneProject() {
                         key={task.id}
                         task={task}
                         proID={project.id}
+                        userType={userType}
                       />
                     );
                   })

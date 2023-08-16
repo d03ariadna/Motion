@@ -57,6 +57,7 @@ export default function CalendarTask({ task, deleteTask }) {
         close={handleCloseTask}
         open={handleShowTask}
         personal={true}
+        userType={1}
       />
     </>
   );

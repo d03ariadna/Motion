@@ -52,6 +52,7 @@ export default function LittleTask(props) {
                 close={handleCloseTask}
                 open={handleShowTask}
                 personal={true}
+                userType={1}
                 />
         </>
     )

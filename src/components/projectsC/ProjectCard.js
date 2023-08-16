@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { EditIcon } from '../icons/icons';
 import ProjectModal from '../general/ProjectModal';
-
+import { usePTasks } from '../../context/ProjectTasksContext';
+    
 function classNames(...classes) {
     
   return classes.filter(Boolean).join(' ')
@@ -22,6 +23,21 @@ export default function ProjectCard(props) {
     const handleCloseProject = () => setShowProject(false);
     const handleShowProject = () => setShowProject(true);
 
+    const tasks = usePTasks();
+
+    const pTasks = tasks.filter((task) => {
+        return task.idProwner === project.id
+    });
+
+    let tasksDone = 0;
+    pTasks.map((task) => {
+        if (task.status === 'DONE') {
+            tasksDone += 1;
+        }
+    })
+
+    const progress = (tasksDone / (pTasks.length) * 100); 
+
     return (
         <>
             <div className='w-[45%] mb-5'>
@@ -29,10 +45,10 @@ export default function ProjectCard(props) {
                 
                     <section className="w-full my-3 flex flex-row items-center justify-around">
                         <div className="w-[10%]">
-                            <p className="text-sm text-slate-400 font-medium mb-0">60%</p>
+                            <p className="text-sm text-slate-400 font-medium mb-0">{progress}%</p>
                         </div>
                         <div className="w-[85%] h-[5px] bg-gray-300 rounded-full">
-                            <div className="w-[60%] h-[5px] bg-purple-400 rounded-full"></div>
+                            <div className={`w-[${progress}%] h-[5px] ${progress === 0 ? 'bg-gray-300' : 'bg-purple-400'}  rounded-full`}></div>
                         </div>
                     </section> 
                     
@@ -41,9 +57,9 @@ export default function ProjectCard(props) {
                             <p className='text-black text-2xl font-semibold mb-0'>
                                 {project.name}
                             </p>
-                            <button onClick={handleShowProject} className="py-1 mb-1">
+                            {/* <button onClick={handleShowProject} className="py-1 mb-1">
                                 <EditIcon/>
-                            </button>
+                            </button> */}
                         </div>
                         
                         <p className="text-xs leading-5 tracking-wide text-gray-400 mb-0">{project.description}</p>
