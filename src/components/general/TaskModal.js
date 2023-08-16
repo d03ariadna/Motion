@@ -14,11 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { format, parseISO, startOfToday } from "date-fns";
 
-
-
-
 function TaskModal(props) {
-
   const [t, i18n] = useTranslation("global");
 
   const dispatch = useTasksDispatch();
@@ -26,17 +22,15 @@ function TaskModal(props) {
 
   const task = props.task;
   let id;
-  let proID  = parseInt(useParams().id);
-
+  let proID = parseInt(useParams().id);
 
   let actualDay;
 
   if (task.length === 0) {
-    actualDay = format(startOfToday(), 'y-MM-dd');
+    actualDay = format(startOfToday(), "y-MM-dd");
   } else {
     actualDay = task.date;
   }
-
 
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -44,32 +38,29 @@ function TaskModal(props) {
   const [status, setStatus] = useState("TO DO");
 
   function createTask(id, name, desc, date, status) {
-    
     const newTask = {
       id: id,
       name: name,
       description: desc,
       date: date,
       status: status,
-      idProwner: proID
+      idProwner: proID,
     };
 
     if (props.personal) {
-      console.log('personal')
+      console.log("personal");
       dispatch({
         type: "added",
         task: newTask,
       });
-
     } else {
-      console.log('project ', proID)
+      console.log("project ", proID);
       dispatch2({
         type: "added",
         task: newTask,
         proID: proID,
       });
     }
-    
   }
 
   function updateTask(id, n_name, n_desc, n_date, n_status) {
@@ -79,40 +70,35 @@ function TaskModal(props) {
       description: n_desc,
       date: n_date,
       status: n_status,
-      idProwner: proID
+      idProwner: proID,
     };
 
     if (props.personal) {
-      console.log('personal')
+      console.log("personal");
       dispatch({
         type: "updated",
         task: updatedTask,
       });
-
     } else {
       dispatch2({
         type: "updated",
-        task: updatedTask
+        task: updatedTask,
       });
     }
-    
   }
 
   function deleteTask(id) {
-
     if (props.personal) {
       dispatch({
         type: "deleted",
         id: id,
       });
-
     } else {
       dispatch2({
         type: "deleted",
-        id: id
+        id: id,
       });
     }
-    
   }
 
   const getDate = (nDate) => {
@@ -127,6 +113,7 @@ function TaskModal(props) {
       setDate(task.date);
       setStatus(task.status);
     }
+    console.log(date);
   }, []);
 
   return (
@@ -157,8 +144,8 @@ function TaskModal(props) {
               if (!props.edit) {
                 setName("");
                 setDesc("");
-                setDate("");
-                setStatus("");
+                setDate(actualDay);
+                setStatus("TO DO");
               }
 
               props.close();

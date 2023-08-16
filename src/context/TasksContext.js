@@ -10,7 +10,6 @@ import {
   useEffect,
 } from "react";
 
-
 const TasksContext = createContext(null);
 
 const TasksDispatchContext = createContext(null);
@@ -63,7 +62,7 @@ function tasksReducer(tasks, action) {
       deleteData(action.id);
       return tasks.filter((t) => t.id !== action.id);
     }
-      
+
     default: {
       throw Error("Unknown action: " + action.type);
     }
@@ -71,7 +70,6 @@ function tasksReducer(tasks, action) {
 }
 
 const getData = async () => {
-
   const cookie = Cookies.get("Session");
   let id;
 
@@ -79,7 +77,7 @@ const getData = async () => {
     const user = JSON.parse(cookie);
     id = user.id;
   } else {
-    id=1
+    id = 1;
   }
 
   const result = await fetch(`${API}/${id}/tasks`);
@@ -88,10 +86,8 @@ const getData = async () => {
 };
 
 const createData = async (task) => {
-
   const cookie = Cookies.get("Session");
   const user = JSON.parse(cookie);
-
 
   const result = await fetch(`${API}/${user.id}/tasks/`, {
     method: "POST",
@@ -123,6 +119,4 @@ const deleteData = async (id) => {
   });
 };
 
-
 const initTasks = await getData();
-
