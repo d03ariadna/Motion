@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { API } from "../components/API";
 import Cookies from "js-cookie";
+import { v4 as uuidv4 } from "uuid";
 
 
 import {
@@ -19,13 +20,14 @@ import NoteModal from "../components/projectsC/NoteModal";
 import ProjectModal from "../components/general/ProjectModal";
 import AddMemberModal from "../components/projectsC/AddMemberModal";
 import ProjectStc from "../components/statistics/ProjectStc";
+import {BigIMG, MainIMG} from "../components/projectsC/MemberImg";
 
 export default function OneProject() {
   const [t, i18n] = useTranslation("global");
 
   const projectId = parseInt(useParams().id);
 
-  const user = JSON.parse(Cookies.get("Session")).name;
+  const user = JSON.parse(Cookies.get("Session"));
 
   const projects = useProjects();
   const project = projects.find((project) => project.id == projectId);
@@ -43,22 +45,12 @@ export default function OneProject() {
   const [doneNo, setDoneNo] = useState(done.length);
   const [notes, setNotes] = useState([]);
 
-  let notesFetch;
-
-  const getData = async () => {
-    const result = await fetch(`${API}/${projectId}/notes`);
-    const data = await result.json();
-
-    notesFetch = data;
-
-    setNotes(data);
-  };
 
   const [members, setMembers] = useState([
-    "ariadna@hotmail.com",
-    "mariana@hotmail.com",
-    "arturo@gmail.com",
-    "gibranksr@outlook.com",
+    // "ariadna@hotmail.com",
+    // "mariana@hotmail.com",
+    // "arturo@gmail.com",
+    // "gibranksr@outlook.com",
   ]);
 
   const [trigger, setTrigger] = useState(false);
@@ -67,6 +59,16 @@ export default function OneProject() {
 
   const handleCloseProject = () => setShowProject(false);
   const handleShowProject = () => setShowProject(true);
+
+  function getData() {
+    fetch(`${API}/${projectId}/notes`).then((response) => {
+      response.json().then((data) => {
+
+        setNotes(data);
+
+      });
+    });
+  };
 
   function createNote(id, text) {
     fetch(`${API}/${projectId}/notes`, {
@@ -148,18 +150,16 @@ export default function OneProject() {
     setProjects(updatedProjects);
   }
 
-  const getMembers = async () => {
+  function getMembers(){
     fetch(`${API}/projects/${projectId}/members`)
       .then((response) => {
-        response.json().then(() => {
+        response.json().then((data) => {
           console.log(data);
+          setMembers(data);
         })
-    })
-        // const result = await fetch(`${API}/projects/${projectId}/members`);
-        // const data = await result.json();
-        // console.log(data);
+      })
+    
     }
-  getMembers();
 
   function updateMembers(email) {
     setMembers([email, ...members]);
@@ -194,6 +194,7 @@ export default function OneProject() {
 
   useEffect(() => {
     getData();
+    getMembers();
   }, []);
 
   return (
@@ -250,23 +251,15 @@ export default function OneProject() {
 
             <div className="w-[20%] flex flex-row justify-between items-center">
               <div className="flex flex-row">
-                <img
-                  src="/img/avatar.png"
-                  alt=""
-                  className="w-12 h-12 rounded-full border-[1px] border-slate-300"
-                />
-                <img
-                  src="/img/avatar.png"
-                  alt=""
-                  className="w-12 h-12 rounded-full border-[1px] border-slate-300 ml-[-20px]"
-                />
-                <img
-                  src="/img/avatar.png"
-                  alt=""
-                  className="w-12 h-12 rounded-full border-[1px] border-slate-300  ml-[-20px]"
-                />
+                {members.map((member) => {
+                  return (
+                      <div key={uuidv4()} className='w-11 h-11 ml-1'>
+                        <BigIMG member={member} />
+                      </div>
+                    )
+                })}
               </div>
-              <div className="h-10 w-[3px] ml-[-20px] bg-gray-300 rounded-lg"></div>
+              <div className="h-10 w-[3px] bg-gray-300 rounded-lg"></div>
               <AddMemberModal members={members} addMember={updateMembers} />
             </div>
           </section>
@@ -335,13 +328,17 @@ export default function OneProject() {
           <div className="w-full h-full py-3 px-4 bg-white rounded-3xl drop-shadow-lg">
             <section className="w-full h-[8%] mt-2 flex flex-row justify-between items-center">
               <h3 className="text-2xl font-medium mb-0">
-                {t("project.name") + user}
+                {t("project.name") + user.name}
               </h3>
-              <img
+                <div className='w-11 h-11'>
+                  <MainIMG member={user}/>
+               </div>
+              
+              {/* <img
                 src="/img/avatar.png"
                 alt=""
                 className="w-12 h-12 rounded-full border-[1px] border-slate-300"
-              />
+              /> */}
             </section>
 
             {/* Statistics */}

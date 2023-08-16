@@ -13,13 +13,14 @@ import LittleTask from "../components/dashboard/LittleTask";
 import LittleProject from "../components/dashboard/LittleProject";
 import MainCard from "../components/general/MainCard";
 import CreateButton from "../components/general/CreateButton";
+import { MainIMG } from "../components/projectsC/MemberImg";
 
 
 
 function Dashboard() {
   const [t, i18n] = useTranslation("global");
 
-  //const user = useUser();
+  const user = JSON.parse(Cookies.get("Session"));
   
 
   const [time, setTime] = useState("");
@@ -49,11 +50,9 @@ function Dashboard() {
         <h1 className="mt-2 font-semibold">{t(time)}</h1>
         <div className="h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5">
           <CreateButton personal={true}/>
-          <img
-            src="/img/avatar.png"
-            alt=""
-            className="w-14 h-14 rounded-full mr-5"
-          />
+          <div className='w-12 h-12'>
+            <MainIMG member={user}/>
+          </div>
         </div>
       </header>
 

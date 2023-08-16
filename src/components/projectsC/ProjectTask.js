@@ -22,7 +22,7 @@ export default function ProjectTask(props) {
                 <div className='w-[95%] px-4 pt-3 mr-8 mb-4 border-[1px] border-gray-300 bg-white rounded-xl drop-shadow-md hover:drop-shadow-xl'>
                     <section className='h-[80%]'>
                         <button onClick={handleShowTask} className="py-1 ">
-                            <p className='mb-0 text-left text-sm font-medium '>{task.name}</p> 
+                            <p className='mb-0 text-left text-base font-semibold '>{task.name}</p> 
                         </button>
                     </section>
                     
@@ -30,10 +30,10 @@ export default function ProjectTask(props) {
                         <p className='text-[.7rem] text-gray-300 mb-0'>
                             {t("project.deadline")} <span className="text-purple-300"> {format(pDate, 'MMM do')}</span>
                         </p>
-                        <div className="flex flex-row">
+                        {/* <div className="flex flex-row">
                             <img src="/img/avatar.png" alt="" className='w-7 h-7 rounded-full border-[1px] border-slate-300 mr-[-10px]' />
                             <img src="/img/avatar.png" alt="" className='w-7 h-7 rounded-full border-[1px] border-slate-300' />
-                        </div>
+                        </div> */}
                     </section>
                     
                 </div>
