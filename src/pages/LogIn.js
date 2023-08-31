@@ -100,14 +100,14 @@ const LogIn = () => {
           action="#"
           className="bg-white flex items-center justify-center flex-col px-16 h-full text-center"
         >
-          <h1 className="font-bold text-3xl mb-4 font-['Poppins'] text-[#B1B2FF]">
+          <h1 className="font-bold text-3xl mb-4 font-['Poppins'] text-[#ce0d2d]">
             Create Account
           </h1>
           <input
             type="text"
             id="nameR"
             placeholder="Username"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-[#ce0d2d] rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setNameR(e.target.value);
             }}
@@ -117,7 +117,7 @@ const LogIn = () => {
             type="email"
             id="emailR"
             placeholder="Email"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-[#ce0d2d] rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setEmailR(e.target.value);
             }}
@@ -128,7 +128,7 @@ const LogIn = () => {
             type="password"
             id="passwordR"
             placeholder="Password"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-[#ce0d2d] rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setPasswordR(e.target.value);
             }}
@@ -138,7 +138,7 @@ const LogIn = () => {
             type="text"
             id="avatarR"
             placeholder="Avatar URL"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-[#ce0d2d] rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setAvatarR(e.target.value);
             }}
@@ -147,7 +147,7 @@ const LogIn = () => {
           <p className="text-red-500 text-xs italic mt-2">{messageR}</p>
           <button
             onClick={handleRegister}
-            className="rounded-full border border-[#B1B2FF] bg-[#B1B2FF] text-white text-sm font-semibold font-['Poppins'] py-3 px-12 tracking-wide uppercase transition-transform ease-in duration-200 mt-3'"
+            className="rounded-full border border-[#ce0d2d] bg-[#ce0d2d] text-white text-sm font-semibold font-['Poppins'] py-3 px-12 tracking-wide uppercase transition-transform ease-in duration-200 mt-3'"
           >
             Sign Up
           </button>
@@ -160,13 +160,13 @@ const LogIn = () => {
           action="#"
           className="bg-white flex items-center justify-center flex-col px-16 h-full text-center"
         >
-          <h1 className="font-bold text-3xl mb-5 font-['Poppins'] text-[#B1B2FF]">
+          <h1 className="font-bold text-3xl mb-5 font-['Poppins'] text-[#ce0d2d]">
             Sign into Motion
           </h1>
           <input
             type="email"
             placeholder="Email"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-[#ce0d2d] rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -176,7 +176,7 @@ const LogIn = () => {
           <input
             type="password"
             placeholder="Password"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-[#ce0d2d] rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -187,7 +187,7 @@ const LogIn = () => {
 
           <button
             onClick={handleSignIn}
-            className="rounded-full border border-[#B1B2FF] bg-[#B1B2FF] text-white text-sm font-semibold font-['Poppins'] py-3 px-12 tracking-wide uppercase transition-transform ease-in duration-200 mt-4 mb-2"
+            className="rounded-full border border-[#ce0d2d] bg-[#ce0d2d] text-white text-sm font-semibold font-['Poppins'] py-3 px-12 tracking-wide uppercase transition-transform ease-in duration-200 mt-4 mb-2"
           >
             Sign In
           </button>
@@ -197,9 +197,9 @@ const LogIn = () => {
         <div className="overlay">
           <div className="overlay-panel overlay-left font-['Poppins']">
             <img
-              src="img/logoM.png"
+              src="img/ujed.png"
               width={"110px"}
-              alt="motion-logo"
+              alt="ujed-logo"
               className="pb-10 pt-4"
             />
             <h1 className="font-medium m-0 text-3xl">Welcome Back!</h1>
@@ -208,7 +208,7 @@ const LogIn = () => {
               information
             </p>
             <button
-              className="rounded-full border border-white bg-white text-[#B1B2FF] text-sm font-semibold py-3 px-12 tracking-wide uppercase transition-transform ease-in duration-200"
+              className="rounded-full border border-white bg-white text-[#ce0d2d] text-sm font-semibold py-3 px-12 tracking-wide uppercase transition-transform ease-in duration-200"
               onClick={handleSignInClick}
             >
               Already have an account
@@ -216,9 +216,9 @@ const LogIn = () => {
           </div>
           <div className="overlay-panel overlay-right font-['Poppins']">
             <img
-              src="img/logoM.png"
+              src="img/ujed.png"
               width={"110px"}
-              alt="motion-logo"
+              alt="ujed-logo"
               className="pb-10 pt-4"
             />
             <h1 className="font-medium m-0 text-3xl ">Hello, Friend!</h1>
@@ -226,7 +226,7 @@ const LogIn = () => {
               Enter your personal details and start a journey with us
             </p>
             <button
-              className="rounded-full border border-white bg-white text-[#B1B2FF] text-sm font-semibold py-3 px-12 tracking-wide uppercase transition-transform ease-in duration-200"
+              className="rounded-full border border-white bg-white text-[#ce0d2d] text-sm font-semibold py-3 px-12 tracking-wide uppercase transition-transform ease-in duration-200"
               onClick={handleSignUpClick}
             >
               Create my account

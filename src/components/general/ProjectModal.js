@@ -128,7 +128,7 @@ function createProject(id, name, desc, start, end) {
             >
                 <Modal.Header closeButton>
                         <Modal.Title>
-                            <p className='text-[#B1B2FF] font-bold text-3xl mb-0 ml-3'>
+                            <p className='text-[#ce0d2d] font-bold text-3xl mb-0 ml-3'>
                                 {props.edit ? 'Edit Project' : 'Create New Project'}
                             </p>
                         </Modal.Title>
@@ -176,7 +176,7 @@ function createProject(id, name, desc, start, end) {
                             </div>
                             <div className="md:w-3/4">
                             <input 
-                            className="w-full appearance-none border-2 border-gray-200 rounded-xl py-2 pl-3 text-gray-600 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
+                            className="w-full appearance-none border-2 border-gray-200 rounded-xl py-2 pl-3 text-gray-600 leading-tight focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800"
                             id="name" 
                             type="text" 
                             value={name}
@@ -196,7 +196,7 @@ function createProject(id, name, desc, start, end) {
                             </div>
                             <div className="md:w-3/4">
                             <input 
-                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-600 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
+                                className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-600 leading-tight focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800" 
                                 id="date" 
                                 type="text" 
                                 value={desc}
@@ -217,7 +217,7 @@ function createProject(id, name, desc, start, end) {
                             <div className="md:w-3/4">
                                 {props.edit ? 
                                     <input 
-                                        className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-400 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
+                                        className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-400 leading-tight focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800" 
                                         id="start" 
                                         type="text" 
                                         value={format(tStart, 'MMMM dd, y') }
@@ -226,14 +226,6 @@ function createProject(id, name, desc, start, end) {
                                     :
                                     <DatePicker dateSet={tStart} setDate={getStart}/>
                                 }
-                                    
-                                    {/* <input 
-                                        className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800" 
-                                        id="start" 
-                                        type="text" 
-                                        value={format(tStart, 'MMMM dd, y') }
-                                        disabled={true}
-                                    /> */}
                             </div>
                         </div>
                             
@@ -257,7 +249,7 @@ function createProject(id, name, desc, start, end) {
                     </form>
                 </Modal.Body>
                     <Modal.Footer>
-                        <button className='bg-[#B1B2FF] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded' form='editmodal'>
+                        <button className='bg-[#ce0d2d] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded' form='editmodal'>
                             {props.edit ? 'Update' : 'Create'}
                         </button>
                     

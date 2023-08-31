@@ -19,7 +19,7 @@ function AddMemberModal(props) {
     <>
       <button
         onClick={() => handleShow()}
-        className="py-1 px-3.5 text-white bg-gray-300 hover:bg-purple-400 rounded-full text-3xl font-medium"
+        className="py-1 px-3.5 text-white bg-gray-300 hover:bg-[#ce0d2d] rounded-full text-3xl font-medium"
       >
         +
       </button>
@@ -33,7 +33,7 @@ function AddMemberModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            <p className="text-[#B1B2FF] font-bold text-3xl mb-0 ml-3">
+            <p className="text-[#ce0d2d] font-bold text-3xl mb-0 ml-3">
               Add Member
             </p>
           </Modal.Title>
@@ -53,7 +53,7 @@ function AddMemberModal(props) {
             <div className="md:flex md:items-center justify-between mt-3 mb-5">
               <div className="md:w-3/4">
                 <input
-                  className="w-full appearance-none border-2 border-gray-200 rounded-xl py-3 pl-4 text-lg font-semibold text-purple-600 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800 placeholder:text-gray-300"
+                  className="w-full appearance-none border-2 border-gray-200 rounded-xl py-3 pl-4 text-lg font-semibold text-[#ce0d2d] leading-tight focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800 placeholder:text-gray-300"
                   id="email"
                   type="text"
                   placeholder="Email"
@@ -62,7 +62,7 @@ function AddMemberModal(props) {
                 />
               </div>
               <button
-                className="border-2 border-[#b1b2ff] text-[#b1b2ff] hover:bg-[#b1b2ff] hover:text-white hover:drop-shadow-lg transition-all ease-in-out font-bold py-3 px-4 rounded-xl"
+                className="border-2 border-[#ce0d2d] text-[#ce0d2d] hover:bg-[#ce0d2d] hover:text-white hover:drop-shadow-lg transition-all ease-in-out font-bold py-3 px-4 rounded-xl"
                 form="editmodal"
               >
                 Add
@@ -93,7 +93,7 @@ function AddMemberModal(props) {
                             fill="none"
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
-                            stroke="#b1b2ff"
+                            stroke="#ce0d2d"
                             className="w-6 h-6"
                           >
                             <path
@@ -129,7 +129,7 @@ function AddMemberModal(props) {
         <Modal.Footer>
           <button
             onClick={() => handleShow()}
-            className="bg-[#B1B2FF] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded"
+            className="bg-[#ce0d2d] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded"
           >
             Done
           </button>

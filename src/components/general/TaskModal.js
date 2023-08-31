@@ -140,7 +140,7 @@ function TaskModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            <p className="text-[#B1B2FF] font-bold text-3xl mb-0 ml-3">
+            <p className="text-[#ce0d2d] font-bold text-3xl mb-0 ml-3">
               {props.edit ? "Edit Task" : "Create New Task"}
             </p>
           </Modal.Title>
@@ -189,7 +189,7 @@ function TaskModal(props) {
               </div>
               <div className="md:w-3/4">
                 <input
-                  className="w-full appearance-none border-2 border-gray-200 rounded-xl py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
+                  className="w-full appearance-none border-2 border-gray-200 rounded-xl py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800"
                   id="name"
                   type="text"
                   value={name}
@@ -212,7 +212,7 @@ function TaskModal(props) {
               </div>
               <div className="md:w-3/4">
                 <input
-                  className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
+                  className="appearance-none border-2 border-gray-200 rounded-xl w-full py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800"
                   id="date"
                   type="text"
                   value={desc}
@@ -254,7 +254,7 @@ function TaskModal(props) {
                   onChange={(event) => {
                     setStatus(event.target.value);
                   }}
-                  className="block appearance-none w-full border-2 border-gray-200 rounded-xl text-gray-500 py-2 pl-3 pr-8 focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
+                  className="block appearance-none w-full border-2 border-gray-200 rounded-xl text-gray-500 py-2 pl-3 pr-8 focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800"
                   id="grid-state"
                 >
                   <option value={"TO DO"} className="text-gray-400">
@@ -289,7 +289,7 @@ function TaskModal(props) {
           )}
 
               <button
-                className="bg-[#B1B2FF] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded"
+                className="bg-[#ce0d2d] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded"
                 form="editmodal"
               >
                 {props.edit ? "Update" : "Create"}

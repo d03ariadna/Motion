@@ -57,7 +57,7 @@ function NoteModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            <p className="text-[#B1B2FF] font-semibold text-2xl mb-0 ml-3">
+            <p className="text-[#ce0d2d] font-semibold text-2xl mb-0 ml-3">
               {props.edit ? "Edit Note" : "Create New Note"}
             </p>
           </Modal.Title>
@@ -83,7 +83,7 @@ function NoteModal(props) {
             <div className="md:flex mt-3 mb-6">
               <div className="md:w-full">
                 <textarea
-                  className="w-full appearance-none border-2 border-gray-200 rounded-xl py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:text-gray-800"
+                  className="w-full appearance-none border-2 border-gray-200 rounded-xl py-2 pl-3 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800"
                   id="content"
                   type="text"
                   rows={5}
@@ -98,7 +98,7 @@ function NoteModal(props) {
         </Modal.Body>
         <Modal.Footer>
           <button
-            className="bg-[#B1B2FF] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded"
+            className="bg-[#ce0d2d] hover:bg-black hover:drop-shadow-lg transition-all ease-in-out text-white font-bold py-2 px-4 rounded"
             form="editmodal"
           >
             {props.edit ? "Update" : "Create"}
