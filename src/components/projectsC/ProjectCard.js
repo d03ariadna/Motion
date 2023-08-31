@@ -24,19 +24,25 @@ export default function ProjectCard(props) {
     const handleShowProject = () => setShowProject(true);
 
     const tasks = usePTasks();
+    let progress = 0;
 
-    const pTasks = tasks.filter((task) => {
-        return task.idProwner === project.id
-    });
+    if (tasks.length > 0) {
+        const pTasks = tasks.filter((task) => {
+            return task.idProwner === project.id
+        });
 
-    let tasksDone = 0;
-    pTasks.map((task) => {
-        if (task.status === 'DONE') {
-            tasksDone += 1;
+        let tasksDone = 0;
+        pTasks.map((task) => {
+            if (task.status === 'DONE') {
+                tasksDone += 1;
+            }
+        })
+        if (tasksDone > 0) {
+            progress = Math.round(tasksDone / (pTasks.length) * 100); 
         }
-    })
+        
+    }
 
-    const progress = (tasksDone / (pTasks.length) * 100); 
 
     return (
         <>
@@ -48,7 +54,7 @@ export default function ProjectCard(props) {
                             <p className="text-sm text-slate-400 font-medium mb-0">{progress}%</p>
                         </div>
                         <div className="w-[85%] h-[5px] bg-gray-300 rounded-full">
-                            <div className={`w-[${progress}%] h-[5px] ${progress === 0 ? 'bg-gray-300' : 'bg-purple-400'}  rounded-full`}></div>
+                            <div className={`w-[${progress}%] h-[5px] ${progress === 0 ? 'bg-gray-300' : 'bg-[#ce0d2d]'}  rounded-full`}></div>
                         </div>
                     </section> 
                     
@@ -67,13 +73,13 @@ export default function ProjectCard(props) {
 
                     <section className=' mb-2.5 border-2 border-white  flex flex-row flex-nowrap justify-between items-center '>
                         <div className="flex flex-row">
-                            <img src="/img/avatar.png" alt="" className='w-10 h-10 rounded-full border-[1px] border-slate-300'/>
+                            <img src="/img/avatar.png" alt="" className='w-10 h-10 rounded-full ml-[-12px] border-[1px] border-slate-300'/>
                             <img src="/img/avatar.png" alt="" className='w-10 h-10 rounded-full ml-[-12px] border-[1px] border-slate-300' />
                             <img src="/img/avatar.png" alt="" className='w-10 h-10 rounded-full ml-[-12px] border-[1px] border-slate-300'/>
                         </div>
                         <button
                             onClick= {() => navigate(`/project/${project.id}`)}
-                            className='px-5 py-2 bg-[#B1B2FF] text-white text-lg font-semibold no-underline hover:bg-black hover:drop-shadow-xl transition-all ease-in-out rounded-3xl'>
+                            className='px-5 py-2 bg-[#ce0d2d] text-white text-lg font-semibold no-underline hover:bg-black hover:drop-shadow-xl transition-all ease-in-out rounded-3xl'>
                             {t("project.open")}
                         </button>
                     </section>

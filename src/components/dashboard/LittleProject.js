@@ -1,8 +1,7 @@
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+
+import { Fragment, useEffect, useState } from 'react'
 import {useTranslation} from "react-i18next";
 import ProjectModal from '../general/ProjectModal';
-import { EditIcon } from '../icons/icons';
 import { usePTasks } from '../../context/ProjectTasksContext';
 
 import {
@@ -30,21 +29,30 @@ export default function LittleProject(props) {
 
 
     const tasks = usePTasks();
+    const [progress, setProgress] = useState(0);
 
-    const pTasks = tasks.filter((task) => {
-        return task.idProwner === project.id
-    })
+    useEffect(() => {
+        if (tasks.length > 0) {
+            const pTasks = tasks.filter((task) => {
+                return task.idProwner === project.id
+            })
 
-    let tasksDone = 0;
-    pTasks.map((task) => {
-        if (task.status === 'DONE') {
-            tasksDone += 1;
+            let tasksDone = 0;
+            pTasks.map((task) => {
+                if (task.status === 'DONE') {
+                    tasksDone += 1;
+                }
+            })
+            
+            if (tasksDone > 0) {
+                setProgress(Math.round(tasksDone / (pTasks.length) * 100));
+            }
+            
         }
-    })
+     }, []);
 
-    const progress = (tasksDone / (pTasks.length) * 100); 
 
-    console.log(progress);
+    
 
     return (
         <>
@@ -72,7 +80,7 @@ export default function LittleProject(props) {
                         
                     <section className="w-full px-2 flex flex-row items-center justify-between">
                         <div className="w-[80%] h-[3px] bg-gray-300 rounded-full">
-                            <div className={`w-[${progress}%] h-[3px] ${progress === 0 ? 'bg-gray-300':'bg-gray-800'} `}></div>
+                            <div className={`w-[${progress}%] h-[3px] ${progress === 0 ? 'bg-gray-300':'bg-gray-800'} rounded-full `}></div>
                         </div>
                         <div className="w-[15%]">
                             <p className="text-xs text-slate-400 mb-0">{progress}%</p>

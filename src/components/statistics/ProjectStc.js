@@ -28,7 +28,7 @@ export default function ProjectStc({ id }) {
             return (tasksDone / (pTasks.length) * 100);        
         }
 
-        progress = getProgress();
+        progress = Math.round(getProgress());
     } else {
         progress = 0;
     }

@@ -44,6 +44,7 @@ function TaskModal(props) {
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState(actualDay);
   const [status, setStatus] = useState("TO DO");
+  const [message, setMessage] = useState();
 
   function createTask(id, name, desc, date, status) {
     
@@ -57,14 +58,12 @@ function TaskModal(props) {
     };
 
     if (props.personal) {
-      console.log('personal')
       dispatch({
         type: "added",
         task: newTask,
       });
 
     } else {
-      console.log('project ', proID)
       dispatch2({
         type: "added",
         task: newTask,
@@ -152,18 +151,28 @@ function TaskModal(props) {
               e.preventDefault();
 
               props.edit ? (id = task.id) : (id = uuidv4());
-              props.edit
+
+              if (name !== '' && desc !== '') {
+                props.edit
                 ? updateTask(id, name, desc, date, status)
                 : createTask(id, name, desc, date, status);
 
-              if (!props.edit) {
+                if (!props.edit) {
+                  setName("");
+                  setDesc("");
+                  setDate(actualDay);
+                  setStatus("TO DO");
+                }
+
+                props.close();
+              } else {
+                setMessage('Please complete all fields')
                 setName("");
                 setDesc("");
-                setDate("");
-                setStatus("");
+                setDate(actualDay);
+                setStatus("TO DO");
               }
-
-              props.close();
+              
             }}
             id="editmodal"
             className="w-full max-w-sm mx-auto"
@@ -260,6 +269,8 @@ function TaskModal(props) {
                 </select>
               </div>
             </div>
+
+            <p className="text-red-500 text-xs italic mt-2 text-center">{message}</p>
           </form>
         </Modal.Body>
         <Modal.Footer>

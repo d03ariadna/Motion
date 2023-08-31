@@ -80,12 +80,6 @@ const LogIn = () => {
 
   const assignUser = async (email) => {
 
-    // let user;
-    // fetch(`${API}/user/${email}`).then((response) => {
-    //   response.json().then((data) => {
-    //     user = data;
-    //   })
-    // })
     const result = await fetch(`${API}/user/${email}`)
     const user = await (result.json());
     const userCookie = JSON.stringify(user);
@@ -106,36 +100,14 @@ const LogIn = () => {
           action="#"
           className="bg-white flex items-center justify-center flex-col px-16 h-full text-center"
         >
-          <h1 className="font-bold text-3xl m-0 font-['Poppins'] text-[#B1B2FF]">
+          <h1 className="font-bold text-3xl mb-4 font-['Poppins'] text-[#B1B2FF]">
             Create Account
           </h1>
-          <div className="my-4">
-            <a
-              href="https://www.facebook.com"
-              className=" inline-flex justify-center items-center mx-2 h-10 w-10"
-            >
-              <img src="img/fb.png" alt="facebookicon" width={"35px"} />
-            </a>
-            <a
-              href="https://www.google.com.mx"
-              className="  inline-flex justify-center items-center mx-2 h-10 w-10"
-            >
-              <img
-                src="img/google.svg"
-                alt="googleicon"
-                width={"35px"}
-                className="text-gray-300"
-              />
-            </a>
-          </div>
-          <span className="text-xs font-['Poppins'] text-[#BEBEBE] mb-3">
-            or use your email for registration
-          </span>
           <input
             type="text"
             id="nameR"
             placeholder="Username"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-3 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setNameR(e.target.value);
             }}
@@ -145,7 +117,7 @@ const LogIn = () => {
             type="email"
             id="emailR"
             placeholder="Email"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-3 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setEmailR(e.target.value);
             }}
@@ -156,7 +128,7 @@ const LogIn = () => {
             type="password"
             id="passwordR"
             placeholder="Password"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-3 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setPasswordR(e.target.value);
             }}
@@ -166,7 +138,7 @@ const LogIn = () => {
             type="text"
             id="avatarR"
             placeholder="Avatar URL"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-3 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setAvatarR(e.target.value);
             }}
@@ -188,35 +160,13 @@ const LogIn = () => {
           action="#"
           className="bg-white flex items-center justify-center flex-col px-16 h-full text-center"
         >
-          <h1 className="font-bold text-3xl m-0 font-['Poppins'] text-[#B1B2FF]">
+          <h1 className="font-bold text-3xl mb-5 font-['Poppins'] text-[#B1B2FF]">
             Sign into Motion
           </h1>
-          <div className="my-5">
-            <a
-              href="https://www.facebook.com"
-              className=" inline-flex justify-center items-center mx-2 h-10 w-10"
-            >
-              <img src="img/fb.png" alt="facebookicon" width={"35px"} />
-            </a>
-            <a
-              href="https://www.google.com.mx"
-              className="  inline-flex justify-center items-center mx-2 h-10 w-10"
-            >
-              <img
-                src="img/google.svg"
-                alt="googleicon"
-                width={"35px"}
-                className="text-gray-300"
-              />
-            </a>
-          </div>
-          <span className="text-xs font-['Poppins'] text-[#BEBEBE]  mb-5">
-            or use your account
-          </span>
           <input
             type="email"
             placeholder="Email"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-3 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -226,7 +176,7 @@ const LogIn = () => {
           <input
             type="password"
             placeholder="Password"
-            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-3 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
+            className="shadow border-gray-300 text-gray-700 leading-tight tracking-wider focus:outline-none focus:shadow-outline focus:border-2 focus:border-purple-400 rounded-lg py-2.5 px-3 my-4 w-full placeholder:text-gray-400 font-['Poppins'] font-light text-sm"
             onChange={(e) => {
               setPassword(e.target.value);
             }}

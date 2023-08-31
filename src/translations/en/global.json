@@ -12,6 +12,7 @@
         "done" : "Done",
         "upcoming-tasks" : "Upcoming Tasks",
         "no-upcoming-tasks" : "No Upcoming Tasks",
+        "no-upcoming-projects" : "No Recent Projects",
         "recent-p": "Recent Projects"
     },
 
@@ -56,13 +57,13 @@
         "f": "F",
         "s2": "S",
         "s-f": "Schedule for",
-        "n-m": "No tasks for today."
+        "n-m": "Nothing for today."
 
     },
 
     "tasks":{
         "my-tasks":"My Tasks",
-        "important":"Important",
+        "important":"Active Tasks",
         "all-tasks":"All Tasks",
         "completed":"Task Completed",
         "delete": "Delete"
@@ -74,6 +75,7 @@
         "created":"CREATED", 
         "due-date":"DUE DATE",
         "no-tasks":"No Tasks",
+        "no-notes":"Any Note Yet",
         "name":"Hello, ",
         "total": "IN TOTAL",
         "waiting": "WAITING",

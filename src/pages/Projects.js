@@ -38,14 +38,23 @@ export default function Projects() {
                 <section className="w-[65vw] h-[95%] mt-4 pr-4 pb-2">
                     <div className="w-full h-full flex flex-row flex-wrap justify-between pr-8 drop-shadow-md overflow-y-scroll">
                         
-                        {projects.map((project) => {
-                            return (
-                                <ProjectCard
-                                    key={project.id}
-                                    project={project}
-                                />
-                            );
-                        })}
+                        {
+                            projects.length > 0 ?
+                                projects.map((project) => {
+                                return (
+                                    <ProjectCard
+                                        key={project.id}
+                                        project={project}
+                                    />
+                                );
+                                })
+                                :
+                                <div className="w-full h-[9rem] mt-5">
+                                    <p className="pt-14 text-2xl font-light text-center text-gray-400">
+                                        {t("dashboard.no-upcoming-projects")}
+                                    </p>
+                                </div>
+                        }
                         
                     </div>
                 </section>

@@ -39,7 +39,7 @@ export default function TaskCard(props) {
                 {t("tasks.my-completed")}
               </p>
             ) : (
-              <p className="text-xs text-[#B1B2FF] mb-0 ml-2">{format(nDate, 'MMMM do')}</p>
+              <p className="text-xs text-[#ce0d2d8e] mb-0 ml-2">{format(nDate, 'MMMM do')}</p>
             )}
 
             <ConfirmModal task={task} />

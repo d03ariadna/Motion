@@ -13,14 +13,14 @@ export default function CalendarProject({ project }) {
         <div className="w-full flex flex-row justify-between items-center text-black">
             
             <div className="flex flex-row items-center">
-                <div className="h-4 w-4 bg-[#b1b2ff] rounded-full mr-4"></div>
+                <div className="h-4 w-4 bg-[#ce0d2d] rounded-full mr-4"></div>
                 <p className="mb-0 text-left text-base font-semibold ">{project.name}</p>
               
             </div>
             <div>
                 <button
                     onClick={() => navigate(`/project/${project.id}`)}
-                    className="px-4 py-1 bg-[#b1b2ff] text-white font-semibold text-base text-center rounded-full">Open</button>
+                    className="px-4 py-1 bg-[#ce0d2d] text-white font-semibold text-base text-center rounded-full">Open</button>
             </div>
           
         </div>

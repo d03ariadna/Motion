@@ -48,19 +48,19 @@ export default function GeneralStc() {
     return (
         <>
             <div className="bg-white border-[1px] border-gray-200 w-[65%] h-full mr-8 py-4 px-8 flex flex-row justify-between rounded-3xl">
-              <div className="w-[22%] bg-[#b1b2ff] text-white rounded-3xl text-center pt-4">
+              <div className="w-[22%] bg-[#000] text-white rounded-3xl text-center pt-4">
                 <h2>{dayTasks}</h2>
                 <p>{t("dashboard.event")}</p>
               </div>
-              <div className="w-[22%] bg-[#FFDCA9] text-white rounded-3xl text-center pt-4">
+              <div className="w-[22%] bg-[#ce0d2d] text-white rounded-3xl text-center pt-4">
                 <h2>{totalTasks}</h2>
                 <p>{t("dashboard.task")}</p>
               </div>
-              <div className="w-[22%] bg-[#B0DAFF] text-white rounded-3xl text-center pt-4">
+              <div className="w-[22%] bg-[#c6cbd8] text-white rounded-3xl text-center pt-4">
                 <h2>{progressTasks}</h2>
                 <p>{t("dashboard.progress")}</p>
               </div>
-              <div className="w-[22%] bg-[#E8A0BF] text-white rounded-3xl text-center pt-4">
+              <div className="w-[22%] bg-[#e6e3de] text-white rounded-3xl text-center pt-4">
                 <h2>{totalProjects}</h2>
                 <p>{t("dashboard.project")}</p>
               </div>

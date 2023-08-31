@@ -51,6 +51,7 @@ function ProjectModal(props) {
     const [desc, setDesc] = useState('');
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
+    const [message, setMessage] = useState();
 
 
 
@@ -139,19 +140,28 @@ function createProject(id, name, desc, start, end) {
                             props.edit ? id=project.id : id=uuidv4()
                             //Update or Create Project
                         console.log(start);
+                        if (name !== '' && desc !== '') {
                             props.edit 
                             ? updateProject(id, name, desc, start, end)
                             : createProject(id, name, desc, start, end)
                         
                             setName('');
                             setDesc('');
-                            setStart('');
-                            setEnd('');
+                            setStart(format(startOfToday(), 'y-MM-dd'));
+                            setEnd(format(startOfToday(), 'y-MM-dd'));
                         
                             tStart = [];
                             tEnd = [];
                         
                             props.close();
+                        } else {
+                            setMessage('Please complete all fields');
+                            setName('');
+                            setDesc('');
+                            setStart(format(startOfToday(), 'y-MM-dd'));
+                            setEnd(format(startOfToday(), 'y-MM-dd'));
+                        }
+                            
                             
                     }}
                     id='editmodal' 
@@ -242,6 +252,7 @@ function createProject(id, name, desc, start, end) {
                             </div>
                         </div>
                             
+                        <p className="text-red-500 text-xs italic mt-2 text-center">{message}</p>
                             
                     </form>
                 </Modal.Body>

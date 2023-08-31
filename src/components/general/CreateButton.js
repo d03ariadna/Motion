@@ -28,7 +28,7 @@ export default function CreateButton(props) {
   const handleCloseProject = () => setShowProject(false);
   const handleShowProject = () => setShowProject(true);
 
-  const [mainColor, setMainColor] = useState('#b1b2ff');
+  const [mainColor, setMainColor] = useState('#ce0d2d');
 
   const personal = props.personal;
 
@@ -36,7 +36,7 @@ export default function CreateButton(props) {
       <>
           <Menu as="div" className=" relative inline-block text-left w-[250px]">
             <div>
-              <Menu.Button className={`inline-flex flex-row w-full justify-center items-center gap-x-1.5 rounded-full bg-[${mainColor}] px-10 py-2.5 text-2xl font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 focus-within:bg-black hover:bg-black transition-all ease-in-out`}>
+              <Menu.Button className={`inline-flex flex-row w-full justify-center items-center gap-x-1.5 rounded-full bg-[#ce0d2d] px-10 py-2.5 text-2xl font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 focus-within:bg-black hover:bg-black transition-all ease-in-out`}>
                 <AddIcon />
                 {t("create.d-create")}
               </Menu.Button>
@@ -54,20 +54,20 @@ export default function CreateButton(props) {
               <Menu.Items className="absolute left-4 z-10 mt-2 w-56 origin-bottom-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 
               {props.action == 'task' ? 
-                <button onClick={handleShowTask} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
+                <button onClick={handleShowTask} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-[#ce0d2d] rounded-md'>
                     {t("create.task")}
                 </button>
               :
                 props.action == 'project' ?
-                  <button onClick={handleShowProject} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
+                  <button onClick={handleShowProject} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-[#ce0d2d] rounded-md'>
                     {t("create.project")}
                   </button>
                 :
                 <>
-                    <button onClick={handleShowTask} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
+                    <button onClick={handleShowTask} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-[#ce0d2d] rounded-md'>
                       {t("create.task")}
                     </button>
-                    <button onClick={handleShowProject} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
+                    <button onClick={handleShowProject} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-[#ce0d2d] rounded-md'>
                       {t("create.project")}
                     </button>
                 </>

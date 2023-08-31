@@ -31,11 +31,11 @@ export default function Header(props) {
 
   return (
     <>
-      <header className="top-0 left-0 fixed bg-[#B1B2FF] lg:w-[5vw] sm:w-[10vw] h-full px-2 pt-6">
+      <header className="top-0 left-0 fixed bg-[#ce0d2d] lg:w-[5vw] sm:w-[10vw] h-full px-2 pt-6">
         <div className="flex flex-col justify-between h-full">
           <section className="flex flex-col">
             <img
-              src="/img/m2.png"
+              src="/img/ujed.png"
               width={"55px"}
               className="mx-auto mb-3"
             ></img>
@@ -45,8 +45,8 @@ export default function Header(props) {
                 to={item.href}
                 className={({ isActive }) => {
                   return !isActive
-                    ? "rounded-2xl py-3 mt-3 text-lg w-full hover:bg-[#bec1ff] hover:text-white font-bold no-underline"
-                    : "rounded-2xl py-3 mt-3 text-lg  w-full  font-medium no-underline bg-[#8f8fff]";
+                    ? "rounded-2xl py-3 mt-3 text-lg w-full hover:bg-[#ffffff2f] hover:text-white font-bold no-underline"
+                    : "rounded-2xl py-3 mt-3 text-lg  w-full  font-medium no-underline bg-[#00000039]";
                 }}
               >
                 {item.icon}
@@ -55,7 +55,7 @@ export default function Header(props) {
           </section>
           <section>
             <Menu as="div">
-              <Menu.Button className="flex mx-auto mt-4 py-3">
+              <Menu.Button className="flex mx-auto mt-4 py-3 w-full rounded-2xl hover:bg-[#ffffff20]">
                 <LanguageIcon />
               </Menu.Button>
 
@@ -105,7 +105,7 @@ export default function Header(props) {
 
             <button
               type="button"
-              className="flex rounded-2xl mx-auto mt-3 hover:bg-[#bec1ff] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 py-3"
+              className="flex rounded-2xl w-full mx-auto mt-3 mb-2 hover:bg-[#ffffff30] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 py-3"
               onClick={logOut}
             >
               <LogOutIcon />

@@ -111,7 +111,7 @@ export default function Calendar() {
                 <RightIcon />
               </button>
             </div>
-            <div className="grid grid-cols-7 mt-12 text-sm leading-6 text-center font-light text-[#B1B2FF]">
+            <div className="grid grid-cols-7 mt-12 text-sm leading-6 text-center font-light text-[#ce0d2d]">
               <div>{t("calendar.s")}</div>
               <div>{t("calendar.m")}</div>
               <div>{t("calendar.t")}</div>
@@ -138,7 +138,7 @@ export default function Calendar() {
                       isEqual(day, selectedDay) && "text-white",
                       !isEqual(day, selectedDay) &&
                         isToday(day) &&
-                        "text-[#B1B2FF] ",
+                        "text-[#ce0d2d] ",
                       !isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         isSameMonth(day, firstDayCurrentMonth) &&
@@ -149,7 +149,7 @@ export default function Calendar() {
                         "text-gray-400",
                       isEqual(day, selectedDay) &&
                         isToday(day) &&
-                        "bg-[#B1B2FF]",
+                        "bg-[#ce0d2d]",
                       isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         "bg-gray-900",
@@ -174,7 +174,7 @@ export default function Calendar() {
                     {projects.some((project) =>
                       isSameDay(parseISO(project.endDate), day)
                     ) && (
-                      <div className="w-2 h-2 rounded-full bg-[#b1b2ff]"></div>
+                      <div className="w-2 h-2 rounded-full bg-[#ce0d2d]"></div>
                     )}
                   </div>
                 </div>
@@ -214,9 +214,6 @@ export default function Calendar() {
                   
                 ) : (
                     <></>
-                  // <p className="mt-40 text-center text-base font-light text-gray-300">
-                  //   {t("calendar.n-m")}
-                  // </p>
                 )
                 }
                 {selectedDayProjects.length > 0 ? (
@@ -224,8 +221,14 @@ export default function Calendar() {
                     <CalendarProject key={project.id} project={project}/>
                   ))
                   )
-                    :
+                  :
+                  selectedDayMeetings.length > 0 ?
                     <></>
+                    :
+                    <p className="mt-40 text-center text-base font-light text-gray-300">
+                      {t("calendar.n-m")}
+                    </p>
+                    
                 }
                 
               </div>

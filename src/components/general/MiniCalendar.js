@@ -46,11 +46,11 @@ export default function MiniCalendar() {
         <div className="md:divide-gray-200">
           <div className="">
             <div className="flex items-center justify-between pt-2">
-              <h2 className="mb-0 text-2xl mx-auto font-semibold text-[#B1B2FF]">
+              <h2 className="mb-0 text-2xl mx-auto font-semibold text-[#ce0d2d]">
                 {format(firstDayCurrentMonth, "MMMM yyyy")}
               </h2>
             </div>
-            <div className="grid grid-cols-7 mt-3 text-[0.6rem] leading-6 text-center text-[#B1B2FF]">
+            <div className="grid grid-cols-7 mt-3 text-[0.6rem] leading-6 text-center text-[#ce0d2d]">
               <div>{t("calendar.s")}</div>
               <div>{t("calendar.m")}</div>
               <div>{t("calendar.t")}</div>
@@ -78,7 +78,7 @@ export default function MiniCalendar() {
                       isEqual(day, selectedDay) && "text-white",
                       !isEqual(day, selectedDay) &&
                         isToday(day) &&
-                        "text-[#B1B2FF] font-bold",
+                        "text-[#ce0d2d] font-bold",
                       !isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         isSameMonth(day, firstDayCurrentMonth) &&
@@ -111,7 +111,7 @@ export default function MiniCalendar() {
                     {projects.some((project) =>
                       isSameDay(parseISO(project.endDate), day)
                     ) && (
-                      <div className="w-1 h-1 rounded-full bg-[#b1b2ff]"></div>
+                      <div className="w-1 h-1 rounded-full bg-[#ce0d2d]"></div>
                     )}
                   </div>
                 </div>

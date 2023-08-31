@@ -82,7 +82,7 @@ function AddMemberModal(props) {
                         <div className="w-8 h-8">
                           <MiniIMG member={member} />
                         </div>
-                        <p className="mb-1 text-gray-500 ml-3 text-xl font-light">
+                        <p className="mb-1 text-gray-500 ml-3 text-lg font-light">
                           {member.email}
                         </p>
                       </div>

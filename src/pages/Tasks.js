@@ -64,9 +64,18 @@ export default function Tasks() {
           <section className="mt-4">
             <h2 className="text-lg font-semibold">{t("tasks.important")}</h2>
             <div className="w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll">
-              {active.map((task) => {
-                return <TaskCard key={task.id} task={task} />;
-              })}
+              {
+                active.length > 0 ?
+                  active.map((task) => {
+                    return (<TaskCard key={task.id} task={task} />)
+                  })
+                  :
+                  <div className="w-full h-[15rem]">
+                    <p className="pt-14 text-sm font-light text-center text-gray-400">
+                      {t("dashboard.no-upcoming-tasks")}
+                    </p>
+                  </div>
+              }
             </div>
           </section>
 
@@ -74,13 +83,30 @@ export default function Tasks() {
           <section className="mt-4">
             <h2 className="text-lg font-semibold">{t("tasks.all-tasks")}</h2>
             <div className="w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll">
-              {active.map((task) => {
-                return <TaskCard key={task.id} task={task} />;
-              })}
+              {
+                active.length > 0 ?
+                  active.map((task) => {
+                    return <TaskCard key={task.id} task={task} />
+                  })
+                  :
+                  <></>
+              }
 
-              {done.map((task) => {
-                return <TaskCard key={task.id} task={task} />;
-              })}
+              {
+                done.length > 0 ?
+                    done.map((task) => {
+                      return <TaskCard key={task.id} task={task} />
+                    })
+                  :
+                    active.length > 0 ?
+                      <></>
+                      :
+                        <div className="w-full h-[14rem]">
+                            <p className="pt-14 text-sm font-light text-center text-gray-400">
+                                {t("dashboard.no-upcoming-tasks")}
+                            </p>
+                        </div>
+              }
             </div>
           </section>
         </div>

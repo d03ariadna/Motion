@@ -49,10 +49,15 @@ function Dashboard() {
       <header className="w-full h-[10vh] mb-2 flex flex-row justify-between ">
         <h1 className="mt-2 font-semibold">{t(time)}</h1>
         <div className="h-full w-[27%] flex flex-row justify-between items-center pb-2 pl-5">
-          <CreateButton personal={true}/>
-          <div className='w-12 h-12'>
+          <CreateButton personal={true} />
+          <img
+              src="/img/avatar.png"
+              alt=""
+              className="w-14 h-14 rounded-full mr-5"
+            />
+          {/* <div className='w-12 h-12'>
             <MainIMG member={user}/>
-          </div>
+          </div> */}
         </div>
       </header>
 
@@ -91,14 +96,23 @@ function Dashboard() {
           <section className="mt-3">
             <h2 className="text-lg font-semibold">{t("dashboard.recent-p")}</h2>
             <div className="w-[64vw] pt-1 flex flex-row flex-nowrap overflow-x-scroll">
-              {projects.map((project) => {
-                return (
-                  <LittleProject
-                    key={project.id}
-                    project={project}
-                  />
-                );
-              })}
+              {
+                projects.length > 0 ? (
+                  projects.map((project) => {
+                  return (
+                    <LittleProject
+                      key={project.id}
+                      project={project}
+                    />
+                  );
+                  }))
+                  :
+                  <div className="w-full h-[9rem]">
+                    <p className="pt-14 text-sm font-light text-center text-gray-400">
+                      {t("dashboard.no-upcoming-projects")}
+                    </p>
+                  </div>
+            } 
             </div>
           </section>
         </section>

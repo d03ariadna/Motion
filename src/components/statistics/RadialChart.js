@@ -56,7 +56,7 @@ export function Chart({percentages}) {
         value={percentages[0]}
         strokeWidth={8}
         styles={buildStyles({
-          pathColor: "#b1b2ff",
+          pathColor: "#ce0d2d",
           trailColor: "#f2f2f2"
         })}
       >
@@ -69,7 +69,7 @@ export function Chart({percentages}) {
             value={percentages[1]}
             strokeWidth={11}
             styles={buildStyles({
-              pathColor: "#000",
+              pathColor: "#c6cbd8",
               trailColor: "#f2f2f2"
             })}
           >
@@ -78,7 +78,7 @@ export function Chart({percentages}) {
                   value={percentages[2]}
                   strokeWidth={16}
                 styles={buildStyles({
-                    pathColor: "#e8a0bf",
+                    pathColor: "#000",
                     trailColor: "#f2f2f2"
                   })}
                 />
@@ -103,7 +103,7 @@ export function Progress({progress}) {
         text={`${progress}%`}
         styles={buildStyles({
             textColor: "#000",
-            pathColor: "#b1b2ff",
+            pathColor: "#ce0d2d",
             trailColor: "#e5e7eb"
         })}
       />
