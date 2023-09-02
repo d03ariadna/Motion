@@ -72,14 +72,14 @@ export default function Header(props) {
                   {props.action == "EN" ? (
                     <button
                       onClick={() => i18n.changeLanguage("en")}
-                      className="w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md"
+                      className="w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-[#ce0d2d] rounded-md"
                     >
                       EN
                     </button>
                   ) : props.action == "ES" ? (
                     <button
                       onClick={() => i18n.changeLanguage("es")}
-                      className="w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md"
+                      className="w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-[#ce0d2d] rounded-md"
                     >
                       ES
                     </button>
@@ -87,13 +87,13 @@ export default function Header(props) {
                     <>
                       <button
                         onClick={() => i18n.changeLanguage("en")}
-                        className="w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md"
+                        className="w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-[#ce0d2d] rounded-md"
                       >
                         EN
                       </button>
                       <button
                         onClick={() => i18n.changeLanguage("es")}
-                        className="w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md"
+                        className="w-10 px-1 py-3 text-sm hover:bg-gray-100 hover:text-[#ce0d2d] rounded-md"
                       >
                         ES
                       </button>
