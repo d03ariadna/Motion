@@ -161,7 +161,7 @@ const LogIn = () => {
           className="bg-white flex items-center justify-center flex-col px-16 h-full text-center"
         >
           <h1 className="font-bold text-3xl mb-5 font-['Poppins'] text-[#ce0d2d]">
-            Sign into Motion
+            Sign In
           </h1>
           <input
             type="email"

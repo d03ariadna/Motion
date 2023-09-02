@@ -29,7 +29,9 @@ export default function LittleProject(props) {
 
 
     const tasks = usePTasks();
+    const [progressClass, setProgressClass] = useState('w-[0%] bg-gray-300');
     const [progress, setProgress] = useState(0);
+    let p = 0;
 
     useEffect(() => {
         if (tasks.length > 0) {
@@ -45,12 +47,14 @@ export default function LittleProject(props) {
             })
             
             if (tasksDone > 0) {
-                setProgress(Math.round(tasksDone / (pTasks.length) * 100));
+                p = Math.round(tasksDone / (pTasks.length) * 100);
+                setProgress(p);
+                console.log('w-[' + p + '%] bg-gray-800')
+                setProgressClass(`w-[${p}%] bg-gray-800`)
             }
             
         }
      }, []);
-
 
     
 
@@ -65,9 +69,6 @@ export default function LittleProject(props) {
                                 <img src="/img/avatar.png" alt="" className='w-8 h-8 rounded-full ml-[-12px] border-[1px] border-slate-300' />
                                 <img src="/img/avatar.png" alt="" className='w-8 h-8 rounded-full ml-[-12px] border-[1px] border-slate-300'/>
                             </div>
-                            {/* <button onClick={handleShowProject} className="py-1 ">
-                                <EditIcon/>
-                            </button> */}
                         </div>
                     </section>
                     
@@ -80,7 +81,7 @@ export default function LittleProject(props) {
                         
                     <section className="w-full px-2 flex flex-row items-center justify-between">
                         <div className="w-[80%] h-[3px] bg-gray-300 rounded-full">
-                            <div className={`w-[${progress}%] h-[3px] ${progress === 0 ? 'bg-gray-300':'bg-gray-800'} rounded-full `}></div>
+                            <div className={`${progressClass} h-[3px] rounded-full`}></div>
                         </div>
                         <div className="w-[15%]">
                             <p className="text-xs text-slate-400 mb-0">{progress}%</p>
