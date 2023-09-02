@@ -26,7 +26,7 @@ export default function LittleTask(props) {
 
                         {/* <button
                             onClick={() => (props.deleteTask(props.id))}
-                            className='border-2 border-gray-300 stroke-gray-300 hover:bg-[#B1B2FF] hover:stroke-white hover:border-[#B1B2FF] rounded-full p-1'>
+                            className='border-2 border-gray-300 stroke-gray-300 hover:bg-[#ce0d2d] hover:stroke-white hover:border-[#ce0d2d] rounded-full d-1'>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} className="w-4 h-4 stroke-inherit">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                             </svg>

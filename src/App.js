@@ -9,7 +9,6 @@ import Calendar from './pages/Calendar';
 import Tasks from './pages/Tasks';
 import Projects from './pages/Projects';
 import OneProject from './pages/OneProject';
-import Settings from './pages/Settings';
 
 import LogIn from './pages/LogIn';
 
@@ -37,7 +36,6 @@ function App() {
             <Route path='/tasks' element={<Tasks />}></Route>
             <Route path='/projects' element={<Projects />}></Route>
             <Route path='/project/:id?' element={<OneProject />}></Route>
-            <Route path='/settings' element={<Settings />}></Route>
           </Route>
     
         </Routes>

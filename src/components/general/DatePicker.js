@@ -14,7 +14,7 @@ export function DatePicker(props) {
 		minDate: new Date("2000-01-01"),
 		theme: {
 			background: "bg-gray-100 ",
-			todayBtn: "bg-purple-500",
+			todayBtn: "bg-[#ce0d2d]",
 			clearBtn: "",
 			icons: "",
 			text: "",

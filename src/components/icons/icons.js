@@ -125,7 +125,7 @@ export function CheckIcon() {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1}
-        stroke="#B1B2FF"
+        stroke="#ce0d2d"
         className="w-8 h-8"
       >
         <path
@@ -209,7 +209,7 @@ export function EditIcon() {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.3}
-        className="w-7 h-7 cursor-pointer stroke-gray-300 hover:stroke-[#B1B2FF]"
+        className="w-7 h-7 cursor-pointer stroke-gray-300 hover:stroke-[#ce0d2d]"
       >
         <path
           strokeLinecap="round"

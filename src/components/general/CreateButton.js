@@ -73,9 +73,6 @@ export default function CreateButton(props) {
                 </>
               }
               
-                {/* <button onClick={handleShow} className='w-full px-4 py-3 text-sm hover:bg-gray-100 hover:text-purple-600 rounded-md'>
-                    New Project
-                </button> */}
               </Menu.Items>
             </Transition>
           </Menu>

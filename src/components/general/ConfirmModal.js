@@ -59,7 +59,7 @@ function ConfirmModal(props) {
       ) : (
         <button
           onClick={handleShow}
-          className="border-2 border-gray-300 stroke-gray-300 hover:bg-[#B1B2FF] hover:stroke-white hover:border-[#B1B2FF] rounded-full p-1"
+          className="border-2 border-gray-300 stroke-gray-300 hover:bg-[#ce0d2d] hover:stroke-white hover:border-[#ce0d2d] rounded-full p-1"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
