@@ -50,8 +50,8 @@ function AddMemberModal(props) {
             className="w-full max-w-sm mx-auto"
           >
             {/* Name Input */}
-            <div className="md:flex md:items-center justify-between mt-3 mb-5">
-              <div className="md:w-3/4">
+            <div className="flex items-center justify-between mt-3 mb-3">
+              <div className="w-3/4">
                 <input
                   className="w-full appearance-none border-2 border-gray-200 rounded-xl py-3 pl-4 text-lg font-semibold text-[#ce0d2d] leading-tight focus:outline-none focus:bg-white focus:border-[#ce0d2d] focus:text-gray-800 placeholder:text-gray-300"
                   id="email"
@@ -69,7 +69,18 @@ function AddMemberModal(props) {
               </button>
             </div>
 
-            <div className="w-full h-100 mb-3">
+            {props.message !== '' ?
+              props.message === "added" ?
+                  <p className="text-green-500 text-xs italic mt-2 ml-2">
+                    User added succesfully!
+                  </p>
+                : <p className="text-red-500 text-xs italic mt-2 ml-2">
+                    User is not registered in the system
+                </p>
+              : null
+            }
+
+            <div className="w-full h-100 mb-3 mt-4">
               <h4 className=" font-semibold text-gray-300">Current members:</h4>
               <section className="h-[80%]">
                 {members.map((member) => {
@@ -124,6 +135,8 @@ function AddMemberModal(props) {
                 })}
               </section>
             </div>
+
+            
           </form>
         </Modal.Body>
         <Modal.Footer>

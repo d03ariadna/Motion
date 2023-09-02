@@ -50,7 +50,7 @@ export default function OneProject() {
 
   const [members, setMembers] = useState([]);
 
-  const [trigger, setTrigger] = useState(false);
+  const [message, setMessage] = useState('');
 
   const [showProject, setShowProject] = useState(false);
 
@@ -132,7 +132,6 @@ export default function OneProject() {
     fetch(`${API}/projects/${projectId}/members`)
       .then((response) => {
         response.json().then((data) => {
-          console.log(data)
           setMembers(data);
 
           data.map((member) => {
@@ -148,7 +147,7 @@ export default function OneProject() {
     }
 
   function addMember(email) {
-    fetch(`${API}/projects/${projectId}/members`, {
+    fetch(`${API}/userinvited/${projectId}/projects`, {
       method: "POST",
       body: JSON.stringify({
         email: email,
@@ -157,12 +156,26 @@ export default function OneProject() {
       }),
       headers: { "Content-Type": "application/json" },
     }).then((response) => {
-      console.log(response);
+
+      switch (response.status) {
+        case 200:
+          const newMember = {
+            email: email,
+          };
+          setMessage('added');
+          setMembers([newMember, ...members]);
+          break;
+        
+        case 404:
+          setMessage('not added');
+          break;
+        
+        default:
+          setMessage('system error');
+          break;
+      }
     });
-    const newMember = {
-      email: email,
-    };
-    setMembers([newMember, ...members]);
+
   }
 
 
@@ -270,7 +283,7 @@ export default function OneProject() {
               </div>
               <div className="h-10 w-[3px] bg-gray-300 rounded-lg"></div>
 
-              {userType === 1 ? <AddMemberModal members={members} addMember={addMember} /> : <></>}
+              {userType === 1 ? <AddMemberModal members={members} addMember={addMember} message={message} /> : <></>}
               
             </div>
           </section>
